@@ -753,29 +753,12 @@
         /* AI Assist Panel - ChatGPT Style */
         .ai-btn {
             background: linear-gradient(135deg, #10a37f 0%, #1a7f64 100%) !important;
-            position: relative;
         }
 
         .ai-btn:hover {
             filter: brightness(1.1);
         }
 
-        .ai-btn::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            width: 8px;
-            height: 8px;
-            background: #10a37f;
-            border-radius: 50%;
-            animation: ai-pulse 2s infinite;
-        }
-
-        @keyframes ai-pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
 
         .ai-modal {
             display: none;
