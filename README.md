@@ -8,8 +8,8 @@ A lightweight, feature-rich code editor designed to run in your browser's sideba
 
 | Language | URL |
 |----------|-----|
-| 🇬🇧 English | [https://resplendent-kangaroo-da12a3.netlify.app/](https://resplendent-kangaroo-da12a3.netlify.app/) |
-| 🇪🇸 Español | [https://sparkly-empanada-622cd4.netlify.app/](https://sparkly-empanada-622cd4.netlify.app/) |
+| 🇬🇧 English | [https://ubiquitous-khapse-8c2fb9.netlify.app/](https://ubiquitous-khapse-8c2fb9.netlify.app/) |
+| 🇪🇸 Español | [https://euphonious-bonbon-511ed5.netlify.app/](https://euphonious-bonbon-511ed5.netlify.app/) |
 
 ## 🎯 Features
 
@@ -174,4 +174,4 @@ Contributions are welcome! Feel free to:
 
 ---
 
-Created by **Fuad Onate** | Made with ❤️ for developers who need a quick code notepad in their browser sidebar.
+Created by **Fuad Oñate** | Made with ❤️ for developers who need a quick code notepad in their browser sidebar.
