@@ -2,14 +2,14 @@
 
 A lightweight, feature-rich code editor designed to run in your browser's sidebar. Built with CodeMirror and optimized for quick code editing, note-taking, and data engineering tasks.
 
-![Version](https://img.shields.io/badge/version-1.0-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+![Version](https://img.shields.io/badge/version-2.0-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## 🌐 Live Demo
 
 | Language | URL |
 |----------|-----|
-| 🇬🇧 English | [https://voluble-biscotti-71722a.netlify.app/](https://voluble-biscotti-71722a.netlify.app/) |
-| 🇪🇸 Español | [https://sunny-puppy-e8f0e6.netlify.app/](https://sunny-puppy-e8f0e6.netlify.app/) |
+| 🇬🇧 English | [https://resplendent-kangaroo-da12a3.netlify.app/](https://resplendent-kangaroo-da12a3.netlify.app/) |
+| 🇪🇸 Español | [https://sparkly-empanada-622cd4.netlify.app/](https://sparkly-empanada-622cd4.netlify.app/) |
 
 ## 🎯 Features
 
@@ -28,18 +28,29 @@ A lightweight, feature-rich code editor designed to run in your browser's sideba
 - **Go to Line:** Quick navigation (Ctrl+G)
 - **Toggle Comments:** Comment/uncomment code (Ctrl+/)
 - **Duplicate Line:** Quick line duplication (Ctrl+D)
+- **Drag & Drop:** Drag files directly into the editor to open them
+- **Print:** Print formatted code (Ctrl+P)
+
+### Tab Management
+- **Draggable Tabs:** Reorder tabs by drag and drop
+- **Tab Groups:** Group tabs with colors (8 colors available)
+- **Collapsible Groups:** Click group header to expand/collapse
+- **Context Menu:** Right-click on tabs for quick actions
+- **Duplicate Tab:** Create a copy of any tab
+- **Close Others:** Close all tabs except the selected one
 
 ### Export Options
 | Format | Description |
 |--------|-------------|
 | 💾 Original | Keep original extension |
 | 📝 TXT | Plain text |
-| 📕 PDF | PDF document |
-| 🌐 HTML | Web page |
-| 📄 DOC | Microsoft Word |
+| 📕 PDF | Professional PDF with header, line numbers, page numbers |
+| 🌐 HTML | Styled web page with syntax info and statistics |
+| 📄 DOC | Microsoft Word with formatted table and line numbers |
 | 📊 CSV | Comma-separated |
 | 📋 TSV | Tab-separated |
-| 📦 JSON | With metadata |
+| 📦 JSON | Full metadata, statistics, and lines array |
+| 🖨️ Print | Formatted print preview (Ctrl+P) |
 
 ### UI/UX
 - 🌙/☀️ **Dark/Light Mode:** Toggle between Dracula and GitHub themes
@@ -47,6 +58,8 @@ A lightweight, feature-rich code editor designed to run in your browser's sideba
 - 📏 **Font Size:** Adjustable from 11px to 20px
 - ↩️ **Word Wrap:** Toggle line wrapping
 - 🎨 **Colorful Icons:** Language-specific emoji icons
+- 🖱️ **Drag & Drop:** Drop files directly into the editor
+- 📊 **Statistics:** Lines, words, and characters count in status bar
 
 ## ⌨️ Keyboard Shortcuts
 
@@ -66,6 +79,19 @@ A lightweight, feature-rich code editor designed to run in your browser's sideba
 | `Ctrl++` | Zoom in |
 | `Ctrl+-` | Zoom out |
 | `Ctrl+0` | Reset zoom |
+| `Ctrl+P` | Print |
+
+## 🖱️ Context Menu (Right-Click on Tab)
+
+| Action | Description |
+|--------|-------------|
+| ✏️ Rename | Rename the tab/file |
+| 📋 Duplicate tab | Create a copy of the tab |
+| 📁 Add to new group | Create a new tab group |
+| 📤 Remove from group | Remove tab from its group |
+| 🎨 Color options | Change group color (8 colors) |
+| ✕ Close tab | Close the selected tab |
+| 🗑️ Close other tabs | Close all except selected |
 
 ## 🔧 Installation as Browser Sidebar
 
@@ -148,4 +174,4 @@ Contributions are welcome! Feel free to:
 
 ---
 
-Created by **Fuad Onate** | Made with ❤️ for developers who need a quick code notepad in their browser sidebar.
+Created by **Fuad Oñate** | Made with ❤️ for developers who need a quick code notepad in their browser sidebar.
