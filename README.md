@@ -2,7 +2,7 @@
 
 A lightweight, feature-rich code editor designed to run in your browser's sidebar. Built with CodeMirror and optimized for quick code editing, note-taking, and data engineering tasks.
 
-![Version](https://img.shields.io/badge/version-2.1-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+![Version](https://img.shields.io/badge/version-2.2-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![PWA](https://img.shields.io/badge/PWA-ready-brightgreen)
 
 ## 🌐 Live Demo
 
@@ -15,13 +15,39 @@ A lightweight, feature-rich code editor designed to run in your browser's sideba
 
 ### Editor
 - **24+ Language Support:** JavaScript, Python, SQL, HTML, CSS, Java, C#, C/C++, PHP, Ruby, Go, Rust, Perl, Shell, PowerShell, YAML, Markdown, Dockerfile, TOML, R, JSON, XML
-- **Syntax Highlighting:** Powered by CodeMirror with Dracula (dark) and GitHub (light) themes
+- **14 Editor Themes:** Dracula, Monokai, Nord, Material Darker, Palenight, Ayu Dark, Gruvbox Dark, Oceanic Next, Tomorrow Night, Solarized Dark/Light, Eclipse, IntelliJ IDEA, Neat
 - **Multi-tab Support:** Work on multiple files simultaneously
 - **Auto-save:** Content persists in localStorage between sessions
 - **Code Folding:** Collapse/expand code blocks
 - **Bracket Matching:** Automatic bracket highlighting and closing
 
-### 📖 Markdown Preview (NEW!)
+### 🔎 Global Search (NEW in v2.2!)
+
+Search across all your tabs with one shortcut:
+
+- **Ctrl+Shift+F** - Open global search
+- Search in all tab contents simultaneously
+- Click results to jump directly to line
+- Highlighted matches with line preview
+
+### 🎨 Theme Selector (NEW in v2.2!)
+
+14 beautiful themes organized by light/dark:
+
+**Dark Themes:** Dracula, Monokai, Nord, Material Darker, Palenight, Ayu Dark, Gruvbox Dark, Oceanic Next, Tomorrow Night, Solarized Dark
+
+**Light Themes:** Eclipse, IntelliJ IDEA, Neat, Solarized Light
+
+### 📱 Progressive Web App (NEW in v2.2!)
+
+Install Notepad++ Sidebar as a standalone app:
+
+- **Install button** appears in browser address bar
+- **Works offline** after first load
+- **App-like experience** with standalone window
+- **Quick launch** from desktop/home screen
+
+### 📖 Markdown Preview
 
 Three preview modes for Markdown files:
 
@@ -166,19 +192,29 @@ python -m http.server 8000
 notepad--sidebar/
 ├── index.html      # English version
 ├── index-es.html   # Spanish version (Español)
+├── manifest.json   # PWA manifest
+├── sw.js           # Service Worker for offline support
 └── README.md       # Documentation
 ```
 
 ## 🛠️ Tech Stack
 
-- **[CodeMirror 5.65.16](https://codemirror.net/)** - Code editor engine
+- **[CodeMirror 5.65.16](https://codemirror.net/)** - Code editor engine with 14 themes
 - **[marked.js](https://marked.js.org/)** - Markdown parser (12KB gzipped)
 - **[sql-formatter](https://github.com/sql-formatter-org/sql-formatter)** - SQL formatting
 - **[jsPDF](https://github.com/parallax/jsPDF)** - PDF export
 - **[Devicons](https://devicon.dev/)** - Language icons
 - **LocalStorage** - Client-side persistence
+- **Service Worker** - Offline support (PWA)
 
 ## 📋 Changelog
+
+### v2.2 (December 2025)
+- ✨ **NEW:** 14 Editor Themes (Dracula, Monokai, Nord, Material, Solarized, etc.)
+- ✨ **NEW:** Global Search across all tabs (Ctrl+Shift+F)
+- ✨ **NEW:** PWA Support - Install as standalone app
+- ✨ **NEW:** Offline mode with Service Worker
+- 🎨 **UI:** Theme selector dropdown with previews
 
 ### v2.1 (December 2025)
 - ✨ **NEW:** Markdown Preview with 3 modes (Split View, Toggle, Modal)

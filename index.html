@@ -5,10 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notepad++ Sidebar</title>
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e1e1e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Notepad++">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231e1e1e' width='100' height='100' rx='20'/><text y='70' x='50' text-anchor='middle' font-size='60'>📝</text></svg>">
+    
     <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <!-- CodeMirror Themes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/github.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/nord.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-palenight.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/solarized.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/tomorrow-night-eighties.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/gruvbox-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/ayu-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/oceanic-next.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/eclipse.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/idea.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/neat.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldgutter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/dialog/dialog.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/matchesonscrollbar.min.css">
@@ -510,6 +531,220 @@
             height: 1px;
             background: var(--border-color);
             margin: 4px 0;
+        }
+
+        /* Theme Selector */
+        .theme-selector {
+            position: relative;
+            display: inline-block;
+        }
+
+        .theme-selector-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .theme-selector-btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .theme-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--dropdown-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            min-width: 180px;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .theme-dropdown.show {
+            display: block;
+        }
+
+        .theme-dropdown-header {
+            padding: 8px 12px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: background 0.15s;
+        }
+
+        .theme-option:hover {
+            background: var(--bg-hover);
+        }
+
+        .theme-option.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .theme-preview {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Global Search Modal */
+        .global-search-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 10000;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 10%;
+        }
+
+        .global-search-modal.show {
+            display: flex;
+        }
+
+        .global-search-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .global-search-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            gap: 10px;
+        }
+
+        .global-search-header input {
+            flex: 1;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .global-search-header input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .global-search-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .global-search-close:hover {
+            color: var(--text-primary);
+        }
+
+        .global-search-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .global-search-result {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .global-search-result:hover {
+            background: var(--bg-hover);
+        }
+
+        .global-search-result:last-child {
+            border-bottom: none;
+        }
+
+        .global-search-result-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .global-search-result-tab {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 13px;
+        }
+
+        .global-search-result-line {
+            font-size: 11px;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .global-search-result-content {
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .global-search-result-content mark {
+            background: #ffd700;
+            color: #000;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .global-search-no-results {
+            padding: 30px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .global-search-stats {
+            padding: 8px 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+            border-top: 1px solid var(--border-color);
         }
 
         /* Editor Container */
@@ -1135,6 +1370,17 @@
             width: 100% !important;
         }
 
+        /* Search highlight line */
+        .search-highlight-line {
+            background: rgba(255, 215, 0, 0.3) !important;
+            animation: highlight-fade 2s ease-out;
+        }
+
+        @keyframes highlight-fade {
+            0% { background: rgba(255, 215, 0, 0.5); }
+            100% { background: transparent; }
+        }
+
         .editor-container.split-view .split-preview-wrapper {
             display: flex;
         }
@@ -1297,8 +1543,78 @@
 
         <div class="separator"></div>
         
-        <button onclick="toggleTheme()" data-tooltip="Toggle theme" id="themeToggleBtn">
-            <span class="icon tb-theme-dark" id="themeIcon">🌙</span>
+        <!-- Theme Selector -->
+        <div class="theme-selector">
+            <button class="theme-selector-btn" onclick="toggleThemeDropdown()" data-tooltip="Select theme">
+                <span>🎨</span>
+                <span id="currentThemeName">Dracula</span>
+                <span>▾</span>
+            </button>
+            <div class="theme-dropdown" id="themeDropdown">
+                <div class="theme-dropdown-header">🌙 Dark Themes</div>
+                <div class="theme-option active" data-theme="dracula" onclick="setTheme('dracula', 'Dracula', '#282a36')">
+                    <span class="theme-preview" style="background: #282a36"></span>
+                    <span>Dracula</span>
+                </div>
+                <div class="theme-option" data-theme="monokai" onclick="setTheme('monokai', 'Monokai', '#272822')">
+                    <span class="theme-preview" style="background: #272822"></span>
+                    <span>Monokai</span>
+                </div>
+                <div class="theme-option" data-theme="nord" onclick="setTheme('nord', 'Nord', '#2e3440')">
+                    <span class="theme-preview" style="background: #2e3440"></span>
+                    <span>Nord</span>
+                </div>
+                <div class="theme-option" data-theme="material-darker" onclick="setTheme('material-darker', 'Material Darker', '#212121')">
+                    <span class="theme-preview" style="background: #212121"></span>
+                    <span>Material Darker</span>
+                </div>
+                <div class="theme-option" data-theme="material-palenight" onclick="setTheme('material-palenight', 'Palenight', '#292d3e')">
+                    <span class="theme-preview" style="background: #292d3e"></span>
+                    <span>Palenight</span>
+                </div>
+                <div class="theme-option" data-theme="ayu-dark" onclick="setTheme('ayu-dark', 'Ayu Dark', '#0a0e14')">
+                    <span class="theme-preview" style="background: #0a0e14"></span>
+                    <span>Ayu Dark</span>
+                </div>
+                <div class="theme-option" data-theme="gruvbox-dark" onclick="setTheme('gruvbox-dark', 'Gruvbox Dark', '#282828')">
+                    <span class="theme-preview" style="background: #282828"></span>
+                    <span>Gruvbox Dark</span>
+                </div>
+                <div class="theme-option" data-theme="oceanic-next" onclick="setTheme('oceanic-next', 'Oceanic Next', '#1b2b34')">
+                    <span class="theme-preview" style="background: #1b2b34"></span>
+                    <span>Oceanic Next</span>
+                </div>
+                <div class="theme-option" data-theme="tomorrow-night-eighties" onclick="setTheme('tomorrow-night-eighties', 'Tomorrow Night', '#2d2d2d')">
+                    <span class="theme-preview" style="background: #2d2d2d"></span>
+                    <span>Tomorrow Night</span>
+                </div>
+                <div class="theme-option" data-theme="solarized dark" onclick="setTheme('solarized dark', 'Solarized Dark', '#002b36')">
+                    <span class="theme-preview" style="background: #002b36"></span>
+                    <span>Solarized Dark</span>
+                </div>
+                <div class="theme-dropdown-header">☀️ Light Themes</div>
+                <div class="theme-option" data-theme="eclipse" onclick="setTheme('eclipse', 'Eclipse', '#ffffff')">
+                    <span class="theme-preview" style="background: #ffffff"></span>
+                    <span>Eclipse</span>
+                </div>
+                <div class="theme-option" data-theme="idea" onclick="setTheme('idea', 'IntelliJ', '#ffffff')">
+                    <span class="theme-preview" style="background: #ffffff"></span>
+                    <span>IntelliJ IDEA</span>
+                </div>
+                <div class="theme-option" data-theme="neat" onclick="setTheme('neat', 'Neat', '#ffffff')">
+                    <span class="theme-preview" style="background: #ffffff"></span>
+                    <span>Neat</span>
+                </div>
+                <div class="theme-option" data-theme="solarized light" onclick="setTheme('solarized light', 'Solarized Light', '#fdf6e3')">
+                    <span class="theme-preview" style="background: #fdf6e3"></span>
+                    <span>Solarized Light</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Global Search Button -->
+        <button onclick="openGlobalSearch()" data-tooltip="Search in all tabs (Ctrl+Shift+F)">
+            <span class="icon">🔎</span>
         </button>
 
         <div class="separator"></div>
@@ -1427,6 +1743,34 @@
         </div>
     </div>
 
+    <!-- Global Search Modal -->
+    <div class="global-search-modal" id="globalSearchModal">
+        <div class="global-search-container">
+            <div class="global-search-header">
+                <span>🔎</span>
+                <input type="text" id="globalSearchInput" placeholder="Search in all tabs..." autocomplete="off">
+                <button class="global-search-close" onclick="closeGlobalSearch()">×</button>
+            </div>
+            <div class="global-search-results" id="globalSearchResults">
+                <div class="global-search-no-results">
+                    Type to search across all your tabs...
+                </div>
+            </div>
+            <div class="global-search-stats" id="globalSearchStats"></div>
+        </div>
+    </div>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW registration failed (normal for dev)'));
+            });
+        }
+    </script>
+
     <script>
         let tabs = [];
         let activeTabId = null;
@@ -1508,7 +1852,8 @@
             }
             setupKeyboardShortcuts();
             setupDragAndDrop();
-            applyTheme();
+            loadSavedTheme();
+            initTooltips();
         });
 
         // Drag and Drop support
@@ -1761,30 +2106,212 @@
             localStorage.setItem('notepadWordWrap', wordWrap);
         }
 
-        // Theme toggle
-        function toggleTheme() {
-            isDarkMode = !isDarkMode;
-            applyTheme();
+        // Theme selector functions
+        let currentTheme = localStorage.getItem('notepadTheme') || 'dracula';
+        
+        function toggleThemeDropdown() {
+            const dropdown = document.getElementById('themeDropdown');
+            dropdown.classList.toggle('show');
+            
+            // Close when clicking outside
+            if (dropdown.classList.contains('show')) {
+                setTimeout(() => {
+                    document.addEventListener('click', closeThemeDropdownOutside);
+                }, 0);
+            }
+        }
+        
+        function closeThemeDropdownOutside(e) {
+            const dropdown = document.getElementById('themeDropdown');
+            const selector = document.querySelector('.theme-selector');
+            if (!selector.contains(e.target)) {
+                dropdown.classList.remove('show');
+                document.removeEventListener('click', closeThemeDropdownOutside);
+            }
+        }
+        
+        function setTheme(theme, displayName, bgColor) {
+            currentTheme = theme;
+            editor.setOption('theme', theme);
+            
+            // Update UI
+            document.getElementById('currentThemeName').textContent = displayName;
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.classList.remove('active');
+                if (opt.dataset.theme === theme) {
+                    opt.classList.add('active');
+                }
+            });
+            
+            // Toggle light/dark mode based on theme
+            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+            isDarkMode = !lightThemes.includes(theme);
+            
+            if (isDarkMode) {
+                document.body.classList.remove('light-mode');
+            } else {
+                document.body.classList.add('light-mode');
+            }
+            
+            // Close dropdown
+            document.getElementById('themeDropdown').classList.remove('show');
+            
+            // Save preference
+            localStorage.setItem('notepadTheme', theme);
+            localStorage.setItem('notepadThemeName', displayName);
             localStorage.setItem('notepadDarkMode', isDarkMode);
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('notepadTheme');
+            const savedThemeName = localStorage.getItem('notepadThemeName');
+            
+            if (savedTheme) {
+                currentTheme = savedTheme;
+                editor.setOption('theme', savedTheme);
+                
+                if (savedThemeName) {
+                    document.getElementById('currentThemeName').textContent = savedThemeName;
+                }
+                
+                document.querySelectorAll('.theme-option').forEach(opt => {
+                    opt.classList.remove('active');
+                    if (opt.dataset.theme === savedTheme) {
+                        opt.classList.add('active');
+                    }
+                });
+                
+                const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+                isDarkMode = !lightThemes.includes(savedTheme);
+                
+                if (!isDarkMode) {
+                    document.body.classList.add('light-mode');
+                }
+            }
+        }
+        
+        // Legacy function for compatibility
+        function toggleTheme() {
+            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+            if (isDarkMode) {
+                setTheme('eclipse', 'Eclipse', '#ffffff');
+            } else {
+                setTheme('dracula', 'Dracula', '#282a36');
+            }
         }
 
         function applyTheme() {
-            const body = document.body;
-            const themeIcon = document.getElementById('themeIcon');
+            // Now handled by loadSavedTheme
+        }
+
+        // Global Search Functions
+        function openGlobalSearch() {
+            const modal = document.getElementById('globalSearchModal');
+            const input = document.getElementById('globalSearchInput');
+            modal.classList.add('show');
+            input.value = '';
+            input.focus();
+            updateGlobalSearchResults('');
+        }
+        
+        function closeGlobalSearch() {
+            document.getElementById('globalSearchModal').classList.remove('show');
+        }
+        
+        function updateGlobalSearchResults(query) {
+            const resultsContainer = document.getElementById('globalSearchResults');
+            const statsContainer = document.getElementById('globalSearchStats');
             
-            if (isDarkMode) {
-                body.classList.remove('light-mode');
-                editor.setOption('theme', 'dracula');
-                themeIcon.textContent = '🌙';
-                themeIcon.classList.remove('tb-theme-light');
-                themeIcon.classList.add('tb-theme-dark');
-            } else {
-                body.classList.add('light-mode');
-                editor.setOption('theme', 'github');
-                themeIcon.textContent = '☀️';
-                themeIcon.classList.remove('tb-theme-dark');
-                themeIcon.classList.add('tb-theme-light');
+            if (!query || query.length < 2) {
+                resultsContainer.innerHTML = '<div class="global-search-no-results">Type at least 2 characters to search...</div>';
+                statsContainer.textContent = '';
+                return;
             }
+            
+            // Save current tab content before searching
+            if (activeTabId) {
+                const tab = tabs.find(t => t.id === activeTabId);
+                if (tab) {
+                    tab.content = editor.getValue();
+                }
+            }
+            
+            const results = [];
+            const queryLower = query.toLowerCase();
+            
+            // Search all tabs
+            tabs.forEach(tab => {
+                const lines = tab.content.split('\n');
+                lines.forEach((line, index) => {
+                    if (line.toLowerCase().includes(queryLower)) {
+                        results.push({
+                            tabId: tab.id,
+                            tabName: tab.name,
+                            lineNumber: index + 1,
+                            lineContent: line,
+                            query: query
+                        });
+                    }
+                });
+            });
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `<div class="global-search-no-results">No results found for "${escapeHtml(query)}"</div>`;
+                statsContainer.textContent = '';
+                return;
+            }
+            
+            // Limit results for performance
+            const limitedResults = results.slice(0, 100);
+            
+            resultsContainer.innerHTML = limitedResults.map(r => {
+                const highlightedContent = highlightMatch(r.lineContent, r.query);
+                return `
+                    <div class="global-search-result" onclick="goToSearchResult('${r.tabId}', ${r.lineNumber})">
+                        <div class="global-search-result-header">
+                            <span class="global-search-result-tab">${escapeHtml(r.tabName)}</span>
+                            <span class="global-search-result-line">Line ${r.lineNumber}</span>
+                        </div>
+                        <div class="global-search-result-content">${highlightedContent}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            statsContainer.textContent = `Found ${results.length} match${results.length !== 1 ? 'es' : ''} in ${new Set(results.map(r => r.tabId)).size} tab${new Set(results.map(r => r.tabId)).size !== 1 ? 's' : ''}`;
+            if (results.length > 100) {
+                statsContainer.textContent += ' (showing first 100)';
+            }
+        }
+        
+        function highlightMatch(text, query) {
+            const escaped = escapeHtml(text);
+            const queryEscaped = escapeHtml(query);
+            const regex = new RegExp(`(${queryEscaped.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return escaped.replace(regex, '<mark>$1</mark>');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function goToSearchResult(tabId, lineNumber) {
+            closeGlobalSearch();
+            switchTab(tabId);
+            
+            // Go to line after tab switch
+            setTimeout(() => {
+                editor.setCursor(lineNumber - 1, 0);
+                editor.scrollIntoView({line: lineNumber - 1, ch: 0}, 100);
+                editor.focus();
+                
+                // Highlight the line briefly
+                editor.addLineClass(lineNumber - 1, 'background', 'search-highlight-line');
+                setTimeout(() => {
+                    editor.removeLineClass(lineNumber - 1, 'background', 'search-highlight-line');
+                }, 2000);
+            }, 50);
         }
 
         // Markdown Preview functions
@@ -3293,6 +3820,13 @@
 
         // Handle Enter in modals
         document.addEventListener('keydown', (e) => {
+            // Global search shortcut: Ctrl+Shift+F
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'F') {
+                e.preventDefault();
+                openGlobalSearch();
+                return;
+            }
+            
             if (e.key === 'Enter') {
                 if (document.getElementById('gotoModal').classList.contains('active')) {
                     doGoToLine();
@@ -3303,9 +3837,22 @@
             if (e.key === 'Escape') {
                 closeModal('gotoModal');
                 closeModal('renameModal');
+                closeGlobalSearch();
                 if (document.getElementById('findPanel').classList.contains('active')) {
                     toggleFind();
                 }
+            }
+        });
+        
+        // Global search input handler
+        document.getElementById('globalSearchInput').addEventListener('input', (e) => {
+            updateGlobalSearchResults(e.target.value);
+        });
+        
+        // Close global search when clicking outside
+        document.getElementById('globalSearchModal').addEventListener('click', (e) => {
+            if (e.target.id === 'globalSearchModal') {
+                closeGlobalSearch();
             }
         });
 

@@ -3,15 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notepad++ Sidebar</title>
+    <title>Notepad++ Sidebar - Español</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e1e1e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Notepad++">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231e1e1e' width='100' height='100' rx='20'/><text y='70' x='50' text-anchor='middle' font-size='60'>📝</text></svg>">
     
     <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <!-- CodeMirror Themes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/github.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/nord.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-palenight.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/solarized.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/tomorrow-night-eighties.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/gruvbox-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/ayu-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/oceanic-next.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/eclipse.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/idea.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/neat.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldgutter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/dialog/dialog.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/matchesonscrollbar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/coincidenciasonscrollbar.min.css">
     
     <!-- Devicons for language icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
@@ -58,7 +79,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/search.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/match-highlighter.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/scroll/annotatescrollbar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/matchesonscrollbar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/coincidenciasonscrollbar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/display/autorefresh.min.js"></script>
     
@@ -512,6 +533,220 @@
             margin: 4px 0;
         }
 
+        /* Theme Selector */
+        .theme-selector {
+            position: relative;
+            display: inline-block;
+        }
+
+        .theme-selector-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .theme-selector-btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .theme-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--dropdown-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            min-width: 180px;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .theme-dropdown.show {
+            display: block;
+        }
+
+        .theme-dropdown-header {
+            padding: 8px 12px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: background 0.15s;
+        }
+
+        .theme-option:hover {
+            background: var(--bg-hover);
+        }
+
+        .theme-option.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .theme-preview {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Global Search Modal */
+        .global-search-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 10000;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 10%;
+        }
+
+        .global-search-modal.show {
+            display: flex;
+        }
+
+        .global-search-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .global-search-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            gap: 10px;
+        }
+
+        .global-search-header input {
+            flex: 1;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .global-search-header input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .global-search-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .global-search-close:hover {
+            color: var(--text-primary);
+        }
+
+        .global-search-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .global-search-result {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .global-search-result:hover {
+            background: var(--bg-hover);
+        }
+
+        .global-search-result:last-child {
+            border-bottom: none;
+        }
+
+        .global-search-result-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .global-search-result-tab {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 13px;
+        }
+
+        .global-search-result-line {
+            font-size: 11px;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .global-search-result-content {
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .global-search-result-content mark {
+            background: #ffd700;
+            color: #000;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .global-search-no-results {
+            padding: 30px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .global-search-stats {
+            padding: 8px 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+            border-top: 1px solid var(--border-color);
+        }
+
         /* Editor Container */
         .editor-container {
             flex: 1;
@@ -528,7 +763,7 @@
         }
 
         .editor-container.drag-highlight::after {
-            content: '📂 Suelta para abrir archivo';
+            content: '📂 Drop to open file';
             position: absolute;
             top: 50%;
             left: 50%;
@@ -553,7 +788,7 @@
             background: #fff;
         }
 
-        /* Highlight matches */
+        /* Highlight coincidencias */
         .cm-matchhighlight {
             background: rgba(255, 255, 0, 0.3);
         }
@@ -1135,6 +1370,17 @@
             width: 100% !important;
         }
 
+        /* Search highlight line */
+        .search-highlight-line {
+            background: rgba(255, 215, 0, 0.3) !important;
+            animation: highlight-fade 2s ease-out;
+        }
+
+        @keyframes highlight-fade {
+            0% { background: rgba(255, 215, 0, 0.5); }
+            100% { background: transparent; }
+        }
+
         .editor-container.split-view .split-preview-wrapper {
             display: flex;
         }
@@ -1168,26 +1414,26 @@
 </head>
 <body>
     <div class="tabs-container" id="tabsContainer">
-        <button class="new-tab-btn" onclick="createNewTab()" data-tooltip="Nueva pestaña (Ctrl+N)">➕</button>
+        <button class="new-tab-btn" onclick="createNewTab()" data-tooltip="New tab (Ctrl+N)">➕</button>
     </div>
 
     <div class="toolbar">
         <div class="toolbar-group">
-            <button onclick="createNewTab()" data-tooltip="Nuevo" class="tb-new">
+            <button onclick="createNewTab()" data-tooltip="New" class="tb-new">
                 <span class="icon">📄</span>
             </button>
-            <button onclick="openFile()" data-tooltip="Abrir" class="tb-open">
+            <button onclick="openFile()" data-tooltip="Open" class="tb-open">
                 <span class="icon">📂</span>
             </button>
             <div class="dropdown">
-                <button data-tooltip="Guardar (Ctrl+S)" class="tb-save">
+                <button data-tooltip="Save (Ctrl+S)" class="tb-save">
                     <span class="icon">💾</span>
                     <span style="font-size:10px;">▼</span>
                 </button>
                 <div class="dropdown-content">
-                    <button onclick="saveFile()">💾 Guardar original</button>
+                    <button onclick="saveFile()">💾 Save original</button>
                     <div class="dropdown-divider"></div>
-                    <button onclick="exportAs('txt')">📝 Texto (.txt)</button>
+                    <button onclick="exportAs('txt')">📝 Text (.txt)</button>
                     <button onclick="exportAs('pdf')">📕 PDF (.pdf)</button>
                     <button onclick="exportAs('html')">🌐 HTML (.html)</button>
                     <button onclick="exportAs('doc')">📄 Word (.doc)</button>
@@ -1196,7 +1442,7 @@
                     <button onclick="exportAs('tsv')">📋 TSV (.tsv)</button>
                     <button onclick="exportAs('json')">📦 JSON (.json)</button>
                     <div class="dropdown-divider"></div>
-                    <button onclick="printCode()">🖨️ Imprimir (Ctrl+P)</button>
+                    <button onclick="printCode()">🖨️ Print (Ctrl+P)</button>
                 </div>
             </div>
         </div>
@@ -1204,10 +1450,10 @@
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="editorUndo()" data-tooltip="Deshacer (Ctrl+Z)" class="tb-undo">
+            <button onclick="editorUndo()" data-tooltip="Undo (Ctrl+Z)" class="tb-undo">
                 <span class="icon">↩️</span>
             </button>
-            <button onclick="editorRedo()" data-tooltip="Rehacer (Ctrl+Y)" class="tb-redo">
+            <button onclick="editorRedo()" data-tooltip="Redo (Ctrl+Y)" class="tb-redo">
                 <span class="icon">↪️</span>
             </button>
         </div>
@@ -1215,10 +1461,10 @@
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="formatJSON()" class="format-btn tb-json" id="formatJsonBtn" data-tooltip="Formatear JSON">
+            <button onclick="formatJSON()" class="format-btn tb-json" id="formatJsonBtn" data-tooltip="Format JSON">
                 <span class="icon">{ }</span>
             </button>
-            <button onclick="formatSQL()" class="format-btn tb-sql" id="formatSqlBtn" data-tooltip="Formatear SQL">
+            <button onclick="formatSQL()" class="format-btn tb-sql" id="formatSqlBtn" data-tooltip="Format SQL">
                 <span class="icon">🗃️</span>
             </button>
         </div>
@@ -1226,13 +1472,13 @@
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="toggleFind()" data-tooltip="Buscar (Ctrl+F)" class="tb-search">
+            <button onclick="toggleFind()" data-tooltip="Search (Ctrl+F)" class="tb-search">
                 <span class="icon">🔍</span>
             </button>
-            <button onclick="goToLine()" data-tooltip="Ir a línea (Ctrl+G)" class="tb-goto">
+            <button onclick="goToLine()" data-tooltip="Go to line (Ctrl+G)" class="tb-goto">
                 <span class="icon">🔢</span>
             </button>
-            <button onclick="toggleComment()" data-tooltip="Comentar (Ctrl+/)" class="tb-comment">
+            <button onclick="toggleComment()" data-tooltip="Comment (Ctrl+/)" class="tb-comment">
                 <span class="icon">💬</span>
             </button>
             <button onclick="toggleWordWrap()" id="wrapBtn" data-tooltip="Word Wrap" class="tb-wrap">
@@ -1242,8 +1488,8 @@
         
         <div class="separator"></div>
         
-        <select id="languageSelect" onchange="changeLanguage(this.value)" data-tooltip="Lenguaje">
-            <option value="text">📄 Texto plano</option>
+        <select id="languageSelect" onchange="changeLanguage(this.value)" data-tooltip="Language">
+            <option value="text">📄 Plain text</option>
             <option value="javascript">🟨 JavaScript</option>
             <option value="python">🐍 Python</option>
             <option value="sql">🗃️ SQL</option>
@@ -1269,7 +1515,7 @@
             <option value="application/json">📦 JSON</option>
         </select>
         
-        <select id="fontSizeSelect" onchange="changeFontSize(this.value)" data-tooltip="Tamaño fuente">
+        <select id="fontSizeSelect" onchange="changeFontSize(this.value)" data-tooltip="Font size">
             <option value="11">11px</option>
             <option value="12">12px</option>
             <option value="13" selected>13px</option>
@@ -1283,50 +1529,120 @@
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="zoomOut()" data-tooltip="Alejar (Ctrl+-)">
+            <button onclick="zoomOut()" data-tooltip="Zoom out (Ctrl+-)">
                 <span class="icon">➖</span>
             </button>
             <span id="zoomLevel" style="font-size:11px; min-width:40px; text-align:center;">100%</span>
-            <button onclick="zoomIn()" data-tooltip="Acercar (Ctrl++)">
+            <button onclick="zoomIn()" data-tooltip="Zoom in (Ctrl++)">
                 <span class="icon">➕</span>
             </button>
-            <button onclick="zoomReset()" data-tooltip="Restablecer zoom">
+            <button onclick="zoomReset()" data-tooltip="Reset zoom">
                 <span class="icon">↺</span>
             </button>
         </div>
 
         <div class="separator"></div>
         
-        <button onclick="toggleTheme()" data-tooltip="Cambiar tema" id="themeToggleBtn">
-            <span class="icon tb-theme-dark" id="themeIcon">🌙</span>
+        <!-- Theme Selector -->
+        <div class="theme-selector">
+            <button class="theme-selector-btn" onclick="toggleThemeDropdown()" data-tooltip="Select theme">
+                <span>🎨</span>
+                <span id="currentThemeName">Dracula</span>
+                <span>▾</span>
+            </button>
+            <div class="theme-dropdown" id="themeDropdown">
+                <div class="theme-dropdown-header">🌙 Temas Oscuros</div>
+                <div class="theme-option active" data-theme="dracula" onclick="setTheme('dracula', 'Dracula', '#282a36')">
+                    <span class="theme-preview" style="background: #282a36"></span>
+                    <span>Dracula</span>
+                </div>
+                <div class="theme-option" data-theme="monokai" onclick="setTheme('monokai', 'Monokai', '#272822')">
+                    <span class="theme-preview" style="background: #272822"></span>
+                    <span>Monokai</span>
+                </div>
+                <div class="theme-option" data-theme="nord" onclick="setTheme('nord', 'Nord', '#2e3440')">
+                    <span class="theme-preview" style="background: #2e3440"></span>
+                    <span>Nord</span>
+                </div>
+                <div class="theme-option" data-theme="material-darker" onclick="setTheme('material-darker', 'Material Darker', '#212121')">
+                    <span class="theme-preview" style="background: #212121"></span>
+                    <span>Material Darker</span>
+                </div>
+                <div class="theme-option" data-theme="material-palenight" onclick="setTheme('material-palenight', 'Palenight', '#292d3e')">
+                    <span class="theme-preview" style="background: #292d3e"></span>
+                    <span>Palenight</span>
+                </div>
+                <div class="theme-option" data-theme="ayu-dark" onclick="setTheme('ayu-dark', 'Ayu Dark', '#0a0e14')">
+                    <span class="theme-preview" style="background: #0a0e14"></span>
+                    <span>Ayu Dark</span>
+                </div>
+                <div class="theme-option" data-theme="gruvbox-dark" onclick="setTheme('gruvbox-dark', 'Gruvbox Dark', '#282828')">
+                    <span class="theme-preview" style="background: #282828"></span>
+                    <span>Gruvbox Dark</span>
+                </div>
+                <div class="theme-option" data-theme="oceanic-next" onclick="setTheme('oceanic-next', 'Oceanic Next', '#1b2b34')">
+                    <span class="theme-preview" style="background: #1b2b34"></span>
+                    <span>Oceanic Next</span>
+                </div>
+                <div class="theme-option" data-theme="tomorrow-night-eighties" onclick="setTheme('tomorrow-night-eighties', 'Tomorrow Night', '#2d2d2d')">
+                    <span class="theme-preview" style="background: #2d2d2d"></span>
+                    <span>Tomorrow Night</span>
+                </div>
+                <div class="theme-option" data-theme="solarized dark" onclick="setTheme('solarized dark', 'Solarized Dark', '#002b36')">
+                    <span class="theme-preview" style="background: #002b36"></span>
+                    <span>Solarized Dark</span>
+                </div>
+                <div class="theme-dropdown-header">☀️ Temas Claros</div>
+                <div class="theme-option" data-theme="eclipse" onclick="setTheme('eclipse', 'Eclipse', '#ffffff')">
+                    <span class="theme-preview" style="background: #ffffff"></span>
+                    <span>Eclipse</span>
+                </div>
+                <div class="theme-option" data-theme="idea" onclick="setTheme('idea', 'IntelliJ', '#ffffff')">
+                    <span class="theme-preview" style="background: #ffffff"></span>
+                    <span>IntelliJ IDEA</span>
+                </div>
+                <div class="theme-option" data-theme="neat" onclick="setTheme('neat', 'Neat', '#ffffff')">
+                    <span class="theme-preview" style="background: #ffffff"></span>
+                    <span>Neat</span>
+                </div>
+                <div class="theme-option" data-theme="solarized light" onclick="setTheme('solarized light', 'Solarized Light', '#fdf6e3')">
+                    <span class="theme-preview" style="background: #fdf6e3"></span>
+                    <span>Solarized Light</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Global Search Button -->
+        <button onclick="openGlobalSearch()" data-tooltip="Buscar en todas las pestañas (Ctrl+Shift+F)">
+            <span class="icon">🔎</span>
         </button>
 
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="toggleSplitView()" data-tooltip="Vista dividida (Editor + Preview)" id="splitViewBtn" class="preview-mode-btn">
+            <button onclick="toggleSplitView()" data-tooltip="Split View (Editor + Preview)" id="splitViewBtn" class="preview-mode-btn">
                 <span class="icon">📖</span>
             </button>
-            <button onclick="toggleMdPreview()" data-tooltip="Alternar Preview" id="mdPreviewToggle" class="preview-mode-btn">
+            <button onclick="toggleMdPreview()" data-tooltip="Toggle Preview" id="mdPreviewToggle" class="preview-mode-btn">
                 <span class="icon">👁️</span>
             </button>
-            <button onclick="openPreviewModal()" data-tooltip="Preview en ventana" class="preview-mode-btn">
+            <button onclick="openPreviewModal()" data-tooltip="Preview in Window" class="preview-mode-btn">
                 <span class="icon">🔲</span>
             </button>
         </div>
     </div>
 
     <div class="find-panel" id="findPanel">
-        <input type="text" id="findInput" placeholder="🔍 Buscar..." onkeyup="handleFindKey(event)" oninput="highlightMatches()">
-        <input type="text" id="replaceInput" placeholder="✏️ Reemplazar...">
-        <button onclick="findPrev()" data-tooltip="Anterior (Shift+Enter)">⬆️</button>
-        <button onclick="findNext()" data-tooltip="Siguiente (Enter)">⬇️</button>
-        <button onclick="replaceOne()">Reemplazar</button>
-        <button onclick="replaceAll()">Todo</button>
+        <input type="text" id="findInput" placeholder="🔍 Search..." onkeyup="handleFindKey(event)" oninput="highlightMatches()">
+        <input type="text" id="replaceInput" placeholder="✏️ Replace...">
+        <button onclick="findPrev()" data-tooltip="Previous (Shift+Enter)">⬆️</button>
+        <button onclick="findNext()" data-tooltip="Next (Enter)">⬇️</button>
+        <button onclick="replaceOne()">Replace</button>
+        <button onclick="replaceAll()">All</button>
         <div class="find-options">
-            <span class="find-option" id="regexOption" onclick="toggleFindOption('regex')" data-tooltip="Expresión regular">.*</span>
-            <span class="find-option" id="caseOption" onclick="toggleFindOption('case')" data-tooltip="Distinguir mayúsculas">Aa</span>
-            <span class="find-option" id="wordOption" onclick="toggleFindOption('word')" data-tooltip="Palabra completa">W</span>
+            <span class="find-option" id="regexOption" onclick="toggleFindOption('regex')" data-tooltip="Regular expression">.*</span>
+            <span class="find-option" id="caseOption" onclick="toggleFindOption('case')" data-tooltip="Match case">Aa</span>
+            <span class="find-option" id="wordOption" onclick="toggleFindOption('word')" data-tooltip="Whole word">W</span>
         </div>
         <span class="find-count" id="findCount"></span>
         <button class="close-find" onclick="toggleFind()">✖️</button>
@@ -1339,7 +1655,7 @@
         <div class="split-resizer" id="splitResizer"></div>
         <div class="split-preview-wrapper">
             <div class="split-preview-header">
-                <span>📖</span> Vista previa
+                <span>📖</span> Preview
             </div>
             <div class="md-preview-container" id="mdPreview"></div>
         </div>
@@ -1347,10 +1663,10 @@
 
     <div class="status-bar">
         <div class="left">
-            <span id="statusFile">Sin título</span>
+            <span id="statusFile">Untitled</span>
             <span id="statusLang" class="clickable" onclick="document.getElementById('languageSelect').focus()">
                 <span id="statusLangIcon">📄</span>
-                <span id="statusLangName">Texto plano</span>
+                <span id="statusLangName">Plain text</span>
             </span>
         </div>
         <div class="right">
@@ -1365,10 +1681,10 @@
     <!-- Go to line modal -->
     <div class="modal" id="gotoModal">
         <div class="modal-content">
-            <h3><span class="modal-icon">🔢</span> Ir a línea</h3>
-            <input type="number" id="gotoLineInput" placeholder="Número de línea..." min="1">
+            <h3><span class="modal-icon">🔢</span> Go to line</h3>
+            <input type="number" id="gotoLineInput" placeholder="Line number..." min="1">
             <div class="modal-buttons">
-                <button class="btn-secondary" onclick="closeModal('gotoModal')">❌ Cancelar</button>
+                <button class="btn-secondary" onclick="closeModal('gotoModal')">❌ Cancel</button>
                 <button class="btn-primary" onclick="doGoToLine()">➡️ Ir</button>
             </div>
         </div>
@@ -1377,11 +1693,11 @@
     <!-- Rename modal -->
     <div class="modal" id="renameModal">
         <div class="modal-content">
-            <h3><span class="modal-icon">✏️</span> Renombrar archivo</h3>
-            <input type="text" id="renameInput" placeholder="Nombre del archivo...">
+            <h3><span class="modal-icon">✏️</span> Rename file</h3>
+            <input type="text" id="renameInput" placeholder="File name...">
             <div class="modal-buttons">
-                <button class="btn-secondary" onclick="closeModal('renameModal')">❌ Cancelar</button>
-                <button class="btn-primary" onclick="doRename()">✅ Renombrar</button>
+                <button class="btn-secondary" onclick="closeModal('renameModal')">❌ Cancel</button>
+                <button class="btn-primary" onclick="doRename()">✅ Rename</button>
             </div>
         </div>
     </div>
@@ -1396,17 +1712,17 @@
     <!-- Tab context menu -->
     <div class="tab-context-menu" id="tabContextMenu">
         <div class="tab-context-menu-item" onclick="contextMenuAction('rename')">
-            <span>✏️</span> Renombrar
+            <span>✏️</span> Rename
         </div>
         <div class="tab-context-menu-item" onclick="contextMenuAction('duplicate')">
-            <span>📋</span> Duplicar pestaña
+            <span>📋</span> Duplicate tab
         </div>
         <div class="tab-context-menu-divider"></div>
         <div class="tab-context-menu-item" onclick="contextMenuAction('newGroup')">
-            <span>📁</span> Añadir a nuevo grupo
+            <span>📁</span> Add to new group
         </div>
         <div class="tab-context-menu-item" id="removeFromGroupItem" onclick="contextMenuAction('removeFromGroup')" style="display:none">
-            <span>📤</span> Quitar del grupo
+            <span>📤</span> Remove from group
         </div>
         <div class="tab-context-menu-colors" id="groupColorsContainer">
             <div class="color-option" data-color="red" onclick="contextMenuAction('setColor', 'red')"></div>
@@ -1420,12 +1736,40 @@
         </div>
         <div class="tab-context-menu-divider"></div>
         <div class="tab-context-menu-item" onclick="contextMenuAction('close')">
-            <span>✕</span> Cerrar pestaña
+            <span>✕</span> Close tab
         </div>
         <div class="tab-context-menu-item" onclick="contextMenuAction('closeOthers')">
-            <span>🗑️</span> Cerrar otras pestañas
+            <span>🗑️</span> Close other tabs
         </div>
     </div>
+
+    <!-- Global Search Modal -->
+    <div class="global-search-modal" id="globalSearchModal">
+        <div class="global-search-container">
+            <div class="global-search-header">
+                <span>🔎</span>
+                <input type="text" id="globalSearchInput" placeholder="Buscar en todas las pestañas..." autocomplete="off">
+                <button class="global-search-close" onclick="closeGlobalSearch()">×</button>
+            </div>
+            <div class="global-search-results" id="globalSearchResults">
+                <div class="global-search-no-results">
+                    Escribe para buscar en todas tus pestañas...
+                </div>
+            </div>
+            <div class="global-search-stats" id="globalSearchStats"></div>
+        </div>
+    </div>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW registration failed (normal for dev)'));
+            });
+        }
+    </script>
 
     <script>
         let tabs = [];
@@ -1443,7 +1787,7 @@
         let isSplitView = false;
 
         const languageMap = {
-            'text': { name: 'Texto plano', icon: '📄', devicon: '', ext: '.txt' },
+            'text': { name: 'Plain text', icon: '📄', devicon: '', ext: '.txt' },
             'javascript': { name: 'JavaScript', icon: '🟨', devicon: 'devicon-javascript-plain', ext: '.js' },
             'python': { name: 'Python', icon: '🐍', devicon: 'devicon-python-plain', ext: '.py' },
             'sql': { name: 'SQL', icon: '🗃️', devicon: '', ext: '.sql', class: 'icon-sql' },
@@ -1508,7 +1852,8 @@
             }
             setupKeyboardShortcuts();
             setupDragAndDrop();
-            applyTheme();
+            loadSavedTheme();
+            initTooltips();
         });
 
         // Drag and Drop support
@@ -1555,7 +1900,7 @@
                             const content = event.target.result;
                             const lang = detectLanguage(file.name);
                             createNewTab(file.name, content, lang);
-                            showToast(`📂 Archivo "${file.name}" cargado`);
+                            showToast(`📂 File "${file.name}" loaded`);
                         };
                         reader.readAsText(file);
                     });
@@ -1592,12 +1937,12 @@
                 <body>
                     <div class="header">
                         <h1>${langInfo.icon} ${tab?.name || 'Documento'}</h1>
-                        <div class="info">${langInfo.name} | ${lines.length} líneas | ${content.length} caracteres | ${new Date().toLocaleString()}</div>
+                        <div class="info">${langInfo.name} | ${lines.length} lines | ${content.length} characters | ${new Date().toLocaleString()}</div>
                     </div>
                     <table class="code-table">
                         ${lines.map((line, i) => `<tr><td class="line-num">${i + 1}</td><td class="code">${escapeHtml(line) || ' '}</td></tr>`).join('')}
                     </table>
-                    <div class="footer">Notepad++ Sidebar | Impreso: ${new Date().toLocaleString()}</div>
+                    <div class="footer">Notepad++ Sidebar | Printed: ${new Date().toLocaleString()}</div>
                 </body>
                 </html>
             `);
@@ -1720,10 +2065,10 @@
                 const formatted = JSON.stringify(parsed, null, 2);
                 editor.setValue(formatted);
                 changeLanguage('application/json');
-                showToast('✨ JSON formateado correctamente');
+                showToast('✨ JSON formatted successfully');
                 flashButton('formatJsonBtn');
             } catch (e) {
-                showToast('❌ Error: JSON inválido - ' + e.message, true);
+                showToast('❌ Error: Invalid JSON - ' + e.message, true);
             }
         }
 
@@ -1739,10 +2084,10 @@
                 });
                 editor.setValue(formatted);
                 changeLanguage('sql');
-                showToast('✨ SQL formateado correctamente');
+                showToast('✨ SQL formatted successfully');
                 flashButton('formatSqlBtn');
             } catch (e) {
-                showToast('❌ Error al formatear SQL: ' + e.message, true);
+                showToast('❌ Error formatting SQL: ' + e.message, true);
             }
         }
 
@@ -1761,30 +2106,212 @@
             localStorage.setItem('notepadWordWrap', wordWrap);
         }
 
-        // Theme toggle
-        function toggleTheme() {
-            isDarkMode = !isDarkMode;
-            applyTheme();
+        // Theme selector functions
+        let currentTheme = localStorage.getItem('notepadTheme') || 'dracula';
+        
+        function toggleThemeDropdown() {
+            const dropdown = document.getElementById('themeDropdown');
+            dropdown.classList.toggle('show');
+            
+            // Close when clicking outside
+            if (dropdown.classList.contains('show')) {
+                setTimeout(() => {
+                    document.addEventListener('click', closeThemeDropdownOutside);
+                }, 0);
+            }
+        }
+        
+        function closeThemeDropdownOutside(e) {
+            const dropdown = document.getElementById('themeDropdown');
+            const selector = document.querySelector('.theme-selector');
+            if (!selector.contains(e.target)) {
+                dropdown.classList.remove('show');
+                document.removeEventListener('click', closeThemeDropdownOutside);
+            }
+        }
+        
+        function setTheme(theme, displayName, bgColor) {
+            currentTheme = theme;
+            editor.setOption('theme', theme);
+            
+            // Update UI
+            document.getElementById('currentThemeName').textContent = displayName;
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.classList.remove('active');
+                if (opt.dataset.theme === theme) {
+                    opt.classList.add('active');
+                }
+            });
+            
+            // Toggle light/dark mode based on theme
+            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+            isDarkMode = !lightThemes.includes(theme);
+            
+            if (isDarkMode) {
+                document.body.classList.remove('light-mode');
+            } else {
+                document.body.classList.add('light-mode');
+            }
+            
+            // Close dropdown
+            document.getElementById('themeDropdown').classList.remove('show');
+            
+            // Save preference
+            localStorage.setItem('notepadTheme', theme);
+            localStorage.setItem('notepadThemeName', displayName);
             localStorage.setItem('notepadDarkMode', isDarkMode);
+        }
+        
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('notepadTheme');
+            const savedThemeName = localStorage.getItem('notepadThemeName');
+            
+            if (savedTheme) {
+                currentTheme = savedTheme;
+                editor.setOption('theme', savedTheme);
+                
+                if (savedThemeName) {
+                    document.getElementById('currentThemeName').textContent = savedThemeName;
+                }
+                
+                document.querySelectorAll('.theme-option').forEach(opt => {
+                    opt.classList.remove('active');
+                    if (opt.dataset.theme === savedTheme) {
+                        opt.classList.add('active');
+                    }
+                });
+                
+                const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+                isDarkMode = !lightThemes.includes(savedTheme);
+                
+                if (!isDarkMode) {
+                    document.body.classList.add('light-mode');
+                }
+            }
+        }
+        
+        // Legacy function for compatibility
+        function toggleTheme() {
+            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+            if (isDarkMode) {
+                setTheme('eclipse', 'Eclipse', '#ffffff');
+            } else {
+                setTheme('dracula', 'Dracula', '#282a36');
+            }
         }
 
         function applyTheme() {
-            const body = document.body;
-            const themeIcon = document.getElementById('themeIcon');
+            // Now handled by loadSavedTheme
+        }
+
+        // Global Search Functions
+        function openGlobalSearch() {
+            const modal = document.getElementById('globalSearchModal');
+            const input = document.getElementById('globalSearchInput');
+            modal.classList.add('show');
+            input.value = '';
+            input.focus();
+            updateGlobalSearchResults('');
+        }
+        
+        function closeGlobalSearch() {
+            document.getElementById('globalSearchModal').classList.remove('show');
+        }
+        
+        function updateGlobalSearchResults(query) {
+            const resultsContainer = document.getElementById('globalSearchResults');
+            const statsContainer = document.getElementById('globalSearchStats');
             
-            if (isDarkMode) {
-                body.classList.remove('light-mode');
-                editor.setOption('theme', 'dracula');
-                themeIcon.textContent = '🌙';
-                themeIcon.classList.remove('tb-theme-light');
-                themeIcon.classList.add('tb-theme-dark');
-            } else {
-                body.classList.add('light-mode');
-                editor.setOption('theme', 'github');
-                themeIcon.textContent = '☀️';
-                themeIcon.classList.remove('tb-theme-dark');
-                themeIcon.classList.add('tb-theme-light');
+            if (!query || query.length < 2) {
+                resultsContainer.innerHTML = '<div class="global-search-no-results">Escribe al menos 2 caracteres para buscar...</div>';
+                statsContainer.textContent = '';
+                return;
             }
+            
+            // Save current tab content before searching
+            if (activeTabId) {
+                const tab = tabs.find(t => t.id === activeTabId);
+                if (tab) {
+                    tab.content = editor.getValue();
+                }
+            }
+            
+            const results = [];
+            const queryLower = query.toLowerCase();
+            
+            // Search all tabs
+            tabs.forEach(tab => {
+                const lines = tab.content.split('\n');
+                lines.forEach((line, index) => {
+                    if (line.toLowerCase().includes(queryLower)) {
+                        results.push({
+                            tabId: tab.id,
+                            tabName: tab.name,
+                            lineNumber: index + 1,
+                            lineContent: line,
+                            query: query
+                        });
+                    }
+                });
+            });
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `<div class="global-search-no-results">Sin resultados para "${escapeHtml(query)}"</div>`;
+                statsContainer.textContent = '';
+                return;
+            }
+            
+            // Limit results for performance
+            const limitedResults = results.slice(0, 100);
+            
+            resultsContainer.innerHTML = limitedResults.map(r => {
+                const highlightedContent = highlightMatch(r.lineContent, r.query);
+                return `
+                    <div class="global-search-result" onclick="goToSearchResult('${r.tabId}', ${r.lineNumber})">
+                        <div class="global-search-result-header">
+                            <span class="global-search-result-tab">${escapeHtml(r.tabName)}</span>
+                            <span class="global-search-result-line">Line ${r.lineNumber}</span>
+                        </div>
+                        <div class="global-search-result-content">${highlightedContent}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            statsContainer.textContent = `Encontrados ${results.length} match${results.length !== 1 ? 'es' : ''} in ${new Set(results.map(r => r.tabId)).size} tab${new Set(results.map(r => r.tabId)).size !== 1 ? 's' : ''}`;
+            if (results.length > 100) {
+                statsContainer.textContent += ' (mostrando primeros 100)';
+            }
+        }
+        
+        function highlightMatch(text, query) {
+            const escaped = escapeHtml(text);
+            const queryEscaped = escapeHtml(query);
+            const regex = new RegExp(`(${queryEscaped.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return escaped.replace(regex, '<mark>$1</mark>');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function goToSearchResult(tabId, lineNumber) {
+            closeGlobalSearch();
+            switchTab(tabId);
+            
+            // Go to line after tab switch
+            setTimeout(() => {
+                editor.setCursor(lineNumber - 1, 0);
+                editor.scrollIntoView({line: lineNumber - 1, ch: 0}, 100);
+                editor.focus();
+                
+                // Highlight the line briefly
+                editor.addLineClass(lineNumber - 1, 'background', 'search-highlight-line');
+                setTimeout(() => {
+                    editor.removeLineClass(lineNumber - 1, 'background', 'search-highlight-line');
+                }, 2000);
+            }, 50);
         }
 
         // Markdown Preview functions
@@ -1841,7 +2368,7 @@
                 // Setup live update on editor changes
                 editor.on('change', updateSplitPreview);
                 
-                showToast('📖 Vista dividida activada');
+                showToast('📖 Split View enabled');
                 editor.refresh();
             } else {
                 previewMode = 'none';
@@ -1891,7 +2418,7 @@
                 editorContainer.classList.add('toggle-preview');
                 previewEl.classList.add('active');
                 toggleBtn.classList.add('active');
-                showToast('👁️ Modo preview - Clic de nuevo para editar');
+                showToast('👁️ Preview mode - Click again to edit');
             } else {
                 previewMode = 'none';
                 // Show editor, hide preview
@@ -2053,7 +2580,7 @@
         function createNewTab(name = null, content = '', lang = 'text') {
             tabCounter++;
             const id = 'tab-' + tabCounter;
-            const tabName = name || `sin-titulo-${tabCounter}.txt`;
+            const tabName = name || `untitled-${tabCounter}.txt`;
             
             tabs.push({
                 id: id,
@@ -2242,7 +2769,7 @@
 
             renderTabs();
             saveToStorage();
-            showToast('📑 Pestaña reordenada');
+            showToast('📑 Tab reordered');
         }
 
         // Tab Groups functions
@@ -2254,7 +2781,7 @@
             
             tabGroupCounter++;
             const groupId = 'group-' + tabGroupCounter;
-            const groupName = prompt('Nombre del grupo (opcional):', '') || '';
+            const groupName = prompt('Group name (optional):', '') || '';
             
             tab.groupId = groupId;
             tab.groupName = groupName;
@@ -2263,7 +2790,7 @@
             
             renderTabs();
             saveToStorage();
-            showToast('📁 Grupo creado');
+            showToast('📁 Group created');
         }
 
         function removeFromGroup(tabId) {
@@ -2277,7 +2804,7 @@
             
             renderTabs();
             saveToStorage();
-            showToast('📤 Pestaña removida del grupo');
+            showToast('📤 Tab removed from group');
         }
 
         function toggleGroupCollapse(groupId) {
@@ -2308,7 +2835,7 @@
             const tab = tabs.find(t => t.groupId === groupId);
             if (!tab) return;
             
-            const newName = prompt('Nuevo nombre del grupo:', tab.groupName || '');
+            const newName = prompt('New nombre del grupo:', tab.groupName || '');
             if (newName === null) return;
             
             tabs.forEach(t => {
@@ -2394,7 +2921,7 @@
             tabCounter++;
             const newTab = {
                 id: 'tab-' + tabCounter,
-                name: tab.name + ' (copia)',
+                name: tab.name + ' (copy)',
                 content: tab.content,
                 language: tab.language,
                 modified: false
@@ -2404,13 +2931,13 @@
             tabs.splice(index + 1, 0, newTab);
             
             switchTab(newTab.id);
-            showToast('📋 Pestaña duplicada');
+            showToast('📋 Tab duplicated');
         }
 
         function closeOtherTabs(keepTabId) {
             const tabsToClose = tabs.filter(t => t.id !== keepTabId);
             if (tabsToClose.some(t => t.modified)) {
-                if (!confirm('¿Cerrar todas las otras pestañas? Hay cambios sin guardar.')) return;
+                if (!confirm('Close all other tabs? Hay cambios without saving.')) return;
             }
             
             tabs = tabs.filter(t => t.id === keepTabId);
@@ -2420,7 +2947,7 @@
                 renderTabs();
             }
             saveToStorage();
-            showToast('🗑️ Otras pestañas cerradas');
+            showToast('🗑️ Other tabs closed');
         }
 
         function switchTab(id) {
@@ -2460,7 +2987,7 @@
 
             const tab = tabs[index];
             if (tab.modified) {
-                if (!confirm(`¿Cerrar "${tab.name}" sin guardar?`)) return;
+                if (!confirm(`Close "${tab.name}" without saving?`)) return;
             }
 
             tabs.splice(index, 1);
@@ -2496,7 +3023,7 @@
             const content = editor.getValue();
             const lines = content.split('\n').length;
             const words = content.split(/\s+/).filter(w => w).length;
-            document.getElementById('statusLength').textContent = `${lines} líneas | ${words} palabras | ${content.length} chars`;
+            document.getElementById('statusLength').textContent = `${lines} lines | ${words} words | ${content.length} chars`;
         }
 
         function changeLanguage(lang) {
@@ -2567,7 +3094,7 @@
         function zoomReset() {
             currentZoom = 100;
             updateZoom();
-            showToast('🔍 Zoom restablecido a 100%');
+            showToast('🔍 Zoom reset to 100%');
         }
 
         function detectLanguage(filename) {
@@ -2588,7 +3115,7 @@
             reader.onload = (e) => {
                 const lang = detectLanguage(file.name);
                 createNewTab(file.name, e.target.result, lang);
-                showToast(`📂 Archivo "${file.name}" cargado`);
+                showToast(`📂 File "${file.name}" loaded`);
             };
             reader.readAsText(file);
             event.target.value = '';
@@ -2611,7 +3138,7 @@
             tab.modified = false;
             renderTabs();
             saveToStorage();
-            showToast(`💾 Archivo "${tab.name}" guardado`);
+            showToast(`💾 File "${tab.name}" saved`);
         }
 
         function exportAs(format) {
@@ -2654,7 +3181,7 @@
             a.download = filename;
             a.click();
             URL.revokeObjectURL(url);
-            showToast(`📤 Exportado como ${filename}`);
+            showToast(`📤 Exported as ${filename}`);
         }
 
         function exportToPDF(content, baseName) {
@@ -2694,18 +3221,18 @@
                 doc.setFont('Helvetica', 'normal');
                 doc.setFontSize(8);
                 doc.setTextColor(180, 180, 180);
-                const info = `${langInfo.name} | ${lines.length} líneas | ${content.length} caracteres | ${new Date().toLocaleDateString()}`;
+                const info = `${langInfo.name} | ${lines.length} lines | ${content.length} characters | ${new Date().toLocaleDateString()}`;
                 doc.text(info, margin, 16);
                 
                 // Page number right
-                doc.text(`Página ${pageNum}`, pageWidth - margin - 15, 10);
+                doc.text(`Page ${pageNum}`, pageWidth - margin - 15, 10);
             }
             
             // Footer function
             function addFooter() {
                 doc.setFontSize(7);
                 doc.setTextColor(150, 150, 150);
-                doc.text('Generado con Notepad++ Sidebar', margin, pageHeight - 8);
+                doc.text('Generated with Notepad++ Sidebar', margin, pageHeight - 8);
                 doc.text(`${new Date().toLocaleString()}`, pageWidth - margin - 35, pageHeight - 8);
             }
             
@@ -2746,7 +3273,7 @@
             addFooter();
 
             doc.save(baseName + '.pdf');
-            showToast(`📕 Exportado como ${baseName}.pdf`);
+            showToast(`📕 Exported as ${baseName}.pdf`);
         }
 
         function exportToHTML(content, baseName) {
@@ -2763,7 +3290,7 @@
             }).join('\n');
             
             const html = `<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2837,15 +3364,15 @@
         <div class="meta">${now}</div>
     </div>
     <div class="stats">
-        <span>📄 ${lineCount} líneas</span>
-        <span>📝 ${content.length} caracteres</span>
-        <span>💬 ${content.split(/\\s+/).filter(w => w).length} palabras</span>
+        <span>📄 ${lineCount} lines</span>
+        <span>📝 ${content.length} characters</span>
+        <span>💬 ${content.split(/\\s+/).filter(w => w).length} words</span>
     </div>
     <div class="code-container">
         <pre>${codeWithLines}</pre>
     </div>
     <div class="footer">
-        Generado con Notepad++ Sidebar | ${now}
+        Generated with Notepad++ Sidebar | ${now}
     </div>
 </body>
 </html>`;
@@ -2952,13 +3479,13 @@
 <body>
     <div class="header">
         <h1>${langInfo.icon} ${baseName}</h1>
-        <div class="info">Lenguaje: ${langInfo.name} | Exportado: ${now}</div>
+        <div class="info">Language: ${langInfo.name} | Exported: ${now}</div>
     </div>
     
     <div class="stats">
-        <span>📄 ${lines.length} líneas</span>
-        <span>📝 ${content.length} caracteres</span>
-        <span>💬 ${wordCount} palabras</span>
+        <span>📄 ${lines.length} lines</span>
+        <span>📝 ${content.length} characters</span>
+        <span>💬 ${wordCount} words</span>
     </div>
     
     <table class="code-table">
@@ -2966,7 +3493,7 @@
     </table>
     
     <div class="footer">
-        Generado con Notepad++ Sidebar | Fuad Oñate | ${now}
+        Generated with Notepad++ Sidebar | Fuad Oñate | ${now}
     </div>
 </body>
 </html>`;
@@ -3089,7 +3616,7 @@
             const searchQuery = getSearchQuery(query);
             
             if (!searchQuery) {
-                document.getElementById('findCount').textContent = '⚠️ Regex inválido';
+                document.getElementById('findCount').textContent = '⚠️ Invalid regex';
                 return;
             }
 
@@ -3117,7 +3644,7 @@
                 }
             }
             
-            document.getElementById('findCount').textContent = `✨ ${count} encontrados`;
+            document.getElementById('findCount').textContent = `✨ ${count} found`;
         }
 
         function clearSearchMarks() {
@@ -3142,7 +3669,7 @@
                 if (cursor2.findNext()) {
                     editor.setSelection(cursor2.from(), cursor2.to());
                     editor.scrollIntoView({from: cursor2.from(), to: cursor2.to()}, 50);
-                    showToast('🔄 Búsqueda reiniciada desde el inicio');
+                    showToast('🔄 Search restarted from beginning');
                 }
             }
         }
@@ -3165,7 +3692,7 @@
                 if (cursor2.findPrevious()) {
                     editor.setSelection(cursor2.from(), cursor2.to());
                     editor.scrollIntoView({from: cursor2.from(), to: cursor2.to()}, 50);
-                    showToast('🔄 Búsqueda reiniciada desde el final');
+                    showToast('🔄 Search restarted from end');
                 }
             }
         }
@@ -3178,15 +3705,15 @@
             const selected = editor.getSelection();
             if (selected) {
                 const searchQuery = getSearchQuery(query);
-                let matches = false;
+                let coincidencias = false;
                 
                 if (typeof searchQuery === 'string') {
-                    matches = findOptions.case ? selected === query : selected.toLowerCase() === query.toLowerCase();
+                    coincidencias = findOptions.case ? selected === query : selected.toLowerCase() === query.toLowerCase();
                 } else if (searchQuery) {
-                    matches = searchQuery.test(selected);
+                    coincidencias = searchQuery.test(selected);
                 }
 
-                if (matches) {
+                if (coincidencias) {
                     editor.replaceSelection(replacement);
                     highlightMatches();
                 }
@@ -3204,7 +3731,7 @@
             const searchQuery = getSearchQuery(query);
 
             if (!searchQuery) {
-                showToast('⚠️ Expresión regular inválida', true);
+                showToast('⚠️ Regular expression inválida', true);
                 return;
             }
 
@@ -3224,14 +3751,14 @@
                 content = result;
             } else {
                 const regex = new RegExp(searchQuery.source, searchQuery.flags.replace('g', '') + 'g');
-                const matches = content.match(regex);
-                count = matches ? matches.length : 0;
+                const coincidencias = content.match(regex);
+                count = coincidencias ? matches.length : 0;
                 content = content.replace(regex, replacement);
             }
 
             editor.setValue(content);
             highlightMatches();
-            showToast(`✅ ${count} reemplazos realizados`);
+            showToast(`✅ ${count} replacements made`);
         }
 
         // Go to line
@@ -3293,6 +3820,13 @@
 
         // Handle Enter in modals
         document.addEventListener('keydown', (e) => {
+            // Global search shortcut: Ctrl+Shift+F
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'F') {
+                e.preventDefault();
+                openGlobalSearch();
+                return;
+            }
+            
             if (e.key === 'Enter') {
                 if (document.getElementById('gotoModal').classList.contains('active')) {
                     doGoToLine();
@@ -3303,9 +3837,22 @@
             if (e.key === 'Escape') {
                 closeModal('gotoModal');
                 closeModal('renameModal');
+                closeGlobalSearch();
                 if (document.getElementById('findPanel').classList.contains('active')) {
                     toggleFind();
                 }
+            }
+        });
+        
+        // Global search input handler
+        document.getElementById('globalSearchInput').addEventListener('input', (e) => {
+            updateGlobalSearchResults(e.target.value);
+        });
+        
+        // Close global search when clicking outside
+        document.getElementById('globalSearchModal').addEventListener('click', (e) => {
+            if (e.target.id === 'globalSearchModal') {
+                closeGlobalSearch();
             }
         });
 
