@@ -60,6 +60,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/scroll/annotatescrollbar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/matchesonscrollbar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/display/autorefresh.min.js"></script>
     
     <!-- jsPDF for PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -160,8 +161,165 @@
             font-size: 12px;
             min-width: 90px;
             max-width: 180px;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.15s, opacity 0.15s;
+            user-select: none;
         }
+
+        .tab.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+
+        .tab.drag-over {
+            border-left: 3px solid var(--accent-color);
+            background: var(--bg-hover);
+        }
+
+        .tab.drag-over-right {
+            border-right: 3px solid var(--accent-color);
+            background: var(--bg-hover);
+        }
+
+        /* Tab Groups */
+        .tab-group {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .tab-group-header {
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+            margin-right: 2px;
+            min-width: 30px;
+            transition: all 0.2s;
+        }
+
+        .tab-group-header:hover {
+            filter: brightness(1.1);
+        }
+
+        .tab-group-header .group-label {
+            margin-left: 4px;
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tab-group-header .group-collapse {
+            margin-left: 4px;
+            font-size: 10px;
+            transition: transform 0.2s;
+        }
+
+        .tab-group.collapsed .group-collapse {
+            transform: rotate(-90deg);
+        }
+
+        .tab-group.collapsed .tab {
+            display: none;
+        }
+
+        .tab-group-tabs {
+            display: flex;
+        }
+
+        /* Group colors */
+        .tab-group[data-color="red"] .tab-group-header { background: #e74c3c; color: white; }
+        .tab-group[data-color="red"] .tab { border-top: 2px solid #e74c3c; }
+        
+        .tab-group[data-color="orange"] .tab-group-header { background: #e67e22; color: white; }
+        .tab-group[data-color="orange"] .tab { border-top: 2px solid #e67e22; }
+        
+        .tab-group[data-color="yellow"] .tab-group-header { background: #f1c40f; color: #333; }
+        .tab-group[data-color="yellow"] .tab { border-top: 2px solid #f1c40f; }
+        
+        .tab-group[data-color="green"] .tab-group-header { background: #27ae60; color: white; }
+        .tab-group[data-color="green"] .tab { border-top: 2px solid #27ae60; }
+        
+        .tab-group[data-color="blue"] .tab-group-header { background: #3498db; color: white; }
+        .tab-group[data-color="blue"] .tab { border-top: 2px solid #3498db; }
+        
+        .tab-group[data-color="purple"] .tab-group-header { background: #9b59b6; color: white; }
+        .tab-group[data-color="purple"] .tab { border-top: 2px solid #9b59b6; }
+        
+        .tab-group[data-color="pink"] .tab-group-header { background: #e91e63; color: white; }
+        .tab-group[data-color="pink"] .tab { border-top: 2px solid #e91e63; }
+        
+        .tab-group[data-color="cyan"] .tab-group-header { background: #00bcd4; color: white; }
+        .tab-group[data-color="cyan"] .tab { border-top: 2px solid #00bcd4; }
+
+        /* Context menu for tabs */
+        .tab-context-menu {
+            position: fixed;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 10000;
+            min-width: 180px;
+            padding: 4px 0;
+            display: none;
+        }
+
+        .tab-context-menu.active {
+            display: block;
+        }
+
+        .tab-context-menu-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.15s;
+        }
+
+        .tab-context-menu-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .tab-context-menu-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 4px 0;
+        }
+
+        .tab-context-menu-colors {
+            display: flex;
+            gap: 4px;
+            padding: 8px 16px;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+            border-color: var(--text-primary);
+        }
+
+        .color-option[data-color="red"] { background: #e74c3c; }
+        .color-option[data-color="orange"] { background: #e67e22; }
+        .color-option[data-color="yellow"] { background: #f1c40f; }
+        .color-option[data-color="green"] { background: #27ae60; }
+        .color-option[data-color="blue"] { background: #3498db; }
+        .color-option[data-color="purple"] { background: #9b59b6; }
+        .color-option[data-color="pink"] { background: #e91e63; }
+        .color-option[data-color="cyan"] { background: #00bcd4; }
 
         .tab.active {
             background: var(--bg-primary);
@@ -359,6 +517,30 @@
             flex: 1;
             overflow: hidden;
             position: relative;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .editor-container.drag-highlight {
+            background: rgba(102, 126, 234, 0.1);
+            box-shadow: inset 0 0 0 3px rgba(102, 126, 234, 0.5);
+        }
+
+        .editor-container.drag-highlight::after {
+            content: '📂 Drop to open file';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
         .CodeMirror {
@@ -689,7 +871,300 @@
         .icon-xml { color: #ff6600; }
         .icon-toml { color: #9c4121; }
         .icon-text { color: #888; }
+
+        /* Markdown Preview Styles */
+        .md-preview-container {
+            display: none;
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px 30px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .md-preview-container.active {
+            display: block;
+        }
+
+        .md-preview-container h1 { font-size: 2em; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; margin: 0.67em 0; }
+        .md-preview-container h2 { font-size: 1.5em; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; margin: 0.83em 0; }
+        .md-preview-container h3 { font-size: 1.25em; margin: 1em 0; }
+        .md-preview-container h4 { font-size: 1em; margin: 1.33em 0; }
+        .md-preview-container p { margin: 1em 0; }
+        .md-preview-container a { color: var(--accent-color); text-decoration: none; }
+        .md-preview-container a:hover { text-decoration: underline; }
+        .md-preview-container code { 
+            background: var(--bg-tertiary); 
+            padding: 2px 6px; 
+            border-radius: 3px; 
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+        }
+        .md-preview-container pre { 
+            background: var(--bg-tertiary); 
+            padding: 16px; 
+            border-radius: 6px; 
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+        .md-preview-container pre code { 
+            background: none; 
+            padding: 0; 
+        }
+        .md-preview-container blockquote { 
+            border-left: 4px solid var(--accent-color); 
+            margin: 1em 0;
+            padding: 0.5em 1em; 
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+        }
+        .md-preview-container ul, .md-preview-container ol { margin: 1em 0; padding-left: 2em; }
+        .md-preview-container li { margin: 0.5em 0; }
+        .md-preview-container table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+        .md-preview-container th, .md-preview-container td { 
+            border: 1px solid var(--border-color); 
+            padding: 8px 12px; 
+            text-align: left; 
+        }
+        .md-preview-container th { background: var(--bg-tertiary); font-weight: 600; }
+        .md-preview-container hr { border: none; border-top: 1px solid var(--border-color); margin: 2em 0; }
+        .md-preview-container img { max-width: 100%; height: auto; }
+        .md-preview-container strong { font-weight: 600; }
+        .md-preview-container em { font-style: italic; }
+
+        /* Preview Modal */
+        .preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .preview-modal.active {
+            display: flex;
+        }
+
+        .preview-modal-content {
+            background: var(--bg-primary);
+            width: 90%;
+            max-width: 900px;
+            height: 85%;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .preview-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .preview-modal-header h3 {
+            margin: 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .preview-modal-close:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .preview-modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 30px;
+        }
+
+        /* Preview toggle button */
+        .preview-toggle.active {
+            background: var(--accent-color) !important;
+            color: white !important;
+        }
+
+        /* Split View Mode */
+        .editor-container.split-view {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .editor-container.split-view .CodeMirror {
+            width: 100% !important;
+            height: 100% !important;
+            border-right: none;
+        }
+
+        .editor-container.split-view .split-editor-wrapper {
+            display: flex;
+            flex: none;
+            width: 50%;
+            min-width: 20%;
+            max-width: 80%;
+            height: 100%;
+            flex-shrink: 0;
+        }
+
+        .editor-container.split-view .md-preview-container {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        /* Split view resizer */
+        .split-resizer {
+            display: none;
+            width: 6px;
+            background: var(--border-color);
+            cursor: col-resize;
+            transition: background 0.2s;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .split-resizer:hover,
+        .split-resizer.dragging {
+            background: var(--accent-color);
+        }
+
+        .split-resizer::after {
+            content: '⋮';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-secondary);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .split-resizer:hover::after,
+        .split-resizer.dragging::after {
+            color: white;
+        }
+
+        .editor-container.split-view .split-resizer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Prevent text selection during resize */
+        .editor-container.resizing,
+        .editor-container.resizing * {
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            cursor: col-resize !important;
+        }
+
+        /* Preview modes indicator */
+        .preview-mode-btn.active {
+            background: var(--accent-color) !important;
+            color: white !important;
+        }
+
+        /* Split view header */
+        .split-preview-header {
+            display: none;
+            padding: 6px 12px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .editor-container.split-view .split-preview-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .split-preview-wrapper {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            height: 100%;
+            min-width: 20%;
+        }
+
+        .split-editor-wrapper {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            min-width: 0;
+            position: relative;
+        }
+
+        .split-editor-wrapper .CodeMirror {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        .editor-container.split-view .split-preview-wrapper {
+            display: flex;
+        }
+
+        /* Toggle mode - full width preview */
+        .editor-container.toggle-preview .split-editor-wrapper {
+            display: none;
+        }
+
+        .editor-container.toggle-preview .split-preview-wrapper {
+            display: flex;
+            width: 100%;
+        }
+
+        .editor-container.toggle-preview .split-preview-header {
+            display: none;
+        }
+
+        .editor-container.toggle-preview .split-resizer {
+            display: none;
+        }
+
+        .split-preview-wrapper .md-preview-container {
+            flex: 1;
+            width: 100% !important;
+        }
     </style>
+    
+    <!-- Markdown Parser (lightweight ~40KB) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <div class="tabs-container" id="tabsContainer">
@@ -720,6 +1195,8 @@
                     <button onclick="exportAs('csv')">📊 CSV (.csv)</button>
                     <button onclick="exportAs('tsv')">📋 TSV (.tsv)</button>
                     <button onclick="exportAs('json')">📦 JSON (.json)</button>
+                    <div class="dropdown-divider"></div>
+                    <button onclick="printCode()">🖨️ Print (Ctrl+P)</button>
                 </div>
             </div>
         </div>
@@ -823,6 +1300,20 @@
         <button onclick="toggleTheme()" data-tooltip="Toggle theme" id="themeToggleBtn">
             <span class="icon tb-theme-dark" id="themeIcon">🌙</span>
         </button>
+
+        <div class="separator"></div>
+        
+        <div class="toolbar-group">
+            <button onclick="toggleSplitView()" data-tooltip="Split View (Editor + Preview)" id="splitViewBtn" class="preview-mode-btn">
+                <span class="icon">📖</span>
+            </button>
+            <button onclick="toggleMdPreview()" data-tooltip="Toggle Preview" id="mdPreviewToggle" class="preview-mode-btn">
+                <span class="icon">👁️</span>
+            </button>
+            <button onclick="openPreviewModal()" data-tooltip="Preview in Window" class="preview-mode-btn">
+                <span class="icon">🔲</span>
+            </button>
+        </div>
     </div>
 
     <div class="find-panel" id="findPanel">
@@ -842,7 +1333,16 @@
     </div>
 
     <div class="editor-container" id="editorContainer">
-        <textarea id="editor"></textarea>
+        <div class="split-editor-wrapper" id="splitEditorWrapper">
+            <textarea id="editor"></textarea>
+        </div>
+        <div class="split-resizer" id="splitResizer"></div>
+        <div class="split-preview-wrapper">
+            <div class="split-preview-header">
+                <span>📖</span> Preview
+            </div>
+            <div class="md-preview-container" id="mdPreview"></div>
+        </div>
     </div>
 
     <div class="status-bar">
@@ -869,7 +1369,7 @@
             <input type="number" id="gotoLineInput" placeholder="Line number..." min="1">
             <div class="modal-buttons">
                 <button class="btn-secondary" onclick="closeModal('gotoModal')">❌ Cancel</button>
-                <button class="btn-primary" onclick="doGoToLine()">➡️ Go</button>
+                <button class="btn-primary" onclick="doGoToLine()">➡️ Ir</button>
             </div>
         </div>
     </div>
@@ -893,6 +1393,40 @@
 
     <input type="file" id="fileInput" style="display:none" onchange="handleFileOpen(event)">
 
+    <!-- Tab context menu -->
+    <div class="tab-context-menu" id="tabContextMenu">
+        <div class="tab-context-menu-item" onclick="contextMenuAction('rename')">
+            <span>✏️</span> Rename
+        </div>
+        <div class="tab-context-menu-item" onclick="contextMenuAction('duplicate')">
+            <span>📋</span> Duplicate tab
+        </div>
+        <div class="tab-context-menu-divider"></div>
+        <div class="tab-context-menu-item" onclick="contextMenuAction('newGroup')">
+            <span>📁</span> Add to new group
+        </div>
+        <div class="tab-context-menu-item" id="removeFromGroupItem" onclick="contextMenuAction('removeFromGroup')" style="display:none">
+            <span>📤</span> Remove from group
+        </div>
+        <div class="tab-context-menu-colors" id="groupColorsContainer">
+            <div class="color-option" data-color="red" onclick="contextMenuAction('setColor', 'red')"></div>
+            <div class="color-option" data-color="orange" onclick="contextMenuAction('setColor', 'orange')"></div>
+            <div class="color-option" data-color="yellow" onclick="contextMenuAction('setColor', 'yellow')"></div>
+            <div class="color-option" data-color="green" onclick="contextMenuAction('setColor', 'green')"></div>
+            <div class="color-option" data-color="blue" onclick="contextMenuAction('setColor', 'blue')"></div>
+            <div class="color-option" data-color="purple" onclick="contextMenuAction('setColor', 'purple')"></div>
+            <div class="color-option" data-color="pink" onclick="contextMenuAction('setColor', 'pink')"></div>
+            <div class="color-option" data-color="cyan" onclick="contextMenuAction('setColor', 'cyan')"></div>
+        </div>
+        <div class="tab-context-menu-divider"></div>
+        <div class="tab-context-menu-item" onclick="contextMenuAction('close')">
+            <span>✕</span> Close tab
+        </div>
+        <div class="tab-context-menu-item" onclick="contextMenuAction('closeOthers')">
+            <span>🗑️</span> Close other tabs
+        </div>
+    </div>
+
     <script>
         let tabs = [];
         let activeTabId = null;
@@ -902,6 +1436,11 @@
         let wordWrap = false;
         let findOptions = { regex: false, case: false, word: false };
         let searchMarks = [];
+        
+        // Preview modes: 'none', 'toggle', 'split'
+        let previewMode = 'none';
+        let isPreviewMode = false;
+        let isSplitView = false;
 
         const languageMap = {
             'text': { name: 'Plain text', icon: '📄', devicon: '', ext: '.txt' },
@@ -968,8 +1507,103 @@
                 createNewTab();
             }
             setupKeyboardShortcuts();
+            setupDragAndDrop();
             applyTheme();
         });
+
+        // Drag and Drop support
+        function setupDragAndDrop() {
+            const editorContainer = document.getElementById('editorContainer');
+            
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                editorContainer.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            // Highlight on drag
+            ['dragenter', 'dragover'].forEach(eventName => {
+                editorContainer.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                editorContainer.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                editorContainer.classList.add('drag-highlight');
+            }
+            
+            function unhighlight() {
+                editorContainer.classList.remove('drag-highlight');
+            }
+            
+            // Handle dropped files
+            editorContainer.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    Array.from(files).forEach(file => {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            const content = event.target.result;
+                            const lang = detectLanguage(file.name);
+                            createNewTab(file.name, content, lang);
+                            showToast(`📂 File "${file.name}" loaded`);
+                        };
+                        reader.readAsText(file);
+                    });
+                }
+            }
+        }
+        
+        // Print function
+        function printCode() {
+            const content = editor.getValue();
+            const tab = tabs.find(t => t.id === activeTabId);
+            const langInfo = languageMap[tab?.language] || languageMap['text'];
+            const lines = content.split('\n');
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${tab?.name || 'Documento'}</title>
+                    <style>
+                        @page { margin: 1.5cm; }
+                        body { font-family: 'Consolas', monospace; font-size: 10pt; line-height: 1.4; }
+                        .header { font-family: Arial, sans-serif; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
+                        .header h1 { margin: 0; font-size: 14pt; }
+                        .header .info { font-size: 9pt; color: #666; margin-top: 5px; }
+                        .code-table { width: 100%; border-collapse: collapse; }
+                        .code-table td { padding: 1px 8px; vertical-align: top; }
+                        .line-num { color: #999; text-align: right; width: 40px; border-right: 1px solid #ddd; padding-right: 10px; }
+                        .code { padding-left: 15px; white-space: pre-wrap; }
+                        .footer { margin-top: 20px; font-size: 8pt; color: #999; text-align: center; border-top: 1px solid #ddd; padding-top: 10px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>${langInfo.icon} ${tab?.name || 'Documento'}</h1>
+                        <div class="info">${langInfo.name} | ${lines.length} lines | ${content.length} characters | ${new Date().toLocaleString()}</div>
+                    </div>
+                    <table class="code-table">
+                        ${lines.map((line, i) => `<tr><td class="line-num">${i + 1}</td><td class="code">${escapeHtml(line) || ' '}</td></tr>`).join('')}
+                    </table>
+                    <div class="footer">Notepad++ Sidebar | Printed: ${new Date().toLocaleString()}</div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
 
         function initEditor() {
             editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
@@ -986,6 +1620,7 @@
                 indentUnit: 4,
                 tabSize: 4,
                 indentWithTabs: false,
+                autoRefresh: {force: true, delay: 100},
                 highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
                 extraKeys: {
                     'Tab': (cm) => cm.execCommand('indentMore'),
@@ -1006,6 +1641,12 @@
             editor.on('cursorActivity', () => {
                 updateCursorPos();
             });
+            
+            // Force refresh after initialization to fix flexbox layout issues
+            setTimeout(() => {
+                editor.refresh();
+                editor.focus();
+            }, 100);
         }
 
         function setupKeyboardShortcuts() {
@@ -1053,6 +1694,10 @@
                         case '0':
                             e.preventDefault();
                             zoomReset();
+                            break;
+                        case 'p':
+                            e.preventDefault();
+                            printCode();
                             break;
                     }
                 }
@@ -1142,6 +1787,269 @@
             }
         }
 
+        // Markdown Preview functions
+        
+        function resetAllPreviewModes() {
+            const cmElement = document.querySelector('.CodeMirror');
+            const previewEl = document.getElementById('mdPreview');
+            const editorContainer = document.getElementById('editorContainer');
+            const toggleBtn = document.getElementById('mdPreviewToggle');
+            const splitBtn = document.getElementById('splitViewBtn');
+            
+            // Reset states
+            isPreviewMode = false;
+            isSplitView = false;
+            previewMode = 'none';
+            
+            // Reset UI
+            cmElement.style.display = '';
+            previewEl.classList.remove('active');
+            editorContainer.classList.remove('split-view');
+            editorContainer.classList.remove('toggle-preview');
+            toggleBtn.classList.remove('active');
+            splitBtn.classList.remove('active');
+            
+            editor.refresh();
+        }
+
+        function toggleSplitView() {
+            const editorContainer = document.getElementById('editorContainer');
+            const previewEl = document.getElementById('mdPreview');
+            const splitBtn = document.getElementById('splitViewBtn');
+            const toggleBtn = document.getElementById('mdPreviewToggle');
+            const cmElement = document.querySelector('.CodeMirror');
+            
+            // If toggle preview is active, disable it first
+            if (isPreviewMode) {
+                isPreviewMode = false;
+                cmElement.style.display = '';
+                editorContainer.classList.remove('toggle-preview');
+                toggleBtn.classList.remove('active');
+            }
+            
+            isSplitView = !isSplitView;
+            
+            if (isSplitView) {
+                previewMode = 'split';
+                editorContainer.classList.add('split-view');
+                splitBtn.classList.add('active');
+                previewEl.classList.add('active');
+                
+                // Update preview content
+                updateSplitPreview();
+                
+                // Setup live update on editor changes
+                editor.on('change', updateSplitPreview);
+                
+                showToast('📖 Split View enabled');
+                editor.refresh();
+            } else {
+                previewMode = 'none';
+                editorContainer.classList.remove('split-view');
+                splitBtn.classList.remove('active');
+                previewEl.classList.remove('active');
+                
+                // Remove live update listener
+                editor.off('change', updateSplitPreview);
+                
+                editor.refresh();
+                editor.focus();
+            }
+        }
+
+        function updateSplitPreview() {
+            if (isSplitView) {
+                const content = editor.getValue();
+                const previewEl = document.getElementById('mdPreview');
+                previewEl.innerHTML = marked.parse(content);
+            }
+        }
+
+        function toggleMdPreview() {
+            const cmElement = document.querySelector('.CodeMirror');
+            const previewEl = document.getElementById('mdPreview');
+            const toggleBtn = document.getElementById('mdPreviewToggle');
+            const splitBtn = document.getElementById('splitViewBtn');
+            const editorContainer = document.getElementById('editorContainer');
+            
+            // If split view is active, disable it first
+            if (isSplitView) {
+                isSplitView = false;
+                editorContainer.classList.remove('split-view');
+                splitBtn.classList.remove('active');
+                editor.off('change', updateSplitPreview);
+            }
+            
+            isPreviewMode = !isPreviewMode;
+            
+            if (isPreviewMode) {
+                previewMode = 'toggle';
+                // Show preview, hide editor
+                const content = editor.getValue();
+                previewEl.innerHTML = marked.parse(content);
+                cmElement.style.display = 'none';
+                editorContainer.classList.add('toggle-preview');
+                previewEl.classList.add('active');
+                toggleBtn.classList.add('active');
+                showToast('👁️ Preview mode - Click again to edit');
+            } else {
+                previewMode = 'none';
+                // Show editor, hide preview
+                cmElement.style.display = '';
+                editorContainer.classList.remove('toggle-preview');
+                previewEl.classList.remove('active');
+                toggleBtn.classList.remove('active');
+                editor.refresh();
+                editor.focus();
+            }
+        }
+
+        function openPreviewModal() {
+            const content = editor.getValue();
+            const tab = tabs.find(t => t.id === activeTabId);
+            
+            document.getElementById('previewModalTitle').textContent = tab?.name || 'Preview';
+            document.getElementById('previewModalBody').innerHTML = marked.parse(content);
+            document.getElementById('previewModal').classList.add('active');
+        }
+
+        function closePreviewModal(event) {
+            if (!event || event.target.id === 'previewModal') {
+                document.getElementById('previewModal').classList.remove('active');
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('previewModal');
+                if (modal.classList.contains('active')) {
+                    closePreviewModal();
+                }
+            }
+        });
+
+        // Split View Resizer functionality
+        function setupSplitResizer() {
+            const resizer = document.getElementById('splitResizer');
+            const editorContainer = document.getElementById('editorContainer');
+            const editorWrapper = document.getElementById('splitEditorWrapper');
+            
+            let isResizing = false;
+            let startX = 0;
+            let startWidth = 0;
+
+            resizer.addEventListener('mousedown', (e) => {
+                if (!isSplitView) return;
+                
+                isResizing = true;
+                startX = e.clientX;
+                startWidth = editorWrapper.offsetWidth;
+                
+                resizer.classList.add('dragging');
+                editorContainer.classList.add('resizing');
+                
+                document.addEventListener('mousemove', handleMouseMove);
+                document.addEventListener('mouseup', handleMouseUp);
+                
+                e.preventDefault();
+            });
+
+            function handleMouseMove(e) {
+                if (!isResizing) return;
+                
+                const containerWidth = editorContainer.offsetWidth;
+                const dx = e.clientX - startX;
+                let newWidth = startWidth + dx;
+                
+                // Enforce min/max limits (20% - 80%)
+                const minWidth = containerWidth * 0.2;
+                const maxWidth = containerWidth * 0.8;
+                
+                if (newWidth < minWidth) newWidth = minWidth;
+                if (newWidth > maxWidth) newWidth = maxWidth;
+                
+                // Apply new width
+                editorWrapper.style.width = newWidth + 'px';
+                
+                // Refresh CodeMirror to prevent cursor issues
+                if (editor) {
+                    editor.refresh();
+                }
+            }
+
+            function handleMouseUp() {
+                if (!isResizing) return;
+                
+                isResizing = false;
+                resizer.classList.remove('dragging');
+                editorContainer.classList.remove('resizing');
+                
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUp);
+                
+                // Final refresh
+                if (editor) {
+                    editor.refresh();
+                }
+            }
+
+            // Touch support for mobile
+            resizer.addEventListener('touchstart', (e) => {
+                if (!isSplitView) return;
+                
+                isResizing = true;
+                startX = e.touches[0].clientX;
+                startWidth = editorWrapper.offsetWidth;
+                
+                resizer.classList.add('dragging');
+                editorContainer.classList.add('resizing');
+                
+                document.addEventListener('touchmove', handleTouchMove);
+                document.addEventListener('touchend', handleTouchEnd);
+                
+                e.preventDefault();
+            });
+
+            function handleTouchMove(e) {
+                if (!isResizing) return;
+                
+                const containerWidth = editorContainer.offsetWidth;
+                const dx = e.touches[0].clientX - startX;
+                let newWidth = startWidth + dx;
+                
+                const minWidth = containerWidth * 0.2;
+                const maxWidth = containerWidth * 0.8;
+                
+                if (newWidth < minWidth) newWidth = minWidth;
+                if (newWidth > maxWidth) newWidth = maxWidth;
+                
+                editorWrapper.style.width = newWidth + 'px';
+                
+                if (editor) {
+                    editor.refresh();
+                }
+            }
+
+            function handleTouchEnd() {
+                if (!isResizing) return;
+                
+                isResizing = false;
+                resizer.classList.remove('dragging');
+                editorContainer.classList.remove('resizing');
+                
+                document.removeEventListener('touchmove', handleTouchMove);
+                document.removeEventListener('touchend', handleTouchEnd);
+                
+                if (editor) {
+                    editor.refresh();
+                }
+            }
+        }
+
+        // Initialize resizer after DOM is ready
+        document.addEventListener('DOMContentLoaded', setupSplitResizer);
+
         function createNewTab(name = null, content = '', lang = 'text') {
             tabCounter++;
             const id = 'tab-' + tabCounter;
@@ -1164,29 +2072,355 @@
             const container = document.getElementById('tabsContainer');
             const addBtn = container.querySelector('.new-tab-btn');
             
-            container.querySelectorAll('.tab').forEach(t => t.remove());
+            // Remove existing tabs and groups
+            container.querySelectorAll('.tab, .tab-group').forEach(t => t.remove());
 
+            // Group tabs by groupId
+            const groups = {};
+            const ungrouped = [];
+            
             tabs.forEach(tab => {
-                const langInfo = languageMap[tab.language] || languageMap['text'];
-                const tabEl = document.createElement('div');
-                tabEl.className = 'tab' + (tab.id === activeTabId ? ' active' : '') + (tab.modified ? ' tab-modified' : '');
-                
-                let iconHtml;
-                if (langInfo.devicon) {
-                    iconHtml = `<i class="${langInfo.devicon}"></i>`;
+                if (tab.groupId) {
+                    if (!groups[tab.groupId]) {
+                        groups[tab.groupId] = {
+                            id: tab.groupId,
+                            name: tab.groupName || '',
+                            color: tab.groupColor || 'blue',
+                            collapsed: tab.groupCollapsed || false,
+                            tabs: []
+                        };
+                    }
+                    groups[tab.groupId].tabs.push(tab);
                 } else {
-                    iconHtml = `<span class="${langInfo.class || ''}">${langInfo.icon}</span>`;
+                    ungrouped.push(tab);
                 }
+            });
+
+            // Render grouped tabs
+            Object.values(groups).forEach(group => {
+                const groupEl = document.createElement('div');
+                groupEl.className = 'tab-group' + (group.collapsed ? ' collapsed' : '');
+                groupEl.dataset.groupId = group.id;
+                groupEl.dataset.color = group.color;
                 
-                tabEl.innerHTML = `
-                    <span class="tab-icon">${iconHtml}</span>
-                    <span class="tab-name" title="${tab.name}">${tab.name}</span>
-                    <span class="tab-close" onclick="event.stopPropagation(); closeTab('${tab.id}')">✕</span>
+                const headerEl = document.createElement('div');
+                headerEl.className = 'tab-group-header';
+                headerEl.innerHTML = `
+                    <span class="group-collapse">▼</span>
+                    <span class="group-label">${group.name || group.tabs.length}</span>
                 `;
-                tabEl.onclick = () => switchTab(tab.id);
-                tabEl.ondblclick = () => showRenameModal(tab.id);
+                headerEl.onclick = () => toggleGroupCollapse(group.id);
+                headerEl.oncontextmenu = (e) => showGroupContextMenu(e, group.id);
+                groupEl.appendChild(headerEl);
+                
+                const tabsContainer = document.createElement('div');
+                tabsContainer.className = 'tab-group-tabs';
+                
+                group.tabs.forEach(tab => {
+                    const tabEl = createTabElement(tab);
+                    tabsContainer.appendChild(tabEl);
+                });
+                
+                groupEl.appendChild(tabsContainer);
+                container.insertBefore(groupEl, addBtn);
+            });
+
+            // Render ungrouped tabs
+            ungrouped.forEach(tab => {
+                const tabEl = createTabElement(tab);
                 container.insertBefore(tabEl, addBtn);
             });
+        }
+
+        function createTabElement(tab) {
+            const langInfo = languageMap[tab.language] || languageMap['text'];
+            const tabEl = document.createElement('div');
+            tabEl.className = 'tab' + (tab.id === activeTabId ? ' active' : '') + (tab.modified ? ' tab-modified' : '');
+            tabEl.dataset.tabId = tab.id;
+            tabEl.draggable = true;
+            
+            let iconHtml;
+            if (langInfo.devicon) {
+                iconHtml = `<i class="${langInfo.devicon}"></i>`;
+            } else {
+                iconHtml = `<span class="${langInfo.class || ''}">${langInfo.icon}</span>`;
+            }
+            
+            tabEl.innerHTML = `
+                <span class="tab-icon">${iconHtml}</span>
+                <span class="tab-name" title="${tab.name}">${tab.name}</span>
+                <span class="tab-close" onclick="event.stopPropagation(); closeTab('${tab.id}')">✕</span>
+            `;
+            
+            // Click events
+            tabEl.onclick = () => switchTab(tab.id);
+            tabEl.ondblclick = () => showRenameModal(tab.id);
+            tabEl.oncontextmenu = (e) => showTabContextMenu(e, tab.id);
+            
+            // Drag events
+            tabEl.ondragstart = (e) => handleTabDragStart(e, tab.id);
+            tabEl.ondragend = handleTabDragEnd;
+            tabEl.ondragover = (e) => handleTabDragOver(e, tabEl);
+            tabEl.ondragleave = (e) => handleTabDragLeave(tabEl);
+            tabEl.ondrop = (e) => handleTabDrop(e, tab.id);
+            
+            return tabEl;
+        }
+
+        // Drag and Drop functions
+        let draggedTabId = null;
+
+        function handleTabDragStart(e, tabId) {
+            draggedTabId = tabId;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', tabId);
+        }
+
+        function handleTabDragEnd(e) {
+            e.target.classList.remove('dragging');
+            document.querySelectorAll('.tab').forEach(t => {
+                t.classList.remove('drag-over', 'drag-over-right');
+            });
+            draggedTabId = null;
+        }
+
+        function handleTabDragOver(e, tabEl) {
+            e.preventDefault();
+            if (!draggedTabId || tabEl.dataset.tabId === draggedTabId) return;
+            
+            const rect = tabEl.getBoundingClientRect();
+            const midpoint = rect.left + rect.width / 2;
+            
+            tabEl.classList.remove('drag-over', 'drag-over-right');
+            if (e.clientX < midpoint) {
+                tabEl.classList.add('drag-over');
+            } else {
+                tabEl.classList.add('drag-over-right');
+            }
+        }
+
+        function handleTabDragLeave(tabEl) {
+            tabEl.classList.remove('drag-over', 'drag-over-right');
+        }
+
+        function handleTabDrop(e, targetTabId) {
+            e.preventDefault();
+            if (!draggedTabId || draggedTabId === targetTabId) return;
+
+            const draggedIndex = tabs.findIndex(t => t.id === draggedTabId);
+            const targetIndex = tabs.findIndex(t => t.id === targetTabId);
+            
+            if (draggedIndex === -1 || targetIndex === -1) return;
+
+            // Get target tab element to check drop position
+            const targetEl = document.querySelector(`[data-tab-id="${targetTabId}"]`);
+            const rect = targetEl.getBoundingClientRect();
+            const midpoint = rect.left + rect.width / 2;
+            const insertAfter = e.clientX >= midpoint;
+
+            // Remove dragged tab from array
+            const [draggedTab] = tabs.splice(draggedIndex, 1);
+            
+            // Find new target index (may have shifted)
+            let newTargetIndex = tabs.findIndex(t => t.id === targetTabId);
+            
+            // Insert at correct position
+            if (insertAfter) {
+                tabs.splice(newTargetIndex + 1, 0, draggedTab);
+            } else {
+                tabs.splice(newTargetIndex, 0, draggedTab);
+            }
+
+            // Copy group info from target if dropping into a group
+            const targetTab = tabs.find(t => t.id === targetTabId);
+            if (targetTab.groupId) {
+                draggedTab.groupId = targetTab.groupId;
+                draggedTab.groupName = targetTab.groupName;
+                draggedTab.groupColor = targetTab.groupColor;
+            }
+
+            renderTabs();
+            saveToStorage();
+            showToast('📑 Tab reordered');
+        }
+
+        // Tab Groups functions
+        let tabGroupCounter = 0;
+
+        function createTabGroup(tabId, color = 'blue') {
+            const tab = tabs.find(t => t.id === tabId);
+            if (!tab) return;
+            
+            tabGroupCounter++;
+            const groupId = 'group-' + tabGroupCounter;
+            const groupName = prompt('Group name (optional):', '') || '';
+            
+            tab.groupId = groupId;
+            tab.groupName = groupName;
+            tab.groupColor = color;
+            tab.groupCollapsed = false;
+            
+            renderTabs();
+            saveToStorage();
+            showToast('📁 Group created');
+        }
+
+        function removeFromGroup(tabId) {
+            const tab = tabs.find(t => t.id === tabId);
+            if (!tab) return;
+            
+            delete tab.groupId;
+            delete tab.groupName;
+            delete tab.groupColor;
+            delete tab.groupCollapsed;
+            
+            renderTabs();
+            saveToStorage();
+            showToast('📤 Tab removed from group');
+        }
+
+        function toggleGroupCollapse(groupId) {
+            tabs.forEach(tab => {
+                if (tab.groupId === groupId) {
+                    tab.groupCollapsed = !tab.groupCollapsed;
+                }
+            });
+            renderTabs();
+            saveToStorage();
+        }
+
+        function setGroupColor(tabId, color) {
+            const tab = tabs.find(t => t.id === tabId);
+            if (!tab || !tab.groupId) return;
+            
+            tabs.forEach(t => {
+                if (t.groupId === tab.groupId) {
+                    t.groupColor = color;
+                }
+            });
+            
+            renderTabs();
+            saveToStorage();
+        }
+
+        function renameGroup(groupId) {
+            const tab = tabs.find(t => t.groupId === groupId);
+            if (!tab) return;
+            
+            const newName = prompt('New nombre del grupo:', tab.groupName || '');
+            if (newName === null) return;
+            
+            tabs.forEach(t => {
+                if (t.groupId === groupId) {
+                    t.groupName = newName;
+                }
+            });
+            
+            renderTabs();
+            saveToStorage();
+        }
+
+        // Context menu functions
+        let contextMenuTabId = null;
+
+        function showTabContextMenu(e, tabId) {
+            e.preventDefault();
+            contextMenuTabId = tabId;
+            
+            const menu = document.getElementById('tabContextMenu');
+            const tab = tabs.find(t => t.id === tabId);
+            
+            // Show/hide remove from group option
+            const removeItem = document.getElementById('removeFromGroupItem');
+            removeItem.style.display = tab.groupId ? 'flex' : 'none';
+            
+            // Position menu
+            menu.style.left = e.clientX + 'px';
+            menu.style.top = e.clientY + 'px';
+            menu.classList.add('active');
+            
+            // Close menu on click outside
+            setTimeout(() => {
+                document.addEventListener('click', closeContextMenu);
+            }, 0);
+        }
+
+        function showGroupContextMenu(e, groupId) {
+            e.preventDefault();
+            const tab = tabs.find(t => t.groupId === groupId);
+            if (tab) {
+                showTabContextMenu(e, tab.id);
+            }
+        }
+
+        function closeContextMenu() {
+            document.getElementById('tabContextMenu').classList.remove('active');
+            document.removeEventListener('click', closeContextMenu);
+        }
+
+        function contextMenuAction(action, param) {
+            closeContextMenu();
+            
+            switch(action) {
+                case 'rename':
+                    showRenameModal(contextMenuTabId);
+                    break;
+                case 'duplicate':
+                    duplicateTab(contextMenuTabId);
+                    break;
+                case 'newGroup':
+                    createTabGroup(contextMenuTabId);
+                    break;
+                case 'removeFromGroup':
+                    removeFromGroup(contextMenuTabId);
+                    break;
+                case 'setColor':
+                    setGroupColor(contextMenuTabId, param);
+                    break;
+                case 'close':
+                    closeTab(contextMenuTabId);
+                    break;
+                case 'closeOthers':
+                    closeOtherTabs(contextMenuTabId);
+                    break;
+            }
+        }
+
+        function duplicateTab(tabId) {
+            const tab = tabs.find(t => t.id === tabId);
+            if (!tab) return;
+            
+            tabCounter++;
+            const newTab = {
+                id: 'tab-' + tabCounter,
+                name: tab.name + ' (copy)',
+                content: tab.content,
+                language: tab.language,
+                modified: false
+            };
+            
+            const index = tabs.findIndex(t => t.id === tabId);
+            tabs.splice(index + 1, 0, newTab);
+            
+            switchTab(newTab.id);
+            showToast('📋 Tab duplicated');
+        }
+
+        function closeOtherTabs(keepTabId) {
+            const tabsToClose = tabs.filter(t => t.id !== keepTabId);
+            if (tabsToClose.some(t => t.modified)) {
+                if (!confirm('Close all other tabs? Hay cambios without saving.')) return;
+            }
+            
+            tabs = tabs.filter(t => t.id === keepTabId);
+            if (activeTabId !== keepTabId) {
+                switchTab(keepTabId);
+            } else {
+                renderTabs();
+            }
+            saveToStorage();
+            showToast('🗑️ Other tabs closed');
         }
 
         function switchTab(id) {
@@ -1213,7 +2447,11 @@
 
             renderTabs();
             updateStatus();
-            editor.focus();
+            // Use setTimeout to allow DOM to update before refresh
+            setTimeout(() => {
+                editor.refresh();
+                editor.focus();
+            }, 1);
         }
 
         function closeTab(id) {
@@ -1222,7 +2460,7 @@
 
             const tab = tabs[index];
             if (tab.modified) {
-                if (!confirm(`¿Close "${tab.name}" without saving?`)) return;
+                if (!confirm(`Close "${tab.name}" without saving?`)) return;
             }
 
             tabs.splice(index, 1);
@@ -1257,7 +2495,8 @@
         function updateStatus() {
             const content = editor.getValue();
             const lines = content.split('\n').length;
-            document.getElementById('statusLength').textContent = `${content.length} chars, ${lines} lines`;
+            const words = content.split(/\s+/).filter(w => w).length;
+            document.getElementById('statusLength').textContent = `${lines} lines | ${words} words | ${content.length} chars`;
         }
 
         function changeLanguage(lang) {
@@ -1275,9 +2514,9 @@
         }
 
         function changeFontSize(size) {
-            document.querySelector('.CodeMirror').style.fontSize = size + 'px';
-            editor.refresh();
             localStorage.setItem('notepadFontSize', size);
+            // Apply font size through zoom system to maintain zoom level
+            updateZoom();
         }
 
         // Zoom functions
@@ -1286,14 +2525,29 @@
         const maxZoom = 150;
         const zoomStep = 10;
 
+        function getBaseFontSize() {
+            // Get current font-size from selector, default to 13
+            const selector = document.getElementById('fontSizeSelect');
+            return selector ? parseInt(selector.value) || 13 : 13;
+        }
+
         function updateZoom() {
-            // Apply zoom only to editor container - keeps toolbar and footer stable
-            document.getElementById('editorContainer').style.zoom = currentZoom + '%';
+            // Calculate font size: base font * zoom percentage
+            const baseFontSize = getBaseFontSize();
+            const newFontSize = Math.round(baseFontSize * (currentZoom / 100));
+            
+            const cmElement = document.querySelector('.CodeMirror');
+            if (cmElement) {
+                cmElement.style.fontSize = newFontSize + 'px';
+            }
             
             document.getElementById('zoomLevel').textContent = currentZoom + '%';
             localStorage.setItem('notepadZoom', currentZoom);
-            // Refresh editor after zoom
-            setTimeout(() => editor.refresh(), 50);
+            
+            // Refresh editor to recalculate line heights
+            if (editor) {
+                setTimeout(() => editor.refresh(), 10);
+            }
         }
 
         function zoomIn() {
@@ -1405,30 +2659,91 @@
 
         function exportToPDF(content, baseName) {
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
             
+            const tab = tabs.find(t => t.id === activeTabId);
+            const langInfo = languageMap[tab?.language] || languageMap['text'];
             const lines = content.split('\n');
             const pageHeight = doc.internal.pageSize.height;
-            let y = 15;
-            const lineHeight = 5;
+            const pageWidth = doc.internal.pageSize.width;
             const margin = 15;
-            const maxWidth = doc.internal.pageSize.width - 2 * margin;
-
+            const lineNumWidth = 12;
+            const maxWidth = pageWidth - (2 * margin) - lineNumWidth;
+            const lineHeight = 4.5;
+            const headerHeight = 20;
+            let y = headerHeight + 10;
+            let pageNum = 1;
+            
+            // Header function
+            function addHeader() {
+                // Header background
+                doc.setFillColor(45, 45, 45);
+                doc.rect(0, 0, pageWidth, headerHeight, 'F');
+                
+                // Title
+                doc.setFont('Helvetica', 'bold');
+                doc.setFontSize(12);
+                doc.setTextColor(255, 255, 255);
+                doc.text(baseName, margin, 10);
+                
+                // Info
+                doc.setFont('Helvetica', 'normal');
+                doc.setFontSize(8);
+                doc.setTextColor(180, 180, 180);
+                const info = `${langInfo.name} | ${lines.length} lines | ${content.length} characters | ${new Date().toLocaleDateString()}`;
+                doc.text(info, margin, 16);
+                
+                // Page number right
+                doc.text(`Page ${pageNum}`, pageWidth - margin - 15, 10);
+            }
+            
+            // Footer function
+            function addFooter() {
+                doc.setFontSize(7);
+                doc.setTextColor(150, 150, 150);
+                doc.text('Generated with Notepad++ Sidebar', margin, pageHeight - 8);
+                doc.text(`${new Date().toLocaleString()}`, pageWidth - margin - 35, pageHeight - 8);
+            }
+            
+            // Add first page header
+            addHeader();
+            
+            // Code content
             doc.setFont('Courier', 'normal');
             doc.setFontSize(9);
-
-            lines.forEach((line) => {
+            
+            lines.forEach((line, index) => {
+                const lineNum = index + 1;
                 const splitLines = doc.splitTextToSize(line || ' ', maxWidth);
                 
-                splitLines.forEach(splitLine => {
-                    if (y > pageHeight - 15) {
+                splitLines.forEach((splitLine, subIndex) => {
+                    if (y > pageHeight - 20) {
+                        addFooter();
                         doc.addPage();
-                        y = 15;
+                        pageNum++;
+                        addHeader();
+                        y = headerHeight + 10;
                     }
-                    doc.text(splitLine, margin, y);
+                    
+                    // Line number (only for first part of wrapped line)
+                    if (subIndex === 0) {
+                        doc.setTextColor(120, 120, 120);
+                        doc.text(String(lineNum).padStart(4, ' '), margin, y);
+                    }
+                    
+                    // Code
+                    doc.setTextColor(60, 60, 60);
+                    doc.text(splitLine, margin + lineNumWidth, y);
                     y += lineHeight;
                 });
             });
+            
+            // Add footer to last page
+            addFooter();
 
             doc.save(baseName + '.pdf');
             showToast(`📕 Exported as ${baseName}.pdf`);
@@ -1437,21 +2752,101 @@
         function exportToHTML(content, baseName) {
             const tab = tabs.find(t => t.id === activeTabId);
             const langInfo = languageMap[tab?.language] || languageMap['text'];
+            const lines = content.split('\n');
+            const lineCount = lines.length;
+            const now = new Date().toLocaleString();
+            
+            // Generate line numbers HTML
+            const codeWithLines = lines.map((line, i) => {
+                const num = String(i + 1).padStart(4, ' ');
+                return `<span class="line"><span class="line-num">${num}</span><span class="line-content">${escapeHtml(line) || ' '}</span></span>`;
+            }).join('\n');
             
             const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${baseName}</title>
     <style>
-        body { font-family: 'Consolas', monospace; background: #1e1e1e; color: #d4d4d4; padding: 20px; }
-        pre { white-space: pre-wrap; word-wrap: break-word; }
-        .info { color: #888; font-size: 12px; margin-bottom: 10px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1e1e1e; 
+            color: #d4d4d4; 
+            min-height: 100vh;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { font-size: 18px; font-weight: 600; }
+        .header .meta { font-size: 12px; opacity: 0.9; }
+        .stats {
+            background: #252526;
+            padding: 10px 30px;
+            font-size: 12px;
+            color: #888;
+            border-bottom: 1px solid #333;
+        }
+        .stats span { margin-right: 20px; }
+        .code-container {
+            padding: 20px 30px;
+            overflow-x: auto;
+        }
+        pre {
+            font-family: 'Consolas', 'Monaco', 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .line { display: block; }
+        .line:hover { background: rgba(255,255,255,0.05); }
+        .line-num { 
+            color: #555; 
+            user-select: none; 
+            margin-right: 20px;
+            display: inline-block;
+            width: 40px;
+            text-align: right;
+        }
+        .line-content { color: #d4d4d4; }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 11px;
+            color: #555;
+            border-top: 1px solid #333;
+        }
+        @media print {
+            body { background: white; color: #333; }
+            .header { background: #333; -webkit-print-color-adjust: exact; }
+            .line-content { color: #333; }
+        }
     </style>
 </head>
 <body>
-    <div class="info">${langInfo.icon} File: ${baseName} | Language: ${langInfo.name}</div>
-    <pre>${escapeHtml(content)}</pre>
+    <div class="header">
+        <div>
+            <h1>${langInfo.icon} ${baseName}</h1>
+            <div class="meta">${langInfo.name}</div>
+        </div>
+        <div class="meta">${now}</div>
+    </div>
+    <div class="stats">
+        <span>📄 ${lineCount} lines</span>
+        <span>📝 ${content.length} characters</span>
+        <span>💬 ${content.split(/\\s+/).filter(w => w).length} words</span>
+    </div>
+    <div class="code-container">
+        <pre>${codeWithLines}</pre>
+    </div>
+    <div class="footer">
+        Generated with Notepad++ Sidebar | ${now}
+    </div>
 </body>
 </html>`;
             downloadFile(html, baseName + '.html', 'text/html');
@@ -1460,21 +2855,119 @@
         function exportToDoc(content, baseName) {
             const tab = tabs.find(t => t.id === activeTabId);
             const langInfo = languageMap[tab?.language] || languageMap['text'];
+            const lines = content.split('\n');
+            const now = new Date().toLocaleString();
+            const wordCount = content.split(/\s+/).filter(w => w).length;
+            
+            // Generate code with line numbers
+            const codeLines = lines.map((line, i) => {
+                const num = String(i + 1).padStart(4, ' ').replace(/ /g, '&nbsp;');
+                return `<tr><td class="line-num">${num}</td><td class="code">${escapeHtml(line) || '&nbsp;'}</td></tr>`;
+            }).join('\n');
             
             const doc = `<!DOCTYPE html>
-<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
+<html xmlns:o="urn:schemas-microsoft-com:office:office" 
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
 <head>
     <meta charset="UTF-8">
+    <meta name="Author" content="Notepad++ Sidebar">
     <title>${baseName}</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>100</w:Zoom>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
     <style>
-        body { font-family: 'Consolas', 'Courier New', monospace; font-size: 11pt; }
-        pre { white-space: pre-wrap; word-wrap: break-word; }
-        .header { color: #666; font-size: 10pt; margin-bottom: 12pt; }
+        @page {
+            size: A4;
+            margin: 2cm 2cm 2cm 2cm;
+        }
+        body {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.4;
+        }
+        .header {
+            background-color: #4a5568;
+            color: white;
+            padding: 15pt;
+            margin-bottom: 15pt;
+        }
+        .header h1 {
+            font-size: 16pt;
+            margin: 0 0 5pt 0;
+        }
+        .header .info {
+            font-size: 9pt;
+            color: #e2e8f0;
+        }
+        .stats {
+            background-color: #f7fafc;
+            padding: 8pt 12pt;
+            margin-bottom: 15pt;
+            font-size: 9pt;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+        }
+        .stats span {
+            margin-right: 20pt;
+        }
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9pt;
+        }
+        .code-table td {
+            padding: 1pt 5pt;
+            vertical-align: top;
+        }
+        .line-num {
+            color: #a0aec0;
+            text-align: right;
+            width: 35pt;
+            border-right: 1px solid #e2e8f0;
+            padding-right: 8pt;
+            user-select: none;
+        }
+        .code {
+            padding-left: 10pt;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .footer {
+            margin-top: 20pt;
+            padding-top: 10pt;
+            border-top: 1px solid #e2e8f0;
+            font-size: 8pt;
+            color: #a0aec0;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div class="header">${langInfo.icon} ${baseName} | ${langInfo.name}</div>
-    <pre>${escapeHtml(content)}</pre>
+    <div class="header">
+        <h1>${langInfo.icon} ${baseName}</h1>
+        <div class="info">Language: ${langInfo.name} | Exported: ${now}</div>
+    </div>
+    
+    <div class="stats">
+        <span>📄 ${lines.length} lines</span>
+        <span>📝 ${content.length} characters</span>
+        <span>💬 ${wordCount} words</span>
+    </div>
+    
+    <table class="code-table">
+        ${codeLines}
+    </table>
+    
+    <div class="footer">
+        Generated with Notepad++ Sidebar | Fuad Oñate | ${now}
+    </div>
 </body>
 </html>`;
             downloadFile(doc, baseName + '.doc', 'application/msword');
@@ -1483,14 +2976,31 @@
         function exportToJSON(content, baseName) {
             const tab = tabs.find(t => t.id === activeTabId);
             const langInfo = languageMap[tab?.language] || languageMap['text'];
+            const lines = content.split('\n');
+            const words = content.split(/\s+/).filter(w => w).length;
+            const paragraphs = content.split(/\n\s*\n/).filter(p => p.trim()).length;
             
             const jsonData = {
-                filename: tab?.name || baseName,
-                language: langInfo.name,
-                created: new Date().toISOString(),
-                content: content,
-                lines: content.split('\n').length,
-                characters: content.length
+                metadata: {
+                    filename: tab?.name || baseName,
+                    language: langInfo.name,
+                    languageCode: tab?.language || 'text',
+                    created: new Date().toISOString(),
+                    generator: 'Notepad++ Sidebar',
+                    author: 'Fuad Oñate'
+                },
+                statistics: {
+                    lines: lines.length,
+                    characters: content.length,
+                    charactersNoSpaces: content.replace(/\s/g, '').length,
+                    words: words,
+                    paragraphs: paragraphs,
+                    readingTimeMinutes: Math.ceil(words / 200)
+                },
+                content: {
+                    raw: content,
+                    lines: lines
+                }
             };
             
             downloadFile(JSON.stringify(jsonData, null, 2), baseName + '.json', 'application/json');
@@ -1809,7 +3319,8 @@
             localStorage.setItem('notepadPlusSidebar', JSON.stringify({
                 tabs: tabs,
                 activeTabId: activeTabId,
-                tabCounter: tabCounter
+                tabCounter: tabCounter,
+                tabGroupCounter: tabGroupCounter
             }));
         }
 
@@ -1835,22 +3346,21 @@
             
             if (fontSize) {
                 document.getElementById('fontSizeSelect').value = fontSize;
-                setTimeout(() => {
-                    document.querySelector('.CodeMirror').style.fontSize = fontSize + 'px';
-                    editor.refresh();
-                }, 100);
             }
 
             if (zoom) {
                 currentZoom = parseInt(zoom);
-                setTimeout(() => updateZoom(), 100);
             }
+            
+            // Apply zoom after fontSize is set (zoom uses fontSize as base)
+            setTimeout(() => updateZoom(), 100);
             
             if (saved) {
                 const data = JSON.parse(saved);
                 tabs = data.tabs || [];
                 activeTabId = data.activeTabId;
                 tabCounter = data.tabCounter || 0;
+                tabGroupCounter = data.tabGroupCounter || 0;
                 
                 if (tabs.length > 0) {
                     renderTabs();
@@ -1931,5 +3441,16 @@
         // Initialize tooltips on load
         initTooltips();
     </script>
+
+    <!-- Preview Modal -->
+    <div class="preview-modal" id="previewModal" onclick="closePreviewModal(event)">
+        <div class="preview-modal-content" onclick="event.stopPropagation()">
+            <div class="preview-modal-header">
+                <h3>👁️ <span id="previewModalTitle">Preview</span></h3>
+                <button class="preview-modal-close" onclick="closePreviewModal()">&times;</button>
+            </div>
+            <div class="preview-modal-body md-preview-container active" id="previewModalBody"></div>
+        </div>
+    </div>
 </body>
 </html>

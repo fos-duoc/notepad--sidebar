@@ -2,14 +2,14 @@
 
 A lightweight, feature-rich code editor designed to run in your browser's sidebar. Built with CodeMirror and optimized for quick code editing, note-taking, and data engineering tasks.
 
-![Version](https://img.shields.io/badge/version-2.0-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+![Version](https://img.shields.io/badge/version-2.1-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## 🌐 Live Demo
 
 | Language | URL |
 |----------|-----|
-| 🇬🇧 English | [https://ubiquitous-khapse-8c2fb9.netlify.app/](https://ubiquitous-khapse-8c2fb9.netlify.app/) |
-| 🇪🇸 Español | [https://euphonious-bonbon-511ed5.netlify.app/](https://euphonious-bonbon-511ed5.netlify.app/) |
+| 🇬🇧 English | [https://fos-duoc.github.io/notepad--sidebar/](https://fos-duoc.github.io/notepad--sidebar/) |
+| 🇪🇸 Español | [https://fos-duoc.github.io/notepad--sidebar/index-es.html](https://fos-duoc.github.io/notepad--sidebar/index-es.html) |
 
 ## 🎯 Features
 
@@ -20,6 +20,21 @@ A lightweight, feature-rich code editor designed to run in your browser's sideba
 - **Auto-save:** Content persists in localStorage between sessions
 - **Code Folding:** Collapse/expand code blocks
 - **Bracket Matching:** Automatic bracket highlighting and closing
+
+### 📖 Markdown Preview (NEW!)
+
+Three preview modes for Markdown files:
+
+| Mode | Button | Description |
+|------|--------|-------------|
+| **Split View** | 📖 | Editor 50% + Preview 50% side-by-side with live updates |
+| **Toggle** | 👁️ | Full-screen preview, click again to edit |
+| **Modal** | 🔲 | Floating preview window over the editor |
+
+**Split View Features:**
+- ⚡ Real-time preview updates as you type
+- ↔️ Draggable resizer (20%-80% range)
+- 🎨 Theme-aware styling (dark/light mode)
 
 ### Tools
 - **Format JSON:** Prettify and validate JSON with one click
@@ -113,7 +128,7 @@ Install one of these sidebar extensions:
 
 1. Click the Page Sidebar extension icon
 2. Click "Add new page" or the `+` button
-3. Enter the URL: `https://benevolent-crostata-112124.netlify.app/`
+3. Enter the URL: `https://fos-duoc.github.io/notepad--sidebar/`
 4. Name it "Notepad++"
 
 ### Step 3: Use It!
@@ -124,30 +139,31 @@ Install one of these sidebar extensions:
 
 ## 🚀 Self-Hosting
 
-### Netlify (Easiest)
-1. Download the `index.html` file (or `index-es.html` for Spanish)
-2. **Important:** Create a folder called `notepad` and put the file inside
-3. Rename the file to `index.html` if needed
-4. Go to [Netlify Drop](https://app.netlify.com/drop)
-5. Drag & drop the `notepad` folder (not just the file)
-6. Get your URL instantly!
-
-```
-notepad/
-└── index.html
-```
-
-### GitHub Pages
+### GitHub Pages (Recommended)
 1. Fork this repository
 2. Go to Settings → Pages
 3. Select "Deploy from a branch"
 4. Choose `main` branch
-5. Your site will be at `https://username.github.io/repo-name/`
+5. Your site will be at `https://username.github.io/notepad--sidebar/`
+
+### Local
+Just open `index.html` directly in your browser - it works 100% offline!
+
+```bash
+# Or with a local server
+python -m http.server 8000
+# Then visit http://localhost:8000
+```
+
+### Vercel / Cloudflare Pages
+1. Connect your GitHub repo
+2. Deploy - no configuration needed
+3. Get your URL instantly!
 
 ## 📁 Files
 
 ```
-notepad-sidebar/
+notepad--sidebar/
 ├── index.html      # English version
 ├── index-es.html   # Spanish version (Español)
 └── README.md       # Documentation
@@ -156,10 +172,27 @@ notepad-sidebar/
 ## 🛠️ Tech Stack
 
 - **[CodeMirror 5.65.16](https://codemirror.net/)** - Code editor engine
+- **[marked.js](https://marked.js.org/)** - Markdown parser (12KB gzipped)
 - **[sql-formatter](https://github.com/sql-formatter-org/sql-formatter)** - SQL formatting
 - **[jsPDF](https://github.com/parallax/jsPDF)** - PDF export
 - **[Devicons](https://devicon.dev/)** - Language icons
 - **LocalStorage** - Client-side persistence
+
+## 📋 Changelog
+
+### v2.1 (December 2025)
+- ✨ **NEW:** Markdown Preview with 3 modes (Split View, Toggle, Modal)
+- ✨ **NEW:** Draggable split view resizer (20%-80%)
+- ✨ **NEW:** Real-time preview updates
+- 🐛 **FIX:** CodeMirror flexbox initialization bug
+- 🐛 **FIX:** Cursor alignment issues on new tabs
+
+### v2.0
+- Multi-tab support with draggable tabs
+- Tab groups with 8 colors
+- Export to 7 formats (TXT, PDF, HTML, DOC, CSV, TSV, JSON)
+- Find & Replace with regex support
+- Dark/Light theme toggle
 
 ## 📄 License
 
@@ -174,4 +207,4 @@ Contributions are welcome! Feel free to:
 
 ---
 
-Created by **Fuad Onate** | Made with ❤️ for developers who need a quick code notepad in their browser sidebar.
+Created by **Fuad Oñate** | Made with ❤️ for developers who need a quick code notepad in their browser sidebar.
