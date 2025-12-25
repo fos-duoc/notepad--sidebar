@@ -543,13 +543,14 @@
             background: var(--bg-tertiary);
             border: 1px solid var(--border-color);
             color: var(--text-primary);
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
+            max-width: 120px;
         }
 
         .theme-selector-btn:hover {
@@ -558,16 +559,14 @@
 
         .theme-dropdown {
             display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
+            position: fixed;
             background: var(--dropdown-bg);
             border: 1px solid var(--border-color);
             border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            z-index: 1000;
+            z-index: 10001;
             min-width: 180px;
-            max-height: 350px;
+            max-height: 70vh;
             overflow-y: auto;
         }
 
@@ -1543,6 +1542,11 @@
 
         <div class="separator"></div>
         
+        <!-- Quick Dark/Light Toggle -->
+        <button onclick="quickToggleTheme()" data-tooltip="Toggle Dark/Light" id="quickThemeBtn">
+            <span class="icon" id="quickThemeIcon">🌙</span>
+        </button>
+        
         <!-- Theme Selector -->
         <div class="theme-selector">
             <button class="theme-selector-btn" onclick="toggleThemeDropdown()" data-tooltip="Select theme">
@@ -2108,9 +2112,40 @@
 
         // Theme selector functions
         let currentTheme = localStorage.getItem('notepadTheme') || 'dracula';
+        let lastDarkTheme = 'dracula';
+        let lastLightTheme = 'eclipse';
         
         function toggleThemeDropdown() {
             const dropdown = document.getElementById('themeDropdown');
+            const btn = document.querySelector('.theme-selector-btn');
+            const rect = btn.getBoundingClientRect();
+            
+            // Calculate position
+            let left = rect.left;
+            let top = rect.bottom + 4;
+            
+            // Get dropdown width (estimate if not visible)
+            const dropdownWidth = 180;
+            const dropdownHeight = Math.min(window.innerHeight * 0.7, 400);
+            
+            // Adjust if would overflow right edge
+            if (left + dropdownWidth > window.innerWidth - 10) {
+                left = window.innerWidth - dropdownWidth - 10;
+            }
+            
+            // Adjust if would overflow left edge
+            if (left < 10) {
+                left = 10;
+            }
+            
+            // Adjust if would overflow bottom
+            if (top + dropdownHeight > window.innerHeight - 10) {
+                top = rect.top - dropdownHeight - 4;
+            }
+            
+            dropdown.style.top = top + 'px';
+            dropdown.style.left = left + 'px';
+            
             dropdown.classList.toggle('show');
             
             // Close when clicking outside
@@ -2130,6 +2165,22 @@
             }
         }
         
+        function quickToggleTheme() {
+            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+            if (isDarkMode) {
+                setTheme(lastLightTheme, lastLightTheme.charAt(0).toUpperCase() + lastLightTheme.slice(1), '#ffffff');
+            } else {
+                setTheme(lastDarkTheme, lastDarkTheme.charAt(0).toUpperCase() + lastDarkTheme.slice(1), '#282a36');
+            }
+        }
+        
+        function updateQuickThemeIcon() {
+            const icon = document.getElementById('quickThemeIcon');
+            if (icon) {
+                icon.textContent = isDarkMode ? '🌙' : '☀️';
+            }
+        }
+        
         function setTheme(theme, displayName, bgColor) {
             currentTheme = theme;
             editor.setOption('theme', theme);
@@ -2145,13 +2196,20 @@
             
             // Toggle light/dark mode based on theme
             const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+            const wasLightMode = !isDarkMode;
             isDarkMode = !lightThemes.includes(theme);
             
+            // Remember last used theme of each type
             if (isDarkMode) {
+                lastDarkTheme = theme;
                 document.body.classList.remove('light-mode');
             } else {
+                lastLightTheme = theme;
                 document.body.classList.add('light-mode');
             }
+            
+            // Update quick toggle icon
+            updateQuickThemeIcon();
             
             // Close dropdown
             document.getElementById('themeDropdown').classList.remove('show');
@@ -2160,11 +2218,18 @@
             localStorage.setItem('notepadTheme', theme);
             localStorage.setItem('notepadThemeName', displayName);
             localStorage.setItem('notepadDarkMode', isDarkMode);
+            localStorage.setItem('notepadLastDarkTheme', lastDarkTheme);
+            localStorage.setItem('notepadLastLightTheme', lastLightTheme);
         }
         
         function loadSavedTheme() {
             const savedTheme = localStorage.getItem('notepadTheme');
             const savedThemeName = localStorage.getItem('notepadThemeName');
+            const savedLastDark = localStorage.getItem('notepadLastDarkTheme');
+            const savedLastLight = localStorage.getItem('notepadLastLightTheme');
+            
+            if (savedLastDark) lastDarkTheme = savedLastDark;
+            if (savedLastLight) lastLightTheme = savedLastLight;
             
             if (savedTheme) {
                 currentTheme = savedTheme;
@@ -2187,6 +2252,8 @@
                 if (!isDarkMode) {
                     document.body.classList.add('light-mode');
                 }
+                
+                updateQuickThemeIcon();
             }
         }
         

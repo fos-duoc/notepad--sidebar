@@ -1,8 +1,9 @@
 {
   "name": "Notepad++ Sidebar",
   "short_name": "Notepad++",
-  "description": "A lightweight, feature-rich code editor designed for browser sidebar",
-  "start_url": "./index.html",
+  "description": "A lightweight, feature-rich code editor for your browser sidebar",
+  "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "background_color": "#1e1e1e",
   "theme_color": "#1e1e1e",
@@ -10,31 +11,16 @@
   "categories": ["developer tools", "productivity", "utilities"],
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%231e1e1e' width='512' height='512' rx='80'/><text y='340' x='256' text-anchor='middle' font-size='280' fill='white'>📝</text></svg>",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%231e1e1e' width='192' height='192' rx='30'/><text y='130' x='96' text-anchor='middle' font-size='100' fill='white'>📝</text></svg>",
+      "src": "data:image/png;base64,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",
       "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%231e1e1e' width='512' height='512' rx='80'/><text y='340' x='256' text-anchor='middle' font-size='280' fill='white'>📝</text></svg>",
+      "src": "data:image/png;base64,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",
       "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "New Tab",
-      "short_name": "New",
-      "description": "Create a new editor tab",
-      "url": "./index.html?action=new",
-      "icons": [{"src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='70' x='48' text-anchor='middle' font-size='70'>➕</text></svg>", "sizes": "96x96"}]
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "lang": "en",
