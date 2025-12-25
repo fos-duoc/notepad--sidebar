@@ -6,7 +6,10 @@ A lightweight, feature-rich code editor designed to run in your browser's sideba
 
 ## 🌐 Live Demo
 
-- **English:** [https://benevolent-crostata-112124.netlify.app/](https://benevolent-crostata-112124.netlify.app/)
+| Language | URL |
+|----------|-----|
+| 🇬🇧 English | [https://voluble-biscotti-71722a.netlify.app/](https://voluble-biscotti-71722a.netlify.app/) |
+| 🇪🇸 Español | [https://sunny-puppy-e8f0e6.netlify.app/](https://sunny-puppy-e8f0e6.netlify.app/) |
 
 ## 🎯 Features
 
@@ -96,11 +99,17 @@ Install one of these sidebar extensions:
 ## 🚀 Self-Hosting
 
 ### Netlify (Easiest)
-1. Download the `index.html` file
-2. Create a folder and put the file inside
-3. Go to [Netlify Drop](https://app.netlify.com/drop)
-4. Drag & drop the folder
-5. Get your URL instantly!
+1. Download the `index.html` file (or `index-es.html` for Spanish)
+2. **Important:** Create a folder called `notepad` and put the file inside
+3. Rename the file to `index.html` if needed
+4. Go to [Netlify Drop](https://app.netlify.com/drop)
+5. Drag & drop the `notepad` folder (not just the file)
+6. Get your URL instantly!
+
+```
+notepad/
+└── index.html
+```
 
 ### GitHub Pages
 1. Fork this repository
