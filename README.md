@@ -9,7 +9,7 @@ A lightweight, feature-rich code editor designed to run in your browser's sideba
 | Language | URL |
 |----------|-----|
 | 🇬🇧 English | [https://fos-duoc.github.io/notepad--sidebar/](https://fos-duoc.github.io/notepad--sidebar/) |
-| 🇪🇸 Español | [https://fos-duoc.github.io/notepad--sidebar/index-es.html](https://fos-duoc.github.io/notepad--sidebar/index-es.html) |
+| 🇪🇸 Español | [https://fos-duoc.github.io/notepad--sidebar/es.html](https://fos-duoc.github.io/notepad--sidebar/es.html) |
 
 ## 🎯 Features
 
@@ -191,7 +191,7 @@ python -m http.server 8000
 ```
 notepad--sidebar/
 ├── index.html      # English version
-├── index-es.html   # Spanish version (Español)
+├── es.html          # Spanish version (Español)
 ├── manifest.json   # PWA manifest
 ├── sw.js           # Service Worker for offline support
 └── README.md       # Documentation
