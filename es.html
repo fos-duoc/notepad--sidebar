@@ -83,6 +83,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/matchesonscrollbar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/display/autorefresh.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/mark-selection.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/jump-to-line.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/keymap/sublime.min.js"></script>
     
     <!-- jsPDF for PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -763,7 +766,7 @@
         }
 
         .editor-container.drag-highlight::after {
-            content: '📂 Drop to open file';
+            content: '📂 Soltar para abrir archivo';
             position: absolute;
             top: 50%;
             left: 50%;
@@ -928,6 +931,19 @@
 
         .status-bar .clickable:hover {
             background: rgba(255,255,255,0.2);
+        }
+
+        #statusCursors {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            animation: pulse-cursor 1.5s infinite;
+        }
+
+        @keyframes pulse-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         /* Modal */
@@ -1673,6 +1689,10 @@
                 <span id="statusLangIcon">📄</span>
                 <span id="statusLangName">Plain text</span>
             </span>
+            <span id="statusCursors" class="clickable" data-tooltip="Ctrl+D: Seleccionar siguiente | Alt+Click: Añadir cursor | Ctrl+Shift+L: Dividir selección" style="display: none;">
+                <span>⌖</span>
+                <span id="cursorCount">1</span>
+            </span>
         </div>
         <div class="right">
             <span id="statusPos">Ln 1, Col 1</span>
@@ -1972,13 +1992,17 @@
                 indentWithTabs: false,
                 autoRefresh: {force: true, delay: 100},
                 highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
+                keyMap: 'sublime',
                 extraKeys: {
                     'Tab': (cm) => cm.execCommand('indentMore'),
                     'Shift-Tab': (cm) => cm.execCommand('indentLess'),
                     'Ctrl-/': () => toggleComment(),
                     'Cmd-/': () => toggleComment(),
-                    'Ctrl-D': () => duplicateLine(),
-                    'Cmd-D': () => duplicateLine()
+                    'Ctrl-D': (cm) => cm.execCommand('selectNextOccurrence'),
+                    'Cmd-D': (cm) => cm.execCommand('selectNextOccurrence'),
+                    'Ctrl-Shift-L': (cm) => cm.execCommand('splitSelectionByLine'),
+                    'Cmd-Shift-L': (cm) => cm.execCommand('splitSelectionByLine'),
+                    'Alt-Click': (cm) => { /* multiple cursor on alt+click - handled by sublime keymap */ }
                 }
             });
 
@@ -2338,7 +2362,7 @@
                     <div class="global-search-result" onclick="goToSearchResult('${r.tabId}', ${r.lineNumber})">
                         <div class="global-search-result-header">
                             <span class="global-search-result-tab">${escapeHtml(r.tabName)}</span>
-                            <span class="global-search-result-line">Línea ${r.lineNumber}</span>
+                            <span class="global-search-result-line">Line ${r.lineNumber}</span>
                         </div>
                         <div class="global-search-result-content">${highlightedContent}</div>
                     </div>
@@ -3085,6 +3109,19 @@
             
             const sel = editor.getSelection();
             document.getElementById('statusSel').textContent = sel ? `(${sel.length} sel)` : '';
+            
+            // Update multiple cursores indicator
+            const selections = editor.listSelections();
+            const cursorCount = selections.length;
+            const cursorIndicator = document.getElementById('statusCursors');
+            const cursorCountEl = document.getElementById('cursorCount');
+            
+            if (cursorCount > 1) {
+                cursorIndicator.style.display = 'inline';
+                cursorCountEl.textContent = cursorCount + ' cursores';
+            } else {
+                cursorIndicator.style.display = 'none';
+            }
         }
 
         function updateStatus() {
@@ -3358,7 +3395,7 @@
             }).join('\n');
             
             const html = `<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
