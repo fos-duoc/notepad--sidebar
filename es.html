@@ -1414,24 +1414,24 @@
 </head>
 <body>
     <div class="tabs-container" id="tabsContainer">
-        <button class="new-tab-btn" onclick="createNewTab()" data-tooltip="New tab (Ctrl+N)">➕</button>
+        <button class="new-tab-btn" onclick="createNewTab()" data-tooltip="Nueva pestaña (Ctrl+N)">➕</button>
     </div>
 
     <div class="toolbar">
         <div class="toolbar-group">
-            <button onclick="createNewTab()" data-tooltip="New" class="tb-new">
+            <button onclick="createNewTab()" data-tooltip="Nuevo" class="tb-new">
                 <span class="icon">📄</span>
             </button>
-            <button onclick="openFile()" data-tooltip="Open" class="tb-open">
+            <button onclick="openFile()" data-tooltip="Abrir" class="tb-open">
                 <span class="icon">📂</span>
             </button>
             <div class="dropdown">
-                <button data-tooltip="Save (Ctrl+S)" class="tb-save">
+                <button data-tooltip="Guardar (Ctrl+S)" class="tb-save">
                     <span class="icon">💾</span>
                     <span style="font-size:10px;">▼</span>
                 </button>
                 <div class="dropdown-content">
-                    <button onclick="saveFile()">💾 Save original</button>
+                    <button onclick="saveFile()">💾 Guardar original</button>
                     <div class="dropdown-divider"></div>
                     <button onclick="exportAs('txt')">📝 Text (.txt)</button>
                     <button onclick="exportAs('pdf')">📕 PDF (.pdf)</button>
@@ -1442,7 +1442,7 @@
                     <button onclick="exportAs('tsv')">📋 TSV (.tsv)</button>
                     <button onclick="exportAs('json')">📦 JSON (.json)</button>
                     <div class="dropdown-divider"></div>
-                    <button onclick="printCode()">🖨️ Print (Ctrl+P)</button>
+                    <button onclick="printCode()">🖨️ Imprimir (Ctrl+P)</button>
                 </div>
             </div>
         </div>
@@ -1450,10 +1450,10 @@
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="editorUndo()" data-tooltip="Undo (Ctrl+Z)" class="tb-undo">
+            <button onclick="editorUndo()" data-tooltip="Deshacer (Ctrl+Z)" class="tb-undo">
                 <span class="icon">↩️</span>
             </button>
-            <button onclick="editorRedo()" data-tooltip="Redo (Ctrl+Y)" class="tb-redo">
+            <button onclick="editorRedo()" data-tooltip="Rehacer (Ctrl+Y)" class="tb-redo">
                 <span class="icon">↪️</span>
             </button>
         </div>
@@ -1461,10 +1461,10 @@
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="formatJSON()" class="format-btn tb-json" id="formatJsonBtn" data-tooltip="Format JSON">
+            <button onclick="formatJSON()" class="format-btn tb-json" id="formatJsonBtn" data-tooltip="Formatear JSON">
                 <span class="icon">{ }</span>
             </button>
-            <button onclick="formatSQL()" class="format-btn tb-sql" id="formatSqlBtn" data-tooltip="Format SQL">
+            <button onclick="formatSQL()" class="format-btn tb-sql" id="formatSqlBtn" data-tooltip="Formatear SQL">
                 <span class="icon">🗃️</span>
             </button>
         </div>
@@ -1472,23 +1472,23 @@
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="toggleFind()" data-tooltip="Search (Ctrl+F)" class="tb-search">
+            <button onclick="toggleFind()" data-tooltip="Buscar (Ctrl+F)" class="tb-search">
                 <span class="icon">🔍</span>
             </button>
-            <button onclick="goToLine()" data-tooltip="Go to line (Ctrl+G)" class="tb-goto">
+            <button onclick="goToLine()" data-tooltip="Ir a línea (Ctrl+G)" class="tb-goto">
                 <span class="icon">🔢</span>
             </button>
             <button onclick="toggleComment()" data-tooltip="Comment (Ctrl+/)" class="tb-comment">
                 <span class="icon">💬</span>
             </button>
-            <button onclick="toggleWordWrap()" id="wrapBtn" data-tooltip="Word Wrap" class="tb-wrap">
+            <button onclick="toggleWordWrap()" id="wrapBtn" data-tooltip="Ajuste de línea" class="tb-wrap">
                 <span class="icon">↩️</span>
             </button>
         </div>
         
         <div class="separator"></div>
         
-        <select id="languageSelect" onchange="changeLanguage(this.value)" data-tooltip="Language">
+        <select id="languageSelect" onchange="changeLanguage(this.value)" data-tooltip="Lenguaje">
             <option value="text">📄 Plain text</option>
             <option value="javascript">🟨 JavaScript</option>
             <option value="python">🐍 Python</option>
@@ -1515,7 +1515,7 @@
             <option value="application/json">📦 JSON</option>
         </select>
         
-        <select id="fontSizeSelect" onchange="changeFontSize(this.value)" data-tooltip="Font size">
+        <select id="fontSizeSelect" onchange="changeFontSize(this.value)" data-tooltip="Tamaño de fuente">
             <option value="11">11px</option>
             <option value="12">12px</option>
             <option value="13" selected>13px</option>
@@ -1529,14 +1529,14 @@
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="zoomOut()" data-tooltip="Zoom out (Ctrl+-)">
+            <button onclick="zoomOut()" data-tooltip="Alejar (Ctrl+-)">
                 <span class="icon">➖</span>
             </button>
             <span id="zoomLevel" style="font-size:11px; min-width:40px; text-align:center;">100%</span>
-            <button onclick="zoomIn()" data-tooltip="Zoom in (Ctrl++)">
+            <button onclick="zoomIn()" data-tooltip="Acercar (Ctrl++)">
                 <span class="icon">➕</span>
             </button>
-            <button onclick="zoomReset()" data-tooltip="Reset zoom">
+            <button onclick="zoomReset()" data-tooltip="Restablecer zoom">
                 <span class="icon">↺</span>
             </button>
         </div>
@@ -1544,13 +1544,13 @@
         <div class="separator"></div>
         
         <!-- Quick Dark/Light Toggle -->
-        <button onclick="quickToggleTheme()" data-tooltip="Toggle Dark/Light" id="quickThemeBtn">
+        <button onclick="quickToggleTheme()" data-tooltip="Cambiar Oscuro/Claro" id="quickThemeBtn">
             <span class="icon" id="quickThemeIcon">🌙</span>
         </button>
         
         <!-- Theme Selector -->
         <div class="theme-selector">
-            <button class="theme-selector-btn" onclick="toggleThemeDropdown()" data-tooltip="Select theme">
+            <button class="theme-selector-btn" onclick="toggleThemeDropdown()" data-tooltip="Seleccionar tema">
                 <span>🎨</span>
                 <span id="currentThemeName">Dracula</span>
                 <span>▾</span>
@@ -1618,36 +1618,36 @@
         </div>
         
         <!-- Global Search Button -->
-        <button onclick="openGlobalSearch()" data-tooltip="Search in all tabs (Ctrl+Shift+F)">
+        <button onclick="openGlobalSearch()" data-tooltip="Buscar en todas las pestañas (Ctrl+Shift+F)">
             <span class="icon">🔎</span>
         </button>
 
         <div class="separator"></div>
         
         <div class="toolbar-group">
-            <button onclick="toggleSplitView()" data-tooltip="Split View (Editor + Preview)" id="splitViewBtn" class="preview-mode-btn">
+            <button onclick="toggleSplitView()" data-tooltip="Vista dividida (Editor + Vista previa)" id="splitViewBtn" class="preview-mode-btn">
                 <span class="icon">📖</span>
             </button>
-            <button onclick="toggleMdPreview()" data-tooltip="Toggle Preview" id="mdPreviewToggle" class="preview-mode-btn">
+            <button onclick="toggleMdPreview()" data-tooltip="Alternar vista previa" id="mdPreviewToggle" class="preview-mode-btn">
                 <span class="icon">👁️</span>
             </button>
-            <button onclick="openPreviewModal()" data-tooltip="Preview in Window" class="preview-mode-btn">
+            <button onclick="openPreviewModal()" data-tooltip="Vista previa en ventana" class="preview-mode-btn">
                 <span class="icon">🔲</span>
             </button>
         </div>
     </div>
 
     <div class="find-panel" id="findPanel">
-        <input type="text" id="findInput" placeholder="🔍 Search..." onkeyup="handleFindKey(event)" oninput="highlightMatches()">
-        <input type="text" id="replaceInput" placeholder="✏️ Replace...">
-        <button onclick="findPrev()" data-tooltip="Previous (Shift+Enter)">⬆️</button>
-        <button onclick="findNext()" data-tooltip="Next (Enter)">⬇️</button>
-        <button onclick="replaceOne()">Replace</button>
-        <button onclick="replaceAll()">All</button>
+        <input type="text" id="findInput" placeholder="🔍 Buscar..." onkeyup="handleFindKey(event)" oninput="highlightMatches()">
+        <input type="text" id="replaceInput" placeholder="✏️ Reemplazar...">
+        <button onclick="findPrev()" data-tooltip="Anterior (Shift+Enter)">⬆️</button>
+        <button onclick="findNext()" data-tooltip="Siguiente (Enter)">⬇️</button>
+        <button onclick="replaceOne()">Reemplazar</button>
+        <button onclick="replaceAll()">Todo</button>
         <div class="find-options">
-            <span class="find-option" id="regexOption" onclick="toggleFindOption('regex')" data-tooltip="Regular expression">.*</span>
-            <span class="find-option" id="caseOption" onclick="toggleFindOption('case')" data-tooltip="Match case">Aa</span>
-            <span class="find-option" id="wordOption" onclick="toggleFindOption('word')" data-tooltip="Whole word">W</span>
+            <span class="find-option" id="regexOption" onclick="toggleFindOption('regex')" data-tooltip="Expresión regular">.*</span>
+            <span class="find-option" id="caseOption" onclick="toggleFindOption('case')" data-tooltip="Coincidir mayúsculas">Aa</span>
+            <span class="find-option" id="wordOption" onclick="toggleFindOption('word')" data-tooltip="Palabra completa">W</span>
         </div>
         <span class="find-count" id="findCount"></span>
         <button class="close-find" onclick="toggleFind()">✖️</button>
@@ -1668,7 +1668,7 @@
 
     <div class="status-bar">
         <div class="left">
-            <span id="statusFile">Untitled</span>
+            <span id="statusFile">Sin título</span>
             <span id="statusLang" class="clickable" onclick="document.getElementById('languageSelect').focus()">
                 <span id="statusLangIcon">📄</span>
                 <span id="statusLangName">Plain text</span>
@@ -1686,10 +1686,10 @@
     <!-- Go to line modal -->
     <div class="modal" id="gotoModal">
         <div class="modal-content">
-            <h3><span class="modal-icon">🔢</span> Go to line</h3>
-            <input type="number" id="gotoLineInput" placeholder="Line number..." min="1">
+            <h3><span class="modal-icon">🔢</span> Ir a línea</h3>
+            <input type="number" id="gotoLineInput" placeholder="Número de línea..." min="1">
             <div class="modal-buttons">
-                <button class="btn-secondary" onclick="closeModal('gotoModal')">❌ Cancel</button>
+                <button class="btn-secondary" onclick="closeModal('gotoModal')">❌ Cancelar</button>
                 <button class="btn-primary" onclick="doGoToLine()">➡️ Ir</button>
             </div>
         </div>
@@ -1698,11 +1698,11 @@
     <!-- Rename modal -->
     <div class="modal" id="renameModal">
         <div class="modal-content">
-            <h3><span class="modal-icon">✏️</span> Rename file</h3>
-            <input type="text" id="renameInput" placeholder="File name...">
+            <h3><span class="modal-icon">✏️</span> Renombrar archivo</h3>
+            <input type="text" id="renameInput" placeholder="Nombre de archivo...">
             <div class="modal-buttons">
-                <button class="btn-secondary" onclick="closeModal('renameModal')">❌ Cancel</button>
-                <button class="btn-primary" onclick="doRename()">✅ Rename</button>
+                <button class="btn-secondary" onclick="closeModal('renameModal')">❌ Cancelar</button>
+                <button class="btn-primary" onclick="doRename()">✅ Renombrar</button>
             </div>
         </div>
     </div>
@@ -1717,7 +1717,7 @@
     <!-- Tab context menu -->
     <div class="tab-context-menu" id="tabContextMenu">
         <div class="tab-context-menu-item" onclick="contextMenuAction('rename')">
-            <span>✏️</span> Rename
+            <span>✏️</span> Renombrar
         </div>
         <div class="tab-context-menu-item" onclick="contextMenuAction('duplicate')">
             <span>📋</span> Duplicate tab
@@ -1741,10 +1741,10 @@
         </div>
         <div class="tab-context-menu-divider"></div>
         <div class="tab-context-menu-item" onclick="contextMenuAction('close')">
-            <span>✕</span> Close tab
+            <span>✕</span> Cerrar pestaña
         </div>
         <div class="tab-context-menu-item" onclick="contextMenuAction('closeOthers')">
-            <span>🗑️</span> Close other tabs
+            <span>🗑️</span> Cerrar otras pestañas
         </div>
     </div>
 
@@ -1753,12 +1753,12 @@
         <div class="global-search-container">
             <div class="global-search-header">
                 <span>🔎</span>
-                <input type="text" id="globalSearchInput" placeholder="Search in all tabs..." autocomplete="off">
+                <input type="text" id="globalSearchInput" placeholder="Buscar en todas las pestañas..." autocomplete="off">
                 <button class="global-search-close" onclick="closeGlobalSearch()">×</button>
             </div>
             <div class="global-search-results" id="globalSearchResults">
                 <div class="global-search-no-results">
-                    Type to search across all your tabs...
+                    Escribe para buscar en todas tus pestañas...
                 </div>
             </div>
             <div class="global-search-stats" id="globalSearchStats"></div>
@@ -1947,7 +1947,7 @@
                     <table class="code-table">
                         ${lines.map((line, i) => `<tr><td class="line-num">${i + 1}</td><td class="code">${escapeHtml(line) || ' '}</td></tr>`).join('')}
                     </table>
-                    <div class="footer">Notepad++ Sidebar | Printed: ${new Date().toLocaleString()}</div>
+                    <div class="footer">Notepad++ Sidebar | Impreso: ${new Date().toLocaleString()}</div>
                 </body>
                 </html>
             `);
@@ -2291,7 +2291,7 @@
             const statsContainer = document.getElementById('globalSearchStats');
             
             if (!query || query.length < 2) {
-                resultsContainer.innerHTML = '<div class="global-search-no-results">Type at least 2 characters to search...</div>';
+                resultsContainer.innerHTML = '<div class="global-search-no-results">Escribe al menos 2 caracteres para buscar...</div>';
                 statsContainer.textContent = '';
                 return;
             }
@@ -2324,7 +2324,7 @@
             });
             
             if (results.length === 0) {
-                resultsContainer.innerHTML = `<div class="global-search-no-results">No results found for "${escapeHtml(query)}"</div>`;
+                resultsContainer.innerHTML = `<div class="global-search-no-results">Sin resultados para "${escapeHtml(query)}"</div>`;
                 statsContainer.textContent = '';
                 return;
             }
@@ -2338,14 +2338,14 @@
                     <div class="global-search-result" onclick="goToSearchResult('${r.tabId}', ${r.lineNumber})">
                         <div class="global-search-result-header">
                             <span class="global-search-result-tab">${escapeHtml(r.tabName)}</span>
-                            <span class="global-search-result-line">Line ${r.lineNumber}</span>
+                            <span class="global-search-result-line">Línea ${r.lineNumber}</span>
                         </div>
                         <div class="global-search-result-content">${highlightedContent}</div>
                     </div>
                 `;
             }).join('');
             
-            statsContainer.textContent = `Found ${results.length} match${results.length !== 1 ? 'es' : ''} in ${new Set(results.map(r => r.tabId)).size} tab${new Set(results.map(r => r.tabId)).size !== 1 ? 's' : ''}`;
+            statsContainer.textContent = `Encontradas ${results.length} coincidencia${results.length !== 1 ? 's' : ''} en ${new Set(results.map(r => r.tabId)).size} pestaña${new Set(results.map(r => r.tabId)).size !== 1 ? 's' : ''}`;
             if (results.length > 100) {
                 statsContainer.textContent += ' (showing first 100)';
             }
@@ -2648,7 +2648,7 @@
         function createNewTab(name = null, content = '', lang = 'text') {
             tabCounter++;
             const id = 'tab-' + tabCounter;
-            const tabName = name || `untitled-${tabCounter}.txt`;
+            const tabName = name || `sin-titulo-${tabCounter}.txt`;
             
             tabs.push({
                 id: id,
@@ -3712,7 +3712,7 @@
                 }
             }
             
-            document.getElementById('findCount').textContent = `✨ ${count} found`;
+            document.getElementById('findCount').textContent = `✨ ${count} encontrados`;
         }
 
         function clearSearchMarks() {
