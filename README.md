@@ -174,4 +174,4 @@ Contributions are welcome! Feel free to:
 
 ---
 
-Created by **Fuad Oñate** | Made with ❤️ for developers who need a quick code notepad in their browser sidebar.
+Created by **Fuad Onate** | Made with ❤️ for developers who need a quick code notepad in their browser sidebar.
