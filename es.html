@@ -2522,6 +2522,11 @@
             initTooltips();
         });
 
+        // Save before page closes/refreshes
+        window.addEventListener('beforeunload', () => {
+            saveToStorage();
+        });
+
         // Drag and Drop support
         function setupDragAndDrop() {
             const editorContainer = document.getElementById('editorContainer');
@@ -4563,7 +4568,7 @@
     </table>
     
     <div class="footer">
-        Generated with Notepad++ Sidebar | Fuad Oñate | ${now}
+        Generated with Notepad++ Sidebar | Fuad Onate | ${now}
     </div>
 </body>
 </html>`;
@@ -4584,7 +4589,7 @@
                     languageCode: tab?.language || 'text',
                     created: new Date().toISOString(),
                     generator: 'Notepad++ Sidebar',
-                    author: 'Fuad Oñate'
+                    author: 'Fuad Onate'
                 },
                 statistics: {
                     lines: lines.length,
