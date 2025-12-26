@@ -136,7 +136,7 @@ Contributions are welcome! Feel free to:
 
 ## 📄 License
 
-MIT License — Feel free to use, modify, and distribute.
+No License — Feel free to use, modify, and distribute.
 
 ---
 
