@@ -2801,7 +2801,7 @@
         };
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             initEditor();
             loadFromStorage();
             if (tabs.length === 0) {
@@ -2812,6 +2812,13 @@
             loadSavedTheme();
             initTooltips();
             initHighlighter();
+            
+            // Initialize IndexedDB for file handles
+            try {
+                await initFileHandleDB();
+            } catch (err) {
+                console.log('IndexedDB init failed:', err);
+            }
         });
 
         // Save before page closes/refreshes
@@ -3552,19 +3559,86 @@
         // ========== File System Access API (Ctrl+S) ==========
         
         let currentFileHandle = null;
+        let fileHandleDB = null;
+        
+        // Initialize IndexedDB for storing file handles
+        async function initFileHandleDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open('NotepadFileHandles', 1);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => {
+                    fileHandleDB = request.result;
+                    resolve(fileHandleDB);
+                };
+                
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    if (!db.objectStoreNames.contains('handles')) {
+                        db.createObjectStore('handles', { keyPath: 'tabId' });
+                    }
+                };
+            });
+        }
+        
+        // Save file handle to IndexedDB
+        async function saveFileHandleToDB(tabId, handle) {
+            if (!fileHandleDB) await initFileHandleDB();
+            
+            return new Promise((resolve, reject) => {
+                const transaction = fileHandleDB.transaction(['handles'], 'readwrite');
+                const store = transaction.objectStore('handles');
+                const request = store.put({ tabId, handle });
+                
+                request.onsuccess = () => resolve();
+                request.onerror = () => reject(request.error);
+            });
+        }
+        
+        // Get file handle from IndexedDB
+        async function getFileHandleFromDB(tabId) {
+            if (!fileHandleDB) await initFileHandleDB();
+            
+            return new Promise((resolve, reject) => {
+                const transaction = fileHandleDB.transaction(['handles'], 'readonly');
+                const store = transaction.objectStore('handles');
+                const request = store.get(tabId);
+                
+                request.onsuccess = () => resolve(request.result?.handle || null);
+                request.onerror = () => reject(request.error);
+            });
+        }
+        
+        // Delete file handle from IndexedDB
+        async function deleteFileHandleFromDB(tabId) {
+            if (!fileHandleDB) await initFileHandleDB();
+            
+            return new Promise((resolve, reject) => {
+                const transaction = fileHandleDB.transaction(['handles'], 'readwrite');
+                const store = transaction.objectStore('handles');
+                const request = store.delete(tabId);
+                
+                request.onsuccess = () => resolve();
+                request.onerror = () => reject(request.error);
+            });
+        }
 
         // Verify and request permission for file handle
         async function verifyPermission(fileHandle, readWrite = true) {
             const options = { mode: readWrite ? 'readwrite' : 'read' };
             
-            // Check if permission was already granted
-            if ((await fileHandle.queryPermission(options)) === 'granted') {
-                return true;
-            }
-            
-            // Request permission
-            if ((await fileHandle.requestPermission(options)) === 'granted') {
-                return true;
+            try {
+                // Check if permission was already granted
+                if ((await fileHandle.queryPermission(options)) === 'granted') {
+                    return true;
+                }
+                
+                // Request permission
+                if ((await fileHandle.requestPermission(options)) === 'granted') {
+                    return true;
+                }
+            } catch (err) {
+                console.log('Permission check failed:', err);
             }
             
             return false;
@@ -3576,8 +3650,21 @@
             const fileName = tab ? tab.name : 'untitled.txt';
             const lang = tab ? tab.language : 'text';
             
-            // Use tab's file handle if available
-            const handle = tab?.fileHandle || currentFileHandle;
+            // Try to get file handle: memory first, then IndexedDB
+            let handle = tab?.fileHandle || currentFileHandle;
+            
+            // If not in memory, try to restore from IndexedDB
+            if (!handle && tab) {
+                try {
+                    handle = await getFileHandleFromDB(tab.id);
+                    if (handle) {
+                        tab.fileHandle = handle;
+                        currentFileHandle = handle;
+                    }
+                } catch (err) {
+                    console.log('Could not restore handle from IndexedDB:', err);
+                }
+            }
             
             // If we have a file handle, try to save directly
             if (handle) {
@@ -3594,12 +3681,18 @@
                     } else {
                         // Permission denied, clear the handle
                         console.log('Permission denied for file handle');
-                        if (tab) tab.fileHandle = null;
+                        if (tab) {
+                            tab.fileHandle = null;
+                            await deleteFileHandleFromDB(tab.id);
+                        }
                         currentFileHandle = null;
                     }
                 } catch (err) {
                     console.log('Direct save failed:', err.name, err.message);
-                    if (tab) tab.fileHandle = null;
+                    if (tab) {
+                        tab.fileHandle = null;
+                        await deleteFileHandleFromDB(tab.id);
+                    }
                     currentFileHandle = null;
                 }
             }
@@ -3643,11 +3736,22 @@
                     await writable.write(content);
                     await writable.close();
                     
-                    // Store handle both globally and in tab
+                    // Store handle both globally, in tab, and in IndexedDB
                     currentFileHandle = handle;
                     if (tab) {
                         tab.fileHandle = handle;
                         tab.name = handle.name;
+                        // Persist handle to IndexedDB for session recovery
+                        try {
+                            await saveFileHandleToDB(tab.id, handle);
+                        } catch (err) {
+                            console.log('Could not persist handle to IndexedDB:', err);
+                        }
+                        renderTabs();
+                        saveToStorage();
+                    }
+                    
+                    showToast(`✓ Guardado: ${handle.name}`);
                         renderTabs();
                         saveToStorage();
                     }
