@@ -1995,60 +1995,80 @@
         .highlight-pink { background-color: rgba(233, 30, 99, 0.4) !important; }
         .highlight-orange { background-color: rgba(255, 152, 0, 0.4) !important; }
 
-        .highlighter-toolbar {
-            display: flex;
-            gap: 6px;
-            padding: 8px 12px;
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border);
+        /* ========== Floating Highlighter Popup ========== */
+        .highlighter-popup {
+            position: fixed;
+            display: none;
             align-items: center;
+            gap: 4px;
+            padding: 6px 10px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            z-index: 10000;
+            animation: popupFadeIn 0.15s ease-out;
         }
 
-        .highlighter-toolbar .ht-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin-right: 8px;
+        .highlighter-popup.show {
+            display: flex;
         }
 
-        .highlighter-btn {
-            width: 24px;
-            height: 24px;
+        @keyframes popupFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .highlighter-popup .ht-btn {
+            width: 22px;
+            height: 22px;
             border: 2px solid transparent;
             border-radius: 4px;
             cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
+            transition: all 0.15s;
         }
 
-        .highlighter-btn:hover {
-            transform: scale(1.15);
+        .highlighter-popup .ht-btn:hover {
+            transform: scale(1.2);
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .highlighter-btn.active {
-            border-color: #fff;
-            box-shadow: 0 0 0 2px var(--accent);
-        }
+        .highlighter-popup .ht-btn[data-color="yellow"] { background: #ffeb3b; }
+        .highlighter-popup .ht-btn[data-color="green"] { background: #4caf50; }
+        .highlighter-popup .ht-btn[data-color="blue"] { background: #2196f3; }
+        .highlighter-popup .ht-btn[data-color="pink"] { background: #e91e63; }
+        .highlighter-popup .ht-btn[data-color="orange"] { background: #ff9800; }
 
-        .highlighter-btn.ht-yellow { background: #ffeb3b; }
-        .highlighter-btn.ht-green { background: #4caf50; }
-        .highlighter-btn.ht-blue { background: #2196f3; }
-        .highlighter-btn.ht-pink { background: #e91e63; }
-        .highlighter-btn.ht-orange { background: #ff9800; }
-
-        .highlighter-btn.ht-clear {
+        .highlighter-popup .ht-clear-btn {
             background: var(--bg-tertiary);
-            font-size: 12px;
+            color: var(--text-secondary);
+            font-size: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .highlighter-divider {
+        .highlighter-popup .ht-clear-btn:hover {
+            background: var(--bg-secondary);
+            color: var(--text);
+        }
+
+        .highlighter-popup .ht-divider {
             width: 1px;
-            height: 20px;
+            height: 16px;
             background: var(--border);
-            margin: 0 6px;
+            margin: 0 4px;
+        }
+
+        /* Light mode adjustments */
+        .light-mode .highlighter-popup {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
         /* ========== AI Model Selector ========== */
@@ -2483,17 +2503,6 @@
     </div>
 
     <div class="editor-container" id="editorContainer">
-        <div class="highlighter-toolbar" id="highlighterToolbar">
-            <span class="ht-label">📍 Destacar:</span>
-            <button class="highlighter-btn ht-yellow" onclick="setHighlightColor('yellow')" title="Amarillo (Alt+1)"></button>
-            <button class="highlighter-btn ht-green" onclick="setHighlightColor('green')" title="Verde (Alt+2)"></button>
-            <button class="highlighter-btn ht-blue" onclick="setHighlightColor('blue')" title="Azul (Alt+3)"></button>
-            <button class="highlighter-btn ht-pink" onclick="setHighlightColor('pink')" title="Rosa (Alt+4)"></button>
-            <button class="highlighter-btn ht-orange" onclick="setHighlightColor('orange')" title="Naranja (Alt+5)"></button>
-            <div class="highlighter-divider"></div>
-            <button class="highlighter-btn ht-clear" onclick="clearHighlight()" title="Quitar destacado (Alt+0)">✕</button>
-            <button class="highlighter-btn ht-clear" onclick="clearAllHighlights()" title="Quitar todos">🗑️</button>
-        </div>
         <div class="split-editor-wrapper" id="splitEditorWrapper">
             <textarea id="editor"></textarea>
         </div>
@@ -2607,6 +2616,17 @@
             </div>
             <div class="global-search-stats" id="globalSearchStats"></div>
         </div>
+    </div>
+
+    <!-- Floating Highlighter Toolbar -->
+    <div class="highlighter-popup" id="highlighterPopup">
+        <button class="ht-btn" data-color="yellow" title="Amarillo (Alt+1)"></button>
+        <button class="ht-btn" data-color="green" title="Verde (Alt+2)"></button>
+        <button class="ht-btn" data-color="blue" title="Azul (Alt+3)"></button>
+        <button class="ht-btn" data-color="pink" title="Rosa (Alt+4)"></button>
+        <button class="ht-btn" data-color="orange" title="Naranja (Alt+5)"></button>
+        <div class="ht-divider"></div>
+        <button class="ht-btn ht-clear-btn" data-action="clear" title="Quitar (Alt+0)">✕</button>
     </div>
 
     <!-- Asistente IA Modal -->
@@ -3332,21 +3352,58 @@
 
         // ========== Text Highlighter Functions ==========
         
-        let currentHighlightColor = null;
         let textMarkers = []; // Store all markers for current tab
+        const highlighterPopup = document.getElementById('highlighterPopup');
 
-        function setHighlightColor(color) {
+        // Initialize popup button handlers
+        document.querySelectorAll('.highlighter-popup .ht-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const color = btn.dataset.color;
+                const action = btn.dataset.action;
+                
+                if (action === 'clear') {
+                    clearHighlightAtSelection();
+                } else if (color) {
+                    applyHighlight(color);
+                }
+                hideHighlighterPopup();
+                editor.focus();
+            });
+        });
+
+        function showHighlighterPopup() {
             const selection = editor.getSelection();
-            if (selection) {
-                // Apply highlight to selection
-                applyHighlight(color);
+            if (!selection) return;
+            
+            // Get cursor coordinates
+            const cursor = editor.getCursor('end');
+            const coords = editor.cursorCoords(cursor, 'window');
+            
+            // Position popup above selection
+            const popupHeight = 40;
+            const popupWidth = 180;
+            
+            let left = coords.left - (popupWidth / 2);
+            let top = coords.top - popupHeight - 8;
+            
+            // Keep within viewport
+            if (left < 10) left = 10;
+            if (left + popupWidth > window.innerWidth - 10) {
+                left = window.innerWidth - popupWidth - 10;
             }
-            // Update active button
-            document.querySelectorAll('.highlighter-btn').forEach(btn => btn.classList.remove('active'));
-            if (color) {
-                document.querySelector(`.ht-${color}`)?.classList.add('active');
+            if (top < 10) {
+                top = coords.bottom + 8; // Show below if not enough space above
             }
-            currentHighlightColor = color;
+            
+            highlighterPopup.style.left = left + 'px';
+            highlighterPopup.style.top = top + 'px';
+            highlighterPopup.classList.add('show');
+        }
+
+        function hideHighlighterPopup() {
+            highlighterPopup.classList.remove('show');
         }
 
         function applyHighlight(color) {
@@ -3374,12 +3431,20 @@
             saveHighlightsToTab();
         }
 
-        function clearHighlight() {
-            const cursor = editor.getCursor();
-            const marksAtCursor = editor.findMarksAt(cursor);
-            marksAtCursor.forEach(mark => {
-                mark.clear();
-                textMarkers = textMarkers.filter(m => m.marker !== mark);
+        function clearHighlightAtSelection() {
+            const selections = editor.listSelections();
+            selections.forEach(sel => {
+                const from = sel.anchor;
+                const to = sel.head;
+                const [start, end] = from.line < to.line || (from.line === to.line && from.ch < to.ch) 
+                    ? [from, to] : [to, from];
+                
+                // Find and clear marks in selection range
+                const marks = editor.findMarks(start, end);
+                marks.forEach(mark => {
+                    mark.clear();
+                    textMarkers = textMarkers.filter(m => m.marker !== mark);
+                });
             });
             saveHighlightsToTab();
         }
@@ -3433,16 +3498,41 @@
             }
         }
 
-        // Highlighter keyboard shortcuts
+        // Show popup on text selection
+        let selectionTimeout = null;
+        editor.on('cursorActivity', () => {
+            clearTimeout(selectionTimeout);
+            const selection = editor.getSelection();
+            
+            if (selection && selection.length > 0) {
+                // Delay showing popup slightly to avoid flickering
+                selectionTimeout = setTimeout(() => {
+                    if (editor.getSelection()) {
+                        showHighlighterPopup();
+                    }
+                }, 300);
+            } else {
+                hideHighlighterPopup();
+            }
+        });
+
+        // Hide popup when clicking outside
+        document.addEventListener('mousedown', (e) => {
+            if (!highlighterPopup.contains(e.target) && !e.target.closest('.CodeMirror')) {
+                hideHighlighterPopup();
+            }
+        });
+
+        // Highlighter keyboard shortcuts (work even without popup)
         document.addEventListener('keydown', (e) => {
-            if (e.altKey) {
+            if (e.altKey && editor.getSelection()) {
                 switch(e.key) {
-                    case '1': e.preventDefault(); setHighlightColor('yellow'); break;
-                    case '2': e.preventDefault(); setHighlightColor('green'); break;
-                    case '3': e.preventDefault(); setHighlightColor('blue'); break;
-                    case '4': e.preventDefault(); setHighlightColor('pink'); break;
-                    case '5': e.preventDefault(); setHighlightColor('orange'); break;
-                    case '0': e.preventDefault(); clearHighlight(); break;
+                    case '1': e.preventDefault(); applyHighlight('yellow'); hideHighlighterPopup(); break;
+                    case '2': e.preventDefault(); applyHighlight('green'); hideHighlighterPopup(); break;
+                    case '3': e.preventDefault(); applyHighlight('blue'); hideHighlighterPopup(); break;
+                    case '4': e.preventDefault(); applyHighlight('pink'); hideHighlighterPopup(); break;
+                    case '5': e.preventDefault(); applyHighlight('orange'); hideHighlighterPopup(); break;
+                    case '0': e.preventDefault(); clearHighlightAtSelection(); hideHighlighterPopup(); break;
                 }
             }
         });
