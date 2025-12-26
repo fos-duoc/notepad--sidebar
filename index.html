@@ -3566,16 +3566,20 @@
             const fileName = tab ? tab.name : 'untitled.txt';
             const lang = tab ? tab.language : 'text';
             
+            // Use tab's file handle if available
+            const handle = tab?.fileHandle || currentFileHandle;
+            
             // If we have a file handle, save directly
-            if (currentFileHandle) {
+            if (handle) {
                 try {
-                    const writable = await currentFileHandle.createWritable();
+                    const writable = await handle.createWritable();
                     await writable.write(content);
                     await writable.close();
-                    showToast(`Saved: ${currentFileHandle.name}`);
+                    showToast(`✓ Saved: ${handle.name}`);
                     return;
                 } catch (err) {
                     console.log('Direct save failed, falling back to Save As');
+                    if (tab) tab.fileHandle = null;
                     currentFileHandle = null;
                 }
             }
@@ -3619,15 +3623,16 @@
                     await writable.write(content);
                     await writable.close();
                     
+                    // Store handle both globally and in tab
                     currentFileHandle = handle;
-                    
-                    // Update tab name
                     if (tab) {
+                        tab.fileHandle = handle;
                         tab.name = handle.name;
                         renderTabs();
+                        saveToStorage();
                     }
                     
-                    showToast(`Saved: ${handle.name}`);
+                    showToast(`✓ Saved: ${handle.name}`);
                 } catch (err) {
                     if (err.name !== 'AbortError') {
                         console.error('Save failed:', err);
@@ -4784,11 +4789,11 @@
                 }
             }
 
-            // Clear current file handle when switching tabs
-            currentFileHandle = null;
-
             activeTabId = id;
             const tab = tabs.find(t => t.id === id);
+            
+            // Restore file handle from tab (or clear if none)
+            currentFileHandle = tab?.fileHandle || null;
             
             if (tab) {
                 editor.setValue(tab.content);
