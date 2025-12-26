@@ -31,6 +31,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/eclipse.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/idea.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/neat.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/ambiance.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/railscasts.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/rubyblue.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/xq-light.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/yeti.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldgutter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/dialog/dialog.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/search/matchesonscrollbar.min.css">
@@ -1982,6 +1987,7 @@
             flex: 1;
             width: 100% !important;
         }
+
     </style>
     
     <!-- Markdown Parser (lightweight ~40KB) -->
@@ -2172,6 +2178,18 @@
                     <span class="theme-preview" style="background: #002b36"></span>
                     <span>Solarized Dark</span>
                 </div>
+                <div class="theme-option" data-theme="ambiance" onclick="setTheme('ambiance', 'Ambiance', '#202020')">
+                    <span class="theme-preview" style="background: #202020"></span>
+                    <span>Ambiance</span>
+                </div>
+                <div class="theme-option" data-theme="railscasts" onclick="setTheme('railscasts', 'Railscasts', '#2b2b2b')">
+                    <span class="theme-preview" style="background: #2b2b2b"></span>
+                    <span>Railscasts</span>
+                </div>
+                <div class="theme-option" data-theme="rubyblue" onclick="setTheme('rubyblue', 'Rubyblue', '#112435')">
+                    <span class="theme-preview" style="background: #112435"></span>
+                    <span>Rubyblue</span>
+                </div>
                 <div class="theme-dropdown-header">☀️ Temas Claros</div>
                 <div class="theme-option" data-theme="eclipse" onclick="setTheme('eclipse', 'Eclipse', '#ffffff')">
                     <span class="theme-preview" style="background: #ffffff"></span>
@@ -2188,6 +2206,14 @@
                 <div class="theme-option" data-theme="solarized light" onclick="setTheme('solarized light', 'Solarized Light', '#fdf6e3')">
                     <span class="theme-preview" style="background: #fdf6e3"></span>
                     <span>Solarized Light</span>
+                </div>
+                <div class="theme-option" data-theme="xq-light" onclick="setTheme('xq-light', 'XQ Light', '#ffffff')">
+                    <span class="theme-preview" style="background: #ffffff"></span>
+                    <span>XQ Light</span>
+                </div>
+                <div class="theme-option" data-theme="yeti" onclick="setTheme('yeti', 'Yeti', '#eceae8')">
+                    <span class="theme-preview" style="background: #eceae8"></span>
+                    <span>Yeti</span>
                 </div>
             </div>
         </div>
@@ -2846,7 +2872,7 @@
         }
         
         function quickToggleTheme() {
-            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light', 'xq-light', 'yeti'];
             if (isDarkMode) {
                 setTheme(lastLightTheme, lastLightTheme.charAt(0).toUpperCase() + lastLightTheme.slice(1), '#ffffff');
             } else {
@@ -2875,7 +2901,7 @@
             });
             
             // Toggle light/dark mode based on theme
-            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light', 'xq-light', 'yeti'];
             const wasLightMode = !isDarkMode;
             isDarkMode = !lightThemes.includes(theme);
             
@@ -2926,7 +2952,7 @@
                     }
                 });
                 
-                const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+                const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light', 'xq-light', 'yeti'];
                 isDarkMode = !lightThemes.includes(savedTheme);
                 
                 if (!isDarkMode) {
@@ -2939,7 +2965,7 @@
         
         // Legacy function for compatibility
         function toggleTheme() {
-            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light'];
+            const lightThemes = ['eclipse', 'idea', 'neat', 'solarized light', 'xq-light', 'yeti'];
             if (isDarkMode) {
                 setTheme('eclipse', 'Eclipse', '#ffffff');
             } else {

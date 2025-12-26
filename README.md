@@ -3,6 +3,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/version-2.4-blue.svg" alt="Version 2.4">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License">
+  <img src="https://img.shields.io/badge/themes-19-purple.svg" alt="19 Themes">
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
 </p>
 
@@ -18,6 +19,21 @@
 
 ---
 
+## 📸 Screenshots
+
+<p align="center">
+  <em>Screenshots coming soon</em>
+</p>
+
+<!-- 
+Add your screenshots here:
+![Editor Dark Theme](screenshots/editor-dark.png)
+![Editor Light Theme](screenshots/editor-light.png)
+![AI Assistant](screenshots/ai-assist.png)
+-->
+
+---
+
 ## ✨ Features
 
 ### 📄 Editor
@@ -25,6 +41,7 @@
 |---------|-------------|
 | **Syntax Highlighting** | 20+ languages (JS, Python, SQL, HTML, CSS, Java, C++, Go, Rust, and more) |
 | **Multiple Tabs** | Work on several files simultaneously |
+| **Tab Groups** | Organize tabs by project with 8 color options |
 | **Multiple Cursors** | `Ctrl + Click` to add cursors, edit multiple lines at once |
 | **Auto-save** | All tabs persist automatically across browser sessions |
 | **Code Folding** | Collapse/expand code blocks |
@@ -35,7 +52,7 @@
 | Feature | Description |
 |---------|-------------|
 | **Sidebar Panel** | Quick access to all tools and settings |
-| **Dark/Light Themes** | Multiple themes including Dracula, Monokai, GitHub, and more |
+| **19 Themes** | Dark: Dracula, Monokai, Nord, Ambiance, Railscasts, Rubyblue, and more. Light: Eclipse, IntelliJ, Solarized, XQ Light, Yeti |
 | **Responsive Design** | Works on desktop and tablet |
 | **Drag & Drop** | Drop files directly into the editor |
 | **Word Wrap** | Toggle text wrapping on/off |
@@ -89,8 +106,9 @@ Powered by **Gemini 2.5 Flash** (free). Get a free API key from [Google AI Studi
 
 1. **Open** → Visit the [live demo](https://fos-duoc.github.io/notepad--sidebar/) or download `index.html`
 2. **Code** → Create tabs, write code, enjoy syntax highlighting
-3. **Save** → Your work auto-saves to browser storage
-4. **Export** → Download as HTML, PDF, or DOCX when ready
+3. **Group Tabs** → Right-click tab → "Add to new group"
+4. **Save** → Your work auto-saves to browser storage
+5. **Export** → Download as HTML, PDF, or DOCX when ready
 
 ---
 
@@ -107,9 +125,9 @@ Powered by **Gemini 2.5 Flash** (free). Get a free API key from [Google AI Studi
 
 | Version | Highlights |
 |---------|------------|
-| **v2.4** | Auto-save improvements, CodeMirror fixes, tab persistence |
+| **v2.4** | 19 themes, auto-save fixes, tab persistence improvements |
 | **v2.3** | AI Assistant (Gemini), multiple cursors, drag & drop |
-| **v2.2** | Multiple themes, global search, PWA support |
+| **v2.2** | Multiple themes, global search, PWA support, tab groups |
 | **v2.1** | Markdown preview, split view |
 | **v2.0** | Multi-tab support, sidebar navigation |
 | **v1.0** | Initial release |
@@ -136,7 +154,7 @@ Contributions are welcome! Feel free to:
 
 ## 📄 License
 
-No License — Feel free to use, modify, and distribute.
+[MIT License](LICENSE) — Feel free to use, modify, and distribute.
 
 ---
 
