@@ -310,7 +310,7 @@ MIT License — Use freely for personal or commercial projects.
 ---
 
 <p align="center">
-  Made with ☕ in Santiago, Chile
+  Made with ❤️ in Santiago, Chile
   <br>
   <a href="https://github.com/fos-duoc/notepad--sidebar">⭐ Star this repo</a> if you find it useful!
 </p>
