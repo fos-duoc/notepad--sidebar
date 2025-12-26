@@ -2989,7 +2989,11 @@
                             break;
                         case 's':
                             e.preventDefault();
-                            saveFile();
+                            if (e.shiftKey) {
+                                saveFileAs();
+                            } else {
+                                saveFileDirect();
+                            }
                             break;
                         case 'o':
                             e.preventDefault();
@@ -3560,6 +3564,23 @@
         
         let currentFileHandle = null;
 
+        // Verify and request permission for file handle
+        async function verifyPermission(fileHandle, readWrite = true) {
+            const options = { mode: readWrite ? 'readwrite' : 'read' };
+            
+            // Check if permission was already granted
+            if ((await fileHandle.queryPermission(options)) === 'granted') {
+                return true;
+            }
+            
+            // Request permission
+            if ((await fileHandle.requestPermission(options)) === 'granted') {
+                return true;
+            }
+            
+            return false;
+        }
+
         async function saveFileDirect() {
             const content = editor.getValue();
             const tab = tabs.find(t => t.id === activeTabId);
@@ -3569,22 +3590,32 @@
             // Use tab's file handle if available
             const handle = tab?.fileHandle || currentFileHandle;
             
-            // If we have a file handle, save directly
+            // If we have a file handle, try to save directly
             if (handle) {
                 try {
-                    const writable = await handle.createWritable();
-                    await writable.write(content);
-                    await writable.close();
-                    showToast(`✓ Saved: ${handle.name}`);
-                    return;
+                    // Verify we still have permission
+                    const hasPermission = await verifyPermission(handle);
+                    
+                    if (hasPermission) {
+                        const writable = await handle.createWritable();
+                        await writable.write(content);
+                        await writable.close();
+                        showToast(`✓ Saved: ${handle.name}`);
+                        return; // Success - exit here
+                    } else {
+                        // Permission denied, clear the handle
+                        console.log('Permission denied for file handle');
+                        if (tab) tab.fileHandle = null;
+                        currentFileHandle = null;
+                    }
                 } catch (err) {
-                    console.log('Direct save failed, falling back to Save As');
+                    console.log('Direct save failed:', err.name, err.message);
                     if (tab) tab.fileHandle = null;
                     currentFileHandle = null;
                 }
             }
             
-            // Otherwise, show Save As dialog
+            // No valid handle - show Save As dialog
             await saveFileAs();
         }
 
@@ -3650,18 +3681,6 @@
                 showToast(`Downloaded: ${suggestedName}`);
             }
         }
-
-        // Override Ctrl+S and Ctrl+Shift+S
-        document.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-                e.preventDefault();
-                if (e.shiftKey) {
-                    saveFileAs();
-                } else {
-                    saveFileDirect();
-                }
-            }
-        });
 
         // ========== AI Assist Functions ==========
         
@@ -5717,8 +5736,14 @@
                 currentTab.content = editor.getValue();
             }
             
+            // Create a clean copy of tabs without fileHandle (not serializable)
+            const tabsToSave = tabs.map(tab => {
+                const { fileHandle, ...tabWithoutHandle } = tab;
+                return tabWithoutHandle;
+            });
+            
             localStorage.setItem('notepadPlusSidebar', JSON.stringify({
-                tabs: tabs,
+                tabs: tabsToSave,
                 activeTabId: activeTabId,
                 tabCounter: tabCounter,
                 tabGroupCounter: tabGroupCounter
