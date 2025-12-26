@@ -2445,6 +2445,7 @@
         let editor = null;
         let isDarkMode = true;
         let wordWrap = false;
+        let isInitialLoad = true;
         let findOptions = { regex: false, case: false, word: false };
         let searchMarks = [];
         
@@ -4021,7 +4022,7 @@
         }
 
         function switchTab(id) {
-            if (activeTabId) {
+            if (activeTabId && !isInitialLoad) {
                 const currentTab = tabs.find(t => t.id === activeTabId);
                 if (currentTab) {
                     currentTab.content = editor.getValue();
@@ -4948,6 +4949,9 @@
 
         // Storage
         function saveToStorage() {
+            // Don't save during initial page load
+            if (isInitialLoad) return;
+            
             const currentTab = tabs.find(t => t.id === activeTabId);
             if (currentTab) {
                 currentTab.content = editor.getValue();
@@ -5004,6 +5008,7 @@
                     switchTab(activeTabId || tabs[0].id);
                 }
             }
+            isInitialLoad = false;
         }
 
         function showToast(message, isError = false) {
