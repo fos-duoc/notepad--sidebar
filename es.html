@@ -2811,6 +2811,7 @@
             setupDragAndDrop();
             loadSavedTheme();
             initTooltips();
+            initHighlighter();
         });
 
         // Save before page closes/refreshes
@@ -3353,27 +3354,57 @@
         // ========== Text Highlighter Functions ==========
         
         let textMarkers = []; // Store all markers for current tab
-        const highlighterPopup = document.getElementById('highlighterPopup');
+        let highlighterPopup = null;
+        let selectionTimeout = null;
 
-        // Initialize popup button handlers
-        document.querySelectorAll('.highlighter-popup .ht-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const color = btn.dataset.color;
-                const action = btn.dataset.action;
-                
-                if (action === 'clear') {
-                    clearHighlightAtSelection();
-                } else if (color) {
-                    applyHighlight(color);
-                }
-                hideHighlighterPopup();
-                editor.focus();
+        function initHighlighter() {
+            highlighterPopup = document.getElementById('highlighterPopup');
+            
+            // Initialize popup button handlers
+            document.querySelectorAll('.highlighter-popup .ht-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const color = btn.dataset.color;
+                    const action = btn.dataset.action;
+                    
+                    if (action === 'clear') {
+                        clearHighlightAtSelection();
+                    } else if (color) {
+                        applyHighlight(color);
+                    }
+                    hideHighlighterPopup();
+                    editor.focus();
+                });
             });
-        });
+
+            // Show popup on text selection
+            editor.on('cursorActivity', () => {
+                clearTimeout(selectionTimeout);
+                const selection = editor.getSelection();
+                
+                if (selection && selection.length > 0) {
+                    // Delay showing popup slightly to avoid flickering
+                    selectionTimeout = setTimeout(() => {
+                        if (editor.getSelection()) {
+                            showHighlighterPopup();
+                        }
+                    }, 300);
+                } else {
+                    hideHighlighterPopup();
+                }
+            });
+
+            // Hide popup when clicking outside
+            document.addEventListener('mousedown', (e) => {
+                if (highlighterPopup && !highlighterPopup.contains(e.target) && !e.target.closest('.CodeMirror')) {
+                    hideHighlighterPopup();
+                }
+            });
+        }
 
         function showHighlighterPopup() {
+            if (!highlighterPopup) return;
             const selection = editor.getSelection();
             if (!selection) return;
             
@@ -3403,7 +3434,9 @@
         }
 
         function hideHighlighterPopup() {
-            highlighterPopup.classList.remove('show');
+            if (highlighterPopup) {
+                highlighterPopup.classList.remove('show');
+            }
         }
 
         function applyHighlight(color) {
@@ -3498,34 +3531,9 @@
             }
         }
 
-        // Show popup on text selection
-        let selectionTimeout = null;
-        editor.on('cursorActivity', () => {
-            clearTimeout(selectionTimeout);
-            const selection = editor.getSelection();
-            
-            if (selection && selection.length > 0) {
-                // Delay showing popup slightly to avoid flickering
-                selectionTimeout = setTimeout(() => {
-                    if (editor.getSelection()) {
-                        showHighlighterPopup();
-                    }
-                }, 300);
-            } else {
-                hideHighlighterPopup();
-            }
-        });
-
-        // Hide popup when clicking outside
-        document.addEventListener('mousedown', (e) => {
-            if (!highlighterPopup.contains(e.target) && !e.target.closest('.CodeMirror')) {
-                hideHighlighterPopup();
-            }
-        });
-
         // Highlighter keyboard shortcuts (work even without popup)
         document.addEventListener('keydown', (e) => {
-            if (e.altKey && editor.getSelection()) {
+            if (e.altKey && editor && editor.getSelection()) {
                 switch(e.key) {
                     case '1': e.preventDefault(); applyHighlight('yellow'); hideHighlighterPopup(); break;
                     case '2': e.preventDefault(); applyHighlight('green'); hideHighlighterPopup(); break;

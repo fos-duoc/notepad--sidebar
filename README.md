@@ -1,98 +1,94 @@
-# 📝 Notepad++ Sidebar v2.4
+# 📝 Notepad++ Sidebar
 
-A sophisticated, feature-rich code editor that runs entirely in your browser. No installation required.
+Un editor de código que corre 100% en el browser. Sin instalación, sin dependencias, sin drama.
 
-🌐 **Live Demo:** [English](https://fos-duoc.github.io/notepad--sidebar/) | [Español](https://fos-duoc.github.io/notepad--sidebar/es.html)
-
----
-
-## ✨ Features
-
-### 🎨 Editor
-- **19 Sophisticated Themes** - From dark (Monokai, Dracula, Nord) to light (Solarized Light, XQ Light)
-- **40+ Language Modes** - Full syntax highlighting for all major languages
-- **Line Numbers & Word Wrap** - Configurable display options
-- **Text Highlighter** - Mark text like a physical book with 5 colors (🟡🟢🔵🟣🟠)
-- **Auto-save** - Content persists in localStorage
-
-### 📁 File Management
-- **Multi-tab Interface** - Work on multiple files simultaneously
-- **Ctrl+S Direct Save** - First save shows dialog, subsequent saves go directly to same file
-- **Ctrl+Shift+S** - Always show "Save As" dialog
-- **Import/Export** - Open local files, export as .txt, .json, or print
-- **25+ File Extensions** - Smart extension mapping based on language
-
-### 🤖 AI Assistant (Gemini)
-- **Model Selection** - Choose between Gemini 2.5 Flash, 2.0 Flash, 1.5 Flash, or 1.5 Pro
-- **Chat History** - Conversations persist across sessions
-- **Syntax Highlighting** - Code in AI responses is properly highlighted
-- **Code Export** - Download code blocks directly as .js, .py, .java, etc.
-- **Quick Actions** - Explain, Improve, Fix bugs, Add comments, Convert, Generate tests
-
-### 🔧 Developer Tools
-- **Find & Replace** - With regex support
-- **Global Search** - Search across all tabs (Ctrl+Shift+F)
-- **Minimap** - Code overview navigation
-- **Markdown Preview** - Live preview with side-by-side editing
-- **Keyboard Shortcuts** - Full set of productivity shortcuts
+🔗 **[Probar ahora (EN)](https://fos-duoc.github.io/notepad--sidebar/)** | **[Versión Español](https://fos-duoc.github.io/notepad--sidebar/es.html)**
 
 ---
 
-## 🎹 Keyboard Shortcuts
+## Por qué lo hice
 
-| Action | Shortcut |
-|--------|----------|
-| New Tab | `Ctrl+N` |
-| Save | `Ctrl+S` |
-| Save As | `Ctrl+Shift+S` |
-| Open File | `Ctrl+O` |
-| Find | `Ctrl+F` |
-| Global Search | `Ctrl+Shift+F` |
-| Replace | `Ctrl+H` |
+Necesitaba algo rápido para editar código sin abrir VS Code cada vez. Algo liviano, que funcionara offline, y que no me pidiera crear cuenta ni nada de eso.
+
+Así nació esto.
+
+---
+
+## Qué tiene
+
+**Editor**
+- Syntax highlighting para 40+ lenguajes
+- 19 temas (Monokai, Dracula, Nord, etc.)
+- Highlighter de texto (tipo Notion - seleccionas y aparece)
+- Auto-save en localStorage
+- Multi-tabs
+
+**AI Assistant**
+- Integración con Gemini (traes tu API key gratis)
+- Selector de modelo (Flash/Pro)
+- Historial de chat persistente
+- Export de código directo (.js, .py, .java, etc.)
+
+**Guardado**
+- `Ctrl+S` - Primera vez muestra diálogo, después guarda directo
+- `Ctrl+Shift+S` - Siempre "Guardar como"
+- Funciona en Chrome/Edge. Firefox hace download como fallback.
+
+---
+
+## Shortcuts que uso siempre
+
+| Qué hace | Shortcut |
+|----------|----------|
+| Nueva pestaña | `Ctrl+N` |
+| Guardar | `Ctrl+S` |
+| Buscar | `Ctrl+F` |
+| Buscar en todo | `Ctrl+Shift+F` |
 | AI Assistant | `Ctrl+/` |
-| Comment | `Ctrl+/` |
-| Highlight Yellow | `Alt+1` |
-| Highlight Green | `Alt+2` |
-| Highlight Blue | `Alt+3` |
-| Highlight Pink | `Alt+4` |
-| Highlight Orange | `Alt+5` |
-| Clear Highlight | `Alt+0` |
+| Highlight amarillo | `Alt+1` |
+| Highlight verde | `Alt+2` |
+| Quitar highlight | `Alt+0` |
 
 ---
 
-## 🎨 Available Themes (19)
+## Tech Stack
 
-### Dark Themes
-- Monokai, Dracula, Nord, Material Dark, One Dark
-- Ambiance, Railscasts, Rubyblue
+Un solo archivo HTML. Eso es todo.
 
-### Light Themes
-- Solarized Light, GitHub Light, XQ Light, Yeti
-
-### Classic
-- Default Dark, Default Light, Eclipse, Elegant
-- Neat, Night, 3024-Day
+- CodeMirror 5 para el editor
+- Highlight.js para código en el chat AI
+- API de Gemini para el asistente
+- File System Access API para guardar directo
+- ~210KB total
 
 ---
 
-## 🛠️ Technical Details
+## Setup
 
-- **Single HTML File** - No build process, no dependencies to install
-- **100% Client-Side** - Your code never leaves your browser
-- **PWA Ready** - Install as a desktop app
-- **Responsive Design** - Works on desktop and tablet
-- **~210KB** - Lightweight with full functionality
+No hay setup. Abres el HTML y funciona.
 
-### Browser Support
-- Chrome, Edge, Opera: Full support including File System Access API
-- Firefox, Safari: Full support with download fallback for saves
+Si quieres correrlo local:
+```bash
+git clone https://github.com/fos-duoc/notepad--sidebar.git
+cd notepad--sidebar
+# Abre index.html en tu browser. Listo.
+```
 
----
-
-## 📄 License
-
-MIT License - Free for personal and commercial use.
+Para el AI necesitas una API key de Gemini (es gratis):
+👉 [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
 
 ---
 
-Made with ❤️ for developers who appreciate simplicity and power.
+## Contribuir
+
+PRs bienvenidos. Si encuentras un bug o tienes una idea, abre un issue.
+
+---
+
+## Licencia
+
+MIT - Usa el código como quieras.
+
+---
+
+Hecho con ☕ en Santiago, Chile.
