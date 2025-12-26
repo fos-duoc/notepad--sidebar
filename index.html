@@ -1999,10 +1999,233 @@
             width: 100% !important;
         }
 
+        /* ========== Text Highlighter Styles ========== */
+        .highlight-yellow { background-color: rgba(255, 235, 59, 0.4) !important; }
+        .highlight-green { background-color: rgba(76, 175, 80, 0.4) !important; }
+        .highlight-blue { background-color: rgba(33, 150, 243, 0.4) !important; }
+        .highlight-pink { background-color: rgba(233, 30, 99, 0.4) !important; }
+        .highlight-orange { background-color: rgba(255, 152, 0, 0.4) !important; }
+
+        .highlighter-toolbar {
+            display: flex;
+            gap: 6px;
+            padding: 8px 12px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+
+        .highlighter-toolbar .ht-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-right: 8px;
+        }
+
+        .highlighter-btn {
+            width: 24px;
+            height: 24px;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .highlighter-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .highlighter-btn.active {
+            border-color: #fff;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .highlighter-btn.ht-yellow { background: #ffeb3b; }
+        .highlighter-btn.ht-green { background: #4caf50; }
+        .highlighter-btn.ht-blue { background: #2196f3; }
+        .highlighter-btn.ht-pink { background: #e91e63; }
+        .highlighter-btn.ht-orange { background: #ff9800; }
+
+        .highlighter-btn.ht-clear {
+            background: var(--bg-tertiary);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlighter-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+            margin: 0 6px;
+        }
+
+        /* ========== AI Model Selector ========== */
+        .ai-model-selector {
+            margin-top: 12px;
+        }
+
+        .ai-model-selector label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .ai-model-select {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .ai-model-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* ========== AI Code Block with Export ========== */
+        .ai-code-block {
+            position: relative;
+            margin: 12px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #1e1e1e;
+        }
+
+        .ai-code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: #2d2d2d;
+            border-bottom: 1px solid #404040;
+        }
+
+        .ai-code-lang {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .ai-code-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .ai-code-btn {
+            padding: 4px 10px;
+            font-size: 11px;
+            background: #404040;
+            border: none;
+            border-radius: 4px;
+            color: #ccc;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .ai-code-btn:hover {
+            background: #505050;
+            color: #fff;
+        }
+
+        .ai-code-btn.primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .ai-code-btn.primary:hover {
+            background: #0fa37f;
+        }
+
+        .ai-code-block pre {
+            margin: 0;
+            padding: 14px;
+            overflow-x: auto;
+        }
+
+        .ai-code-block code {
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .inline-code {
+            background: rgba(255,255,255,0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 12px;
+        }
+
+        .light-mode .inline-code {
+            background: rgba(0,0,0,0.08);
+        }
+
+        /* ========== File Save Status ========== */
+        .file-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            padding: 4px 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-left: auto;
+        }
+
+        .file-status.saved { color: #4caf50; }
+        .file-status.modified { color: #ff9800; }
+
+        .file-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* Light mode adjustments */
+        .light-mode .ai-code-block {
+            background: #f5f5f5;
+        }
+
+        .light-mode .ai-code-header {
+            background: #e8e8e8;
+            border-bottom-color: #ddd;
+        }
+
+        .light-mode .ai-code-lang {
+            color: #666;
+        }
+
+        .light-mode .ai-code-btn {
+            background: #ddd;
+            color: #444;
+        }
+
+        .light-mode .ai-code-btn:hover {
+            background: #ccc;
+            color: #222;
+        }
+
     </style>
     
     <!-- Markdown Parser (lightweight ~40KB) -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js for AI response code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 <body>
     <div class="tabs-container" id="tabsContainer">
@@ -2271,6 +2494,17 @@
     </div>
 
     <div class="editor-container" id="editorContainer">
+        <div class="highlighter-toolbar" id="highlighterToolbar">
+            <span class="ht-label">📍 Highlight:</span>
+            <button class="highlighter-btn ht-yellow" onclick="setHighlightColor('yellow')" title="Yellow (Alt+1)"></button>
+            <button class="highlighter-btn ht-green" onclick="setHighlightColor('green')" title="Green (Alt+2)"></button>
+            <button class="highlighter-btn ht-blue" onclick="setHighlightColor('blue')" title="Blue (Alt+3)"></button>
+            <button class="highlighter-btn ht-pink" onclick="setHighlightColor('pink')" title="Pink (Alt+4)"></button>
+            <button class="highlighter-btn ht-orange" onclick="setHighlightColor('orange')" title="Orange (Alt+5)"></button>
+            <div class="highlighter-divider"></div>
+            <button class="highlighter-btn ht-clear" onclick="clearHighlight()" title="Clear highlight (Alt+0)">✕</button>
+            <button class="highlighter-btn ht-clear" onclick="clearAllHighlights()" title="Clear all">🗑️</button>
+        </div>
         <div class="split-editor-wrapper" id="splitEditorWrapper">
             <textarea id="editor"></textarea>
         </div>
@@ -2408,6 +2642,15 @@
                 <p style="font-size: 11px; color: var(--text-secondary); margin-top: 8px;">
                     Get your free API key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color: #10a37f;">aistudio.google.com</a>
                 </p>
+                <div class="ai-model-selector">
+                    <label>🤖 Model</label>
+                    <select class="ai-model-select" id="aiModelSelect" onchange="saveAIModel()">
+                        <option value="gemini-2.5-flash-preview-05-20">Gemini 2.5 Flash (Fastest)</option>
+                        <option value="gemini-2.0-flash">Gemini 2.0 Flash (Fast)</option>
+                        <option value="gemini-1.5-flash">Gemini 1.5 Flash (Stable)</option>
+                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Smartest)</option>
+                    </select>
+                </div>
             </div>
 
             <div class="ai-quick-actions">
@@ -3098,12 +3341,321 @@
             }, 50);
         }
 
+        // ========== Text Highlighter Functions ==========
+        
+        let currentHighlightColor = null;
+        let textMarkers = []; // Store all markers for current tab
+
+        function setHighlightColor(color) {
+            const selection = editor.getSelection();
+            if (selection) {
+                // Apply highlight to selection
+                applyHighlight(color);
+            }
+            // Update active button
+            document.querySelectorAll('.highlighter-btn').forEach(btn => btn.classList.remove('active'));
+            if (color) {
+                document.querySelector(`.ht-${color}`)?.classList.add('active');
+            }
+            currentHighlightColor = color;
+        }
+
+        function applyHighlight(color) {
+            const selections = editor.listSelections();
+            selections.forEach(sel => {
+                const from = sel.anchor;
+                const to = sel.head;
+                // Ensure from is before to
+                const [start, end] = from.line < to.line || (from.line === to.line && from.ch < to.ch) 
+                    ? [from, to] : [to, from];
+                
+                if (start.line !== end.line || start.ch !== end.ch) {
+                    const marker = editor.markText(start, end, {
+                        className: `highlight-${color}`,
+                        clearOnEnter: false
+                    });
+                    textMarkers.push({
+                        marker,
+                        color,
+                        from: {line: start.line, ch: start.ch},
+                        to: {line: end.line, ch: end.ch}
+                    });
+                }
+            });
+            saveHighlightsToTab();
+        }
+
+        function clearHighlight() {
+            const cursor = editor.getCursor();
+            const marksAtCursor = editor.findMarksAt(cursor);
+            marksAtCursor.forEach(mark => {
+                mark.clear();
+                textMarkers = textMarkers.filter(m => m.marker !== mark);
+            });
+            saveHighlightsToTab();
+        }
+
+        function clearAllHighlights() {
+            textMarkers.forEach(m => m.marker.clear());
+            textMarkers = [];
+            saveHighlightsToTab();
+            showToast('All highlights cleared');
+        }
+
+        function saveHighlightsToTab() {
+            if (!activeTabId) return;
+            const tab = tabs.find(t => t.id === activeTabId);
+            if (tab) {
+                tab.highlights = textMarkers.map(m => {
+                    const range = m.marker.find();
+                    if (range) {
+                        return {
+                            color: m.color,
+                            from: {line: range.from.line, ch: range.from.ch},
+                            to: {line: range.to.line, ch: range.to.ch}
+                        };
+                    }
+                    return null;
+                }).filter(Boolean);
+                saveToStorage();
+            }
+        }
+
+        function loadHighlightsFromTab() {
+            // Clear existing markers
+            textMarkers.forEach(m => m.marker.clear());
+            textMarkers = [];
+            
+            if (!activeTabId) return;
+            const tab = tabs.find(t => t.id === activeTabId);
+            if (tab && tab.highlights) {
+                tab.highlights.forEach(h => {
+                    const marker = editor.markText(h.from, h.to, {
+                        className: `highlight-${h.color}`,
+                        clearOnEnter: false
+                    });
+                    textMarkers.push({
+                        marker,
+                        color: h.color,
+                        from: h.from,
+                        to: h.to
+                    });
+                });
+            }
+        }
+
+        // Highlighter keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.altKey) {
+                switch(e.key) {
+                    case '1': e.preventDefault(); setHighlightColor('yellow'); break;
+                    case '2': e.preventDefault(); setHighlightColor('green'); break;
+                    case '3': e.preventDefault(); setHighlightColor('blue'); break;
+                    case '4': e.preventDefault(); setHighlightColor('pink'); break;
+                    case '5': e.preventDefault(); setHighlightColor('orange'); break;
+                    case '0': e.preventDefault(); clearHighlight(); break;
+                }
+            }
+        });
+
+        // ========== File System Access API (Ctrl+S) ==========
+        
+        let currentFileHandle = null;
+
+        async function saveFileDirect() {
+            const content = editor.getValue();
+            const tab = tabs.find(t => t.id === activeTabId);
+            const fileName = tab ? tab.name : 'untitled.txt';
+            const lang = tab ? tab.language : 'text';
+            
+            // If we have a file handle, save directly
+            if (currentFileHandle) {
+                try {
+                    const writable = await currentFileHandle.createWritable();
+                    await writable.write(content);
+                    await writable.close();
+                    showToast(`Saved: ${currentFileHandle.name}`);
+                    return;
+                } catch (err) {
+                    console.log('Direct save failed, falling back to Save As');
+                    currentFileHandle = null;
+                }
+            }
+            
+            // Otherwise, show Save As dialog
+            await saveFileAs();
+        }
+
+        async function saveFileAs() {
+            const content = editor.getValue();
+            const tab = tabs.find(t => t.id === activeTabId);
+            const fileName = tab ? tab.name : 'untitled.txt';
+            const lang = tab ? tab.language : 'text';
+            
+            // File extension mapping
+            const langExtensions = {
+                javascript: '.js', typescript: '.ts', jsx: '.jsx', vue: '.vue',
+                html: '.html', xml: '.xml', css: '.css', json: '.json',
+                python: '.py', java: '.java', csharp: '.cs', php: '.php',
+                ruby: '.rb', go: '.go', rust: '.rs', sql: '.sql',
+                yaml: '.yaml', toml: '.toml', markdown: '.md', text: '.txt',
+                c: '.c', cpp: '.cpp', shell: '.sh', bash: '.sh',
+                dockerfile: 'Dockerfile', csv: '.csv'
+            };
+            
+            const ext = langExtensions[lang] || '.txt';
+            const suggestedName = fileName.includes('.') ? fileName : fileName + ext;
+            
+            // Check if File System Access API is supported
+            if ('showSaveFilePicker' in window) {
+                try {
+                    const handle = await window.showSaveFilePicker({
+                        suggestedName: suggestedName,
+                        types: [{
+                            description: 'Text Files',
+                            accept: { 'text/plain': [ext] }
+                        }]
+                    });
+                    
+                    const writable = await handle.createWritable();
+                    await writable.write(content);
+                    await writable.close();
+                    
+                    currentFileHandle = handle;
+                    
+                    // Update tab name
+                    if (tab) {
+                        tab.name = handle.name;
+                        renderTabs();
+                    }
+                    
+                    showToast(`Saved: ${handle.name}`);
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        console.error('Save failed:', err);
+                    }
+                }
+            } else {
+                // Fallback for browsers without File System Access API
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = suggestedName;
+                a.click();
+                URL.revokeObjectURL(url);
+                showToast(`Downloaded: ${suggestedName}`);
+            }
+        }
+
+        // Override Ctrl+S and Ctrl+Shift+S
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                if (e.shiftKey) {
+                    saveFileAs();
+                } else {
+                    saveFileDirect();
+                }
+            }
+        });
+
         // ========== AI Assist Functions ==========
         
         // AI Chat State
         let aiChatHistory = [];
         let lastAIResponse = '';
         let isAITyping = false;
+        let selectedAIModel = localStorage.getItem('aiModel') || 'gemini-2.5-flash-preview-05-20';
+
+        // Language to extension mapping for code export
+        const langExtensionMap = {
+            javascript: '.js', js: '.js', typescript: '.ts', ts: '.ts',
+            jsx: '.jsx', tsx: '.tsx', vue: '.vue',
+            html: '.html', htm: '.html', xml: '.xml', svg: '.svg',
+            css: '.css', scss: '.scss', sass: '.sass', less: '.less',
+            json: '.json', yaml: '.yaml', yml: '.yml', toml: '.toml',
+            python: '.py', py: '.py', java: '.java', kotlin: '.kt',
+            csharp: '.cs', cs: '.cs', fsharp: '.fs',
+            php: '.php', ruby: '.rb', rb: '.rb',
+            go: '.go', rust: '.rs', rs: '.rs',
+            swift: '.swift', objc: '.m', objectivec: '.m',
+            sql: '.sql', mysql: '.sql', postgresql: '.sql', pgsql: '.sql',
+            c: '.c', cpp: '.cpp', 'c++': '.cpp', h: '.h',
+            shell: '.sh', bash: '.sh', sh: '.sh', zsh: '.zsh', powershell: '.ps1',
+            dockerfile: 'Dockerfile', docker: 'Dockerfile',
+            markdown: '.md', md: '.md', text: '.txt', txt: '.txt',
+            csv: '.csv', ini: '.ini', conf: '.conf',
+            r: '.r', perl: '.pl', lua: '.lua', scala: '.scala',
+            elixir: '.ex', erlang: '.erl', haskell: '.hs', clojure: '.clj'
+        };
+
+        // Load AI chat history from localStorage
+        function loadAIChatHistory() {
+            const saved = localStorage.getItem('aiChatHistory');
+            if (saved) {
+                try {
+                    aiChatHistory = JSON.parse(saved);
+                    renderAIChatHistory();
+                } catch (e) {
+                    aiChatHistory = [];
+                }
+            }
+        }
+
+        // Save AI chat history to localStorage
+        function saveAIChatHistory() {
+            // Keep only last 50 messages to avoid localStorage limits
+            const toSave = aiChatHistory.slice(-50);
+            localStorage.setItem('aiChatHistory', JSON.stringify(toSave));
+        }
+
+        // Render chat history on panel open
+        function renderAIChatHistory() {
+            const container = document.getElementById('aiChatContainer');
+            const emptyState = document.getElementById('aiEmptyState');
+            
+            if (aiChatHistory.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            container.innerHTML = '';
+            
+            aiChatHistory.forEach(msg => {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `ai-message ${msg.role}`;
+                msgDiv.innerHTML = msg.role === 'assistant' 
+                    ? formatAIResponse(msg.content)
+                    : `<div class="ai-message-content">${escapeHtml(msg.content)}</div>`;
+                container.appendChild(msgDiv);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+            
+            // Apply syntax highlighting to code blocks
+            container.querySelectorAll('pre code').forEach(block => {
+                hljs.highlightElement(block);
+            });
+        }
+
+        // Save AI model selection
+        function saveAIModel() {
+            selectedAIModel = document.getElementById('aiModelSelect').value;
+            localStorage.setItem('aiModel', selectedAIModel);
+            showToast(`Model: ${selectedAIModel.split('-').slice(0,3).join(' ')}`);
+        }
+
+        // Load AI model on startup
+        function loadAIModel() {
+            const saved = localStorage.getItem('aiModel');
+            if (saved) {
+                selectedAIModel = saved;
+                const select = document.getElementById('aiModelSelect');
+                if (select) select.value = saved;
+            }
+        }
 
         function openAIPanel() {
             document.getElementById('aiModal').classList.add('show');
@@ -3116,6 +3668,12 @@
             } else {
                 document.getElementById('aiSettings').classList.add('show');
             }
+            
+            // Load saved model
+            loadAIModel();
+            
+            // Load chat history
+            loadAIChatHistory();
             
             // Auto-resize textarea
             autoResizeTextarea(document.getElementById('aiPrompt'));
@@ -3140,6 +3698,7 @@
         
         function clearAIChat() {
             aiChatHistory = [];
+            localStorage.removeItem('aiChatHistory');
             const chatContainer = document.getElementById('aiChatContainer');
             chatContainer.innerHTML = `
                 <div class="ai-empty-state" id="aiEmptyState">
@@ -3177,6 +3736,11 @@
             
             chatContainer.appendChild(messageDiv);
             
+            // Apply syntax highlighting to code blocks
+            messageDiv.querySelectorAll('pre code').forEach(block => {
+                hljs.highlightElement(block);
+            });
+            
             // Add response actions for assistant messages
             if (role === 'assistant' && showActions) {
                 const actionsDiv = document.createElement('div');
@@ -3192,8 +3756,9 @@
             // Scroll to bottom
             chatContainer.scrollTop = chatContainer.scrollHeight;
             
-            // Store in history
+            // Store in history and save to localStorage
             aiChatHistory.push({ role, content });
+            saveAIChatHistory();
         }
         
         function showTypingIndicator() {
@@ -3306,8 +3871,10 @@
             isAITyping = true;
             
             try {
+                // Use selected model
+                const model = selectedAIModel || 'gemini-2.5-flash-preview-05-20';
                 const response = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+                    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
                     {
                         method: 'POST',
                         headers: {
@@ -3321,7 +3888,7 @@
                             }],
                             generationConfig: {
                                 temperature: 0.7,
-                                maxOutputTokens: 2048
+                                maxOutputTokens: 4096
                             }
                         })
                     }
@@ -3356,35 +3923,42 @@
             }
         }
         
-        function escapeHtml(text) {
-            return text
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;')
-                .replace(/\n/g, '<br>');
-        }
-        
         function formatAIResponse(text) {
             let formatted = text
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;');
             
-            // Convert code blocks with copy button
+            // Convert code blocks with enhanced styling and export buttons
             formatted = formatted.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
                 const codeId = 'code-' + Math.random().toString(36).substr(2, 9);
-                return `<pre><code id="${codeId}">${code.trim()}</code><button class="ai-code-copy" onclick="copyCodeBlock('${codeId}')">Copy</button></pre>`;
+                const displayLang = lang || 'text';
+                const ext = langExtensionMap[lang.toLowerCase()] || '.txt';
+                const fileName = `code${ext}`;
+                
+                return `<div class="ai-code-block">
+                    <div class="ai-code-header">
+                        <span class="ai-code-lang">${displayLang}</span>
+                        <div class="ai-code-actions">
+                            <button class="ai-code-btn" onclick="copyCodeBlock('${codeId}')" title="Copy code">📋 Copy</button>
+                            <button class="ai-code-btn" onclick="insertCodeBlock('${codeId}')" title="Insert to editor">➡️ Insert</button>
+                            <button class="ai-code-btn primary" onclick="downloadCodeBlock('${codeId}', '${fileName}')" title="Download as ${ext}">💾 ${ext}</button>
+                        </div>
+                    </div>
+                    <pre><code id="${codeId}" class="language-${displayLang}">${code.trim()}</code></pre>
+                </div>`;
             });
             
             // Convert inline code
-            formatted = formatted.replace(/`([^`]+)`/g, '<code>$1</code>');
+            formatted = formatted.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
             
             // Convert bold
             formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
             
-            // Convert newlines
+            // Convert italic
+            formatted = formatted.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            
+            // Convert newlines (but not inside code blocks)
             formatted = formatted.replace(/\n/g, '<br>');
             
             return formatted;
@@ -3396,6 +3970,30 @@
                 navigator.clipboard.writeText(codeEl.textContent).then(() => {
                     showToast('📋 Code copied!');
                 });
+            }
+        }
+
+        function insertCodeBlock(codeId) {
+            const codeEl = document.getElementById(codeId);
+            if (codeEl) {
+                editor.replaceSelection(codeEl.textContent);
+                closeAIPanel();
+                showToast('➡️ Code inserted!');
+            }
+        }
+
+        function downloadCodeBlock(codeId, fileName) {
+            const codeEl = document.getElementById(codeId);
+            if (codeEl) {
+                const content = codeEl.textContent;
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                URL.revokeObjectURL(url);
+                showToast(`💾 Downloaded: ${fileName}`);
             }
         }
         
@@ -4084,8 +4682,12 @@
                 const currentTab = tabs.find(t => t.id === activeTabId);
                 if (currentTab) {
                     currentTab.content = editor.getValue();
+                    saveHighlightsToTab(); // Save current highlights before switching
                 }
             }
+
+            // Clear current file handle when switching tabs
+            currentFileHandle = null;
 
             activeTabId = id;
             const tab = tabs.find(t => t.id === id);
@@ -4099,6 +4701,9 @@
                 document.getElementById('statusLangIcon').textContent = langInfo.icon;
                 document.getElementById('statusLangName').textContent = langInfo.name;
                 editor.clearHistory();
+                
+                // Load highlights for this tab
+                loadHighlightsFromTab();
             }
 
             renderTabs();
@@ -4673,12 +5278,6 @@
             };
             
             downloadFile(JSON.stringify(jsonData, null, 2), baseName + '.json', 'application/json');
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
 
         // Editor operations
