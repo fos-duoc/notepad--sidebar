@@ -1,316 +1,511 @@
+<div align="center">
+
 # 📝 Notepad++ Sidebar
 
-A powerful, browser-based code editor that runs entirely client-side. No installation, no server, no account required.
+### A Powerful Browser-Based Code Editor
 
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://fos-duoc.github.io/notepad--sidebar/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Made with CodeMirror](https://img.shields.io/badge/made%20with-CodeMirror-blue)](https://codemirror.net/)
+*No installation. No server. No account. Just code.*
 
-🔗 **[Launch Editor (EN)](https://fos-duoc.github.io/notepad--sidebar/)** | **[Versión Español](https://fos-duoc.github.io/notepad--sidebar/es.html)**
+[![Live Demo](https://img.shields.io/badge/🚀_DEMO-LIVE-00d26a?style=for-the-badge)](https://fos-duoc.github.io/notepad--sidebar/)
+[![Version](https://img.shields.io/badge/version-2.4-blue?style=for-the-badge)](https://github.com/fos-duoc/notepad--sidebar/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+[![Made with CodeMirror](https://img.shields.io/badge/CodeMirror-5.65-purple?style=for-the-badge)](https://codemirror.net/)
+
+<br>
+
+[**🇺🇸 English Version**](https://fos-duoc.github.io/notepad--sidebar/) &nbsp;•&nbsp; [**🇪🇸 Versión Español**](https://fos-duoc.github.io/notepad--sidebar/es.html)
+
+<br>
+
+<img src="https://raw.githubusercontent.com/fos-duoc/notepad--sidebar/main/icon-512.png" alt="Notepad++ Sidebar" width="120">
+
+</div>
 
 ---
 
-## ✨ Features
+## 🎯 Overview
 
-### Core Editor
-- **Syntax Highlighting** for 40+ programming languages
-- **19 Editor Themes** including Dracula, Monokai, Nord, Gruvbox, and more
-- **Multi-tab Interface** with drag-and-drop file support
-- **Auto-save** to localStorage — your work persists across sessions
-- **Split View** for Markdown/HTML preview
-- **Word Wrap** toggle
-- **Line Numbers** with active line highlighting
+**Notepad++ Sidebar** is a feature-rich, client-side code editor that runs entirely in your browser. Built for developers who need a quick, reliable editor without the overhead of installing software or creating accounts.
 
-### AI Assistant (Gemini-powered)
-- **Multiple Model Support** — Choose between Gemini 2.5 Flash, 2.0 Flash, 1.5 Flash, or 1.5 Pro
-- **Persistent Chat History** — Conversations saved locally (last 50 messages)
-- **Syntax-Highlighted Responses** — Code blocks rendered with proper highlighting
-- **One-Click Code Actions:**
-  - 📋 Copy to clipboard
-  - ➡️ Insert directly into editor
-  - 💾 Download as file (.js, .py, .java, etc.)
+```
+✓ 100% Client-Side          ✓ Works Offline           ✓ Zero Dependencies
+✓ Auto-Save to Browser      ✓ AI-Powered Assistant    ✓ 60+ Languages
+```
 
-### Text Highlighter
-- **5 Highlight Colors** — Yellow, Green, Blue, Pink, Orange
-- **Contextual Toolbar** — Appears automatically when you select text
-- **Keyboard Shortcuts** — Alt+1 through Alt+5 for quick highlighting
-- **Per-Tab Persistence** — Highlights saved with each tab
+---
 
-### File Management
-- **Native Save Dialog** — Uses File System Access API (Chrome/Edge)
-- **Smart Ctrl+S Behavior:**
-  - First save → shows file picker
-  - Subsequent saves → writes directly to the same file
-- **Ctrl+Shift+S** — Always shows "Save As" dialog
-- **Fallback Support** — Downloads file on Firefox/Safari
+## ✨ Features at a Glance
+
+<table>
+<tr>
+<td width="50%">
+
+### 🖥️ Editor Core
+- 60+ syntax highlighting modes
+- 19 beautiful themes
+- Multi-tab interface
+- Auto-save to localStorage
+- Split-view preview (Markdown/HTML)
+- Code folding & line numbers
+- Find & Replace with regex
+
+</td>
+<td width="50%">
+
+### 🤖 AI Assistant
+- Powered by Google Gemini API
+- 4 model variants (Flash/Pro)
+- Persistent chat history (50 messages)
+- Syntax-highlighted code responses
+- One-click: Copy / Insert / Download
+
+</td>
+</tr>
+<tr>
+<td>
+
+### 🎨 Text Highlighter
+- 5 highlight colors (Notion-style)
+- Floating contextual toolbar
+- Keyboard shortcuts (Alt+1-5)
+- Per-tab highlight persistence
+
+</td>
+<td>
+
+### 💾 Smart File Saving
+- Native File System Access API
+- Smart Ctrl+S (remembers file handle)
+- Ctrl+Shift+S for "Save As"
+- 35+ file extension support
+- Fallback download for Firefox/Safari
+
+</td>
+</tr>
+</table>
 
 ---
 
 ## 🚀 Quick Start
 
-### Option 1: Use Online
-Visit **[fos-duoc.github.io/notepad--sidebar](https://fos-duoc.github.io/notepad--sidebar/)** — that's it!
+### Option 1: Use Online (Recommended)
+```
+https://fos-duoc.github.io/notepad--sidebar/
+```
+Just open and start coding. Your work auto-saves to your browser.
 
 ### Option 2: Run Locally
 ```bash
 git clone https://github.com/fos-duoc/notepad--sidebar.git
 cd notepad--sidebar
 
-# Open directly in browser (no build step required)
+# Open directly (no build required)
 open index.html        # macOS
 xdg-open index.html    # Linux
 start index.html       # Windows
 ```
 
-### Option 3: Serve with Local Server
+### Option 3: Local Server
 ```bash
-# Using Python
+# Python
 python -m http.server 8000
 
-# Using Node.js
+# Node.js
 npx serve .
 
-# Then visit http://localhost:8000
+# Visit http://localhost:8000
 ```
 
 ---
 
 ## ⌨️ Keyboard Shortcuts
 
-### General
-| Action | Shortcut |
-|--------|----------|
-| New Tab | `Ctrl+N` |
-| Save | `Ctrl+S` |
-| Save As | `Ctrl+Shift+S` |
-| Close Tab | `Ctrl+W` |
-| Find | `Ctrl+F` |
-| Find & Replace | `Ctrl+H` |
-| Global Search | `Ctrl+Shift+F` |
-| Toggle Sidebar | `Ctrl+B` |
-| Format Code | `Ctrl+Shift+F` (SQL) |
+<details>
+<summary><strong>📋 General Shortcuts</strong></summary>
 
-### AI Assistant
+| Action | Windows/Linux | macOS |
+|--------|---------------|-------|
+| New Tab | `Ctrl+N` | `⌘+N` |
+| Save | `Ctrl+S` | `⌘+S` |
+| Save As | `Ctrl+Shift+S` | `⌘+Shift+S` |
+| Close Tab | `Ctrl+W` | `⌘+W` |
+| Find | `Ctrl+F` | `⌘+F` |
+| Find & Replace | `Ctrl+H` | `⌘+H` |
+| Global Search | `Ctrl+Shift+F` | `⌘+Shift+F` |
+| Toggle Sidebar | `Ctrl+B` | `⌘+B` |
+| Format SQL | `Ctrl+Shift+F` | `⌘+Shift+F` |
+
+</details>
+
+<details>
+<summary><strong>🤖 AI Assistant Shortcuts</strong></summary>
+
 | Action | Shortcut |
 |--------|----------|
-| Open AI Panel | `Ctrl+/` |
+| Open AI Panel | `Ctrl+/` or `⌘+/` |
 | Submit Message | `Enter` |
 | New Line in Input | `Shift+Enter` |
+| Close Panel | `Escape` |
 
-### Text Highlighter
-| Action | Shortcut |
-|--------|----------|
-| Highlight Yellow | `Alt+1` |
-| Highlight Green | `Alt+2` |
-| Highlight Blue | `Alt+3` |
-| Highlight Pink | `Alt+4` |
-| Highlight Orange | `Alt+5` |
-| Remove Highlight | `Alt+0` |
+</details>
+
+<details>
+<summary><strong>🎨 Text Highlighter Shortcuts</strong></summary>
+
+| Color | Shortcut |
+|-------|----------|
+| 🟡 Yellow | `Alt+1` |
+| 🟢 Green | `Alt+2` |
+| 🔵 Blue | `Alt+3` |
+| 🩷 Pink | `Alt+4` |
+| 🟠 Orange | `Alt+5` |
+| ❌ Remove | `Alt+0` |
+
+</details>
 
 ---
 
-## 🎨 Available Themes
+## 🎨 Editor Themes
 
-### Dark Themes
-| Theme | Description |
-|-------|-------------|
-| Dracula | Popular purple-based dark theme |
-| Monokai | Classic Sublime Text theme |
-| Nord | Arctic, bluish color palette |
-| Material Darker | Google Material dark variant |
-| Material Palenight | Material with purple accents |
-| Ayu Dark | Minimal, clean dark theme |
-| Gruvbox Dark | Retro groove colors |
-| Oceanic Next | Deep sea colors |
-| Tomorrow Night | Balanced dark palette |
-| Solarized Dark | Precision colors for dark |
-| Ambiance | Warm, brownish tones |
-| Railscasts | Ruby-inspired theme |
-| Rubyblue | Deep blue background |
-| Yeti | Cool, muted colors |
+<table>
+<tr>
+<td width="50%">
 
-### Light Themes
-| Theme | Description |
-|-------|-------------|
-| Eclipse | Classic IDE light theme |
-| IntelliJ (IDEA) | JetBrains-style light |
-| Neat | Clean, minimal light |
-| Solarized Light | Precision colors for light |
-| XQ Light | Soft, readable light theme |
+### 🌙 Dark Themes (14)
+| Theme | Style |
+|-------|-------|
+| **Dracula** | Purple-based, popular |
+| **Monokai** | Classic Sublime |
+| **Nord** | Arctic, bluish |
+| **Material Darker** | Google Material |
+| **Material Palenight** | Purple accents |
+| **Ayu Dark** | Minimal, clean |
+| **Gruvbox Dark** | Retro groove |
+| **Oceanic Next** | Deep sea |
+| **Tomorrow Night** | Balanced |
+| **Solarized Dark** | Precision colors |
+| **Ambiance** | Warm, brownish |
+| **Railscasts** | Ruby-inspired |
+| **Rubyblue** | Deep blue |
+
+</td>
+<td width="50%">
+
+### ☀️ Light Themes (5)
+| Theme | Style |
+|-------|-------|
+| **Eclipse** | Classic IDE |
+| **IntelliJ IDEA** | JetBrains-style |
+| **Neat** | Clean, minimal |
+| **Solarized Light** | Precision |
+| **XQ Light** | Soft, readable |
+| **Yeti** | Cool, muted |
+
+</td>
+</tr>
+</table>
 
 ---
 
 ## 🤖 AI Assistant Setup
 
-The AI Assistant uses Google's Gemini API (free tier available).
+The AI Assistant uses **Google Gemini API** (free tier available with generous limits).
 
-### Get Your API Key
+### Step 1: Get API Key
 1. Visit [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
-2. Sign in with your Google account
-3. Click "Create API Key"
+2. Sign in with Google
+3. Click **"Create API Key"**
 4. Copy the key
 
-### Configure in Editor
+### Step 2: Configure
 1. Open the editor
-2. Click the **⚙️ Settings** icon in the AI panel
-3. Paste your API key
-4. Select your preferred model
-5. Click "Save"
+2. Press `Ctrl+/` to open AI panel
+3. Click ⚙️ **Settings**
+4. Paste your API key
+5. Select model → **Save**
 
 ### Model Comparison
-| Model | Speed | Capabilities | Best For |
-|-------|-------|--------------|----------|
-| Gemini 2.5 Flash | ⚡⚡⚡ Fastest | Good | Quick questions, simple tasks |
-| Gemini 2.0 Flash | ⚡⚡ Fast | Better | Balanced speed/quality |
-| Gemini 1.5 Flash | ⚡ Stable | Good | Reliable, consistent |
-| Gemini 1.5 Pro | 🧠 Smartest | Best | Complex code, detailed explanations |
 
-> **Tip:** Start with 2.5 Flash for speed, switch to 1.5 Pro for complex debugging or architecture discussions.
+| Model | Speed | Quality | Best For |
+|-------|:-----:|:-------:|----------|
+| **Gemini 2.5 Flash** | ⚡⚡⚡ | ★★★☆ | Quick questions, simple tasks |
+| **Gemini 2.0 Flash** | ⚡⚡ | ★★★★ | Balanced speed & quality |
+| **Gemini 1.5 Flash** | ⚡ | ★★★★ | Reliable, consistent results |
+| **Gemini 1.5 Pro** | 🐢 | ★★★★★ | Complex code, detailed analysis |
+
+> 💡 **Tip:** Start with **2.0 Flash** for most tasks. Switch to **1.5 Pro** for complex debugging or architecture discussions.
+
+### AI Features
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  🤖 AI Assistant                                    ⚙️ ✕   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  👤 You: Explain this Python code                          │
+│                                                             │
+│  ✨ AI:                                                     │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ PYTHON              📋 Copy  ➡️ Insert  💾 Download │   │
+│  ├─────────────────────────────────────────────────────┤   │
+│  │ def fibonacci(n):                                   │   │
+│  │     if n <= 1:                                      │   │
+│  │         return n                                    │   │
+│  │     return fibonacci(n-1) + fibonacci(n-2)         │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  This is a recursive implementation of...                   │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│  [Type your message...]                          [Send ➤]  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Code Block Actions:**
+- 📋 **Copy** — Copies code to clipboard
+- ➡️ **Insert** — Inserts code at cursor position in editor
+- 💾 **Download** — Downloads as file with correct extension
+
+**Supported Extensions for Download:**
+```
+.js  .ts  .jsx  .tsx  .py  .java  .cs  .php  .rb  .go  .rs
+.swift  .kt  .scala  .html  .css  .scss  .sql  .json  .xml
+.yaml  .yml  .md  .sh  .ps1  .lua  .pl  .r  .vue  .dockerfile
+```
 
 ---
 
 ## 💾 File System Access API
 
-This editor uses the modern [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API) for native-like save functionality.
+Modern browsers support native file saving through the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API).
 
-### How It Works
-```
-First Ctrl+S  →  File picker dialog appears
-                 ↓
-              Select location & filename
-                 ↓
-              File handle stored in memory
-                 ↓
-Next Ctrl+S   →  Saves directly (no dialog)
-```
-
-### Browser Support
-| Browser | Support |
-|---------|---------|
-| Chrome 86+ | ✅ Full support |
-| Edge 86+ | ✅ Full support |
-| Opera 72+ | ✅ Full support |
-| Firefox | ⚠️ Fallback (download) |
-| Safari | ⚠️ Fallback (download) |
-
-### Supported File Extensions
-The editor automatically suggests the correct extension based on the language:
+### How Smart Save Works
 
 ```
-.js   .ts   .jsx  .tsx  .vue  .html  .css  .scss
-.json .py   .java .cs   .php  .rb    .go   .rs
-.sql  .yaml .xml  .csv  .sh   .ps1   .md   .txt
-.c    .cpp  .h    .swift .kt  .scala .lua  .pl
-.r    .ex   .erl  .hs   .clj  .dockerfile  .toml
+┌──────────────────────────────────────────────────────────────┐
+│  First Ctrl+S                                                │
+│       ↓                                                      │
+│  📂 File picker dialog opens                                 │
+│       ↓                                                      │
+│  Choose location & filename                                  │
+│       ↓                                                      │
+│  ✓ File handle stored in memory                              │
+│                                                              │
+│  ─────────────────────────────────────────────────────────   │
+│                                                              │
+│  Next Ctrl+S                                                 │
+│       ↓                                                      │
+│  💾 Saves directly to same file (no dialog!)                 │
+│                                                              │
+│  ─────────────────────────────────────────────────────────   │
+│                                                              │
+│  Ctrl+Shift+S                                                │
+│       ↓                                                      │
+│  📂 Always opens "Save As" dialog                            │
+└──────────────────────────────────────────────────────────────┘
 ```
+
+### Browser Compatibility
+
+| Browser | Version | Support |
+|---------|---------|:-------:|
+| Chrome | 86+ | ✅ Full |
+| Edge | 86+ | ✅ Full |
+| Opera | 72+ | ✅ Full |
+| Firefox | All | ⚠️ Fallback (download) |
+| Safari | All | ⚠️ Fallback (download) |
 
 ---
 
-## 🔧 Technical Details
+## 🔧 Technical Architecture
 
-### Architecture
-- **Single HTML File** — No build process, no dependencies to install
-- **~215KB Total** — Lightweight, fast loading
-- **100% Client-Side** — No server required, works offline
-- **LocalStorage Persistence** — Tabs, content, settings, and highlights saved locally
+### Single-File Design
+```
+index.html (218 KB)
+├── HTML Structure
+├── CSS Styles (embedded)
+├── JavaScript Logic (embedded)
+└── No external files required
+```
 
 ### Dependencies (CDN)
-| Library | Version | Purpose |
-|---------|---------|---------|
-| [CodeMirror](https://codemirror.net/5/) | 5.65.16 | Core editor engine |
-| [highlight.js](https://highlightjs.org/) | 11.9.0 | AI response code highlighting |
-| [sql-formatter](https://github.com/sql-formatter-org/sql-formatter) | 15.0.2 | SQL formatting |
 
-### Storage Usage
-| Data | Storage Key | Limit |
-|------|-------------|-------|
-| Tabs & Content | `notepadTabs` | ~5MB |
-| Active Tab | `notepadActiveTab` | — |
-| Theme | `notepadTheme` | — |
-| Dark Mode | `notepadDarkMode` | — |
-| AI API Key | `geminiApiKey` | — |
-| AI Model | `notepadAIModel` | — |
-| AI Chat History | `aiChatHistory` | Last 50 messages |
+| Library | Version | Size | Purpose |
+|---------|---------|------|---------|
+| [CodeMirror](https://codemirror.net/5/) | 5.65.16 | ~150KB | Editor engine |
+| [highlight.js](https://highlightjs.org/) | 11.9.0 | ~40KB | AI code highlighting |
+| [sql-formatter](https://sql-formatter-org.github.io/sql-formatter/) | 15.0.2 | ~25KB | SQL formatting |
+| [marked](https://marked.js.org/) | latest | ~40KB | Markdown parsing |
+
+### LocalStorage Schema
+
+| Key | Description | Size Limit |
+|-----|-------------|------------|
+| `notepadTabs` | Tab data & content | ~5MB |
+| `notepadActiveTab` | Current tab ID | — |
+| `notepadTheme` | Selected theme | — |
+| `notepadDarkMode` | Dark/Light mode | — |
+| `gemini_api_key` | Encrypted API key | — |
+| `aiModel` | Selected AI model | — |
+| `notepadAIChatHistory` | Chat history | 50 messages |
+| `notepadHighlights_{tabId}` | Text highlights | Per tab |
 
 ---
 
-## 📋 Recent Updates (v2.4)
+## 📋 Version History
 
-### AI Assistant Enhancements
-- ✅ Model selector with 4 Gemini variants
-- ✅ Chat history persistence across sessions
-- ✅ Syntax highlighting in AI responses
-- ✅ Code block actions (copy, insert, download)
-- ✅ 25+ file extension support for exports
+### v2.4 — AI Enhancements (Current)
+```diff
++ Persistent AI chat history (50 messages max)
++ Syntax highlighting in AI responses (highlight.js)
++ Code block actions: Copy, Insert, Download
++ 34 file extension mappings for downloads
++ Improved error handling with try/catch
++ Light mode support for code blocks
+```
 
-### Text Highlighter
-- ✅ 5 highlight colors
-- ✅ Contextual floating toolbar (appears on selection)
-- ✅ Keyboard shortcuts (Alt+1-5, Alt+0)
-- ✅ Per-tab persistence
+### v2.3 — Text Highlighter
+```diff
++ Notion-style text highlighter
++ 5 highlight colors
++ Floating contextual toolbar
++ Keyboard shortcuts (Alt+1-5)
++ Per-tab highlight persistence
+```
 
-### File Save Improvements
-- ✅ File System Access API integration
-- ✅ Smart Ctrl+S (direct save after first dialog)
-- ✅ Ctrl+Shift+S for "Save As"
-- ✅ Graceful fallback for unsupported browsers
+### v2.2 — File System Access
+```diff
++ Native File System Access API
++ Smart Ctrl+S behavior
++ Ctrl+Shift+S for "Save As"
++ File handle persistence per session
+```
 
-### Previous Updates
-- 🎨 19 editor themes (5 new: Ambiance, Railscasts, Rubyblue, XQ Light, Yeti)
-- 📄 MIT License
-- 🐛 Various bug fixes and performance improvements
+### v2.1 — Theme Expansion
+```diff
++ 19 total themes (14 dark + 5 light)
++ Ambiance, Railscasts, Rubyblue, XQ Light, Yeti
++ Theme persistence across sessions
+```
+
+### v2.0 — AI Integration
+```diff
++ Gemini AI Assistant
++ 4 model variants
++ Code explanation & generation
++ Insert/Replace responses
+```
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how you can help:
+We welcome contributions! Here's how to help:
 
-### Report Bugs
-1. Open an [issue](https://github.com/fos-duoc/notepad--sidebar/issues)
-2. Describe the bug and steps to reproduce
-3. Include browser version and OS
+### 🐛 Report Bugs
+1. Check [existing issues](https://github.com/fos-duoc/notepad--sidebar/issues)
+2. Open a new issue with:
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Browser & OS version
 
-### Suggest Features
-1. Check existing issues for duplicates
-2. Open a new issue with the `enhancement` label
-3. Describe the feature and use case
+### 💡 Suggest Features
+1. Open an issue with `enhancement` label
+2. Describe the feature and use case
+3. Include mockups if applicable
 
-### Submit Code
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+### 🔧 Submit Code
+```bash
+# Fork & clone
+git clone https://github.com/YOUR_USERNAME/notepad--sidebar.git
 
-### Code Style
-- Use consistent indentation (4 spaces)
+# Create feature branch
+git checkout -b feature/amazing-feature
+
+# Make changes & commit
+git commit -m "Add amazing feature"
+
+# Push & create PR
+git push origin feature/amazing-feature
+```
+
+### Code Style Guidelines
+- 4-space indentation
+- Descriptive variable names
 - Comment complex logic
-- Test in Chrome, Firefox, and Safari before submitting
+- Test in Chrome, Firefox, Safari
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
 ```
-MIT License — Use freely for personal or commercial projects.
+MIT License
+
+Copyright (c) 2024-2025 fos-duoc
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 ```
 
 ---
 
 ## 🙏 Acknowledgments
 
-- [CodeMirror](https://codemirror.net/) — The powerful text editor engine
-- [highlight.js](https://highlightjs.org/) — Syntax highlighting for AI responses
-- [Google Gemini](https://ai.google.dev/) — AI assistant capabilities
-- [MDN Web Docs](https://developer.mozilla.org/) — File System Access API documentation
+<table>
+<tr>
+<td align="center">
+<a href="https://codemirror.net/">
+<img src="https://codemirror.net/style/logo.svg" width="60" alt="CodeMirror">
+<br><strong>CodeMirror</strong>
+</a>
+<br>Editor Engine
+</td>
+<td align="center">
+<a href="https://highlightjs.org/">
+<img src="https://highlightjs.org/icon.png" width="60" alt="highlight.js">
+<br><strong>highlight.js</strong>
+</a>
+<br>Syntax Highlighting
+</td>
+<td align="center">
+<a href="https://ai.google.dev/">
+<img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" width="60" alt="Gemini">
+<br><strong>Google Gemini</strong>
+</a>
+<br>AI Assistant
+</td>
+<td align="center">
+<a href="https://developer.mozilla.org/">
+<img src="https://developer.mozilla.org/favicon-48x48.png" width="60" alt="MDN">
+<br><strong>MDN Web Docs</strong>
+</a>
+<br>API Documentation
+</td>
+</tr>
+</table>
 
 ---
 
-<p align="center">
-  Made with ❤️ in Santiago, Chile
-  <br>
-  <a href="https://github.com/fos-duoc/notepad--sidebar">⭐ Star this repo</a> if you find it useful!
-</p>
+<div align="center">
+
+### ⭐ Star this repo if you find it useful!
+
+Made with ❤️ in Santiago, Chile
+
+<br>
+
+[🐛 Report Bug](https://github.com/fos-duoc/notepad--sidebar/issues) · [💡 Request Feature](https://github.com/fos-duoc/notepad--sidebar/issues) · [📖 Documentation](https://github.com/fos-duoc/notepad--sidebar/wiki)
+
+<br>
+
+<sub>© 2024-2025 fos-duoc. Released under the MIT License.</sub>
+
+</div>
